@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/box-project/box/4.7.0/res/schema.json",
+  "compactors": [
+    "KevinGH\\Box\\Compactor\\Json",
+    "KevinGH\\Box\\Compactor\\Php"
+  ],
+  "compression": "GZ",
+  "directories": [
+    "src/"
+  ],
+  "files": [
+    "manifest.xml",
+    "vendor/composer/installed.php",
+    "vendor/composer/InstalledVersions.php"
+  ],
+  "git": "git",
+  "main": "phar/phpunit-agent-reporter.php",
+  "output": ".build/phar/phpunit-agent-reporter.phar"
+}

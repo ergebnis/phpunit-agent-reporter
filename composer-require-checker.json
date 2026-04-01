@@ -1,0 +1,8 @@
+{
+  "symbol-whitelist": [
+    "PHPUnit\\Runner\\Extension\\Extension",
+    "PHPUnit\\Runner\\Extension\\Facade",
+    "PHPUnit\\Runner\\Extension\\ParameterCollection",
+    "PHPUnit\\TextUI\\Configuration\\Configuration"
+  ]
+}

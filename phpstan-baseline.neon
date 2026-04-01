@@ -1,0 +1,73 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with false will always evaluate to false\.$#'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: test/EndToEnd/PHPUnit10/Defaults/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: test/EndToEnd/PHPUnit10/Defaults/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with false will always evaluate to false\.$#'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: test/EndToEnd/PHPUnit11/Defaults/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: test/EndToEnd/PHPUnit11/Defaults/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with false will always evaluate to false\.$#'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: test/EndToEnd/PHPUnit12/Defaults/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: test/EndToEnd/PHPUnit12/Defaults/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with false will always evaluate to false\.$#'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: test/EndToEnd/PHPUnit13/Defaults/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: test/EndToEnd/PHPUnit13/Defaults/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: test/Phar/PHPUnit10/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: test/Phar/PHPUnit11/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: test/Phar/PHPUnit12/ExampleTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: test/Phar/PHPUnit13/ExampleTest.php
