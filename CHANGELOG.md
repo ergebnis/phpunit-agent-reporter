@@ -6,6 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`1902cc2...main`][1902cc2...main].
+For a full diff see [`1902cc2...main`][0add326...main].
 
-[1902cc2...main]: https://github.com/ergebnis/phpunit-agent-reporter/compare/1902cc2...main
+[0add326...main]: https://github.com/ergebnis/phpunit-agent-reporter/compare/1902cc2...main
