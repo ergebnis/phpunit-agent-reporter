@@ -71,3 +71,9 @@ parameters:
 			identifier: staticMethod.alreadyNarrowedType
 			count: 1
 			path: test/Phar/PHPUnit13/ExampleTest.php
+
+		-
+			message: '#^Trait Ergebnis\\PHPUnit\\AgentReporter\\Test\\Util\\Helper is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: test/Util/Helper.php

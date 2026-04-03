@@ -13,6 +13,37 @@
 
 This project provides a [`composer`](https://getcomposer.org) package and a [Phar archive](https://www.php.net/manual/en/book.phar.php) with an extension for reporting [`phpunit/phpunit`](https://github.com/sebastianbergmann/phpunit) test execution details to agents.
 
+## Example
+
+After installing, configuring, and bootstrapping the extension, when running your tests with `phpunit/phpunit`, the extension will report test execution details in a format more easily digestable by agents.
+
+### Agent Detection
+
+The extension automatically detects the following agents:
+
+- [Amp](https://amp.dev)
+- [Antigravity](https://antigravity.ai)
+- [Augment](https://www.augmentcode.com)
+- [Claude Code](https://claude.ai/code)
+- [Codex](https://github.com/openai/codex)
+- [Cursor](https://cursor.com)
+- [Devin](https://devin.ai)
+- [Gemini CLI](https://github.com/google-gemini/gemini-cli)
+- [GitHub Copilot](https://github.com/features/copilot)
+- [OpenCode](https://github.com/sst/opencode)
+- [Replit](https://replit.com)
+
+💡 If your agent is not listed, let your agent set the `AI_AGENT` environment variable to any non-empty value when running tests with `phpunit/phpunit` to report test execution details in a format more easily digestable by agents.
+
+## Compatibility
+
+The extension is compatible with the following versions of `phpunit/phpunit`:
+
+- [`phpunit/phpunit:^13.0.0`](https://github.com/sebastianbergmann/phpunit/tree/13.0.0)
+- [`phpunit/phpunit:^12.0.0`](https://github.com/sebastianbergmann/phpunit/tree/12.0.0)
+- [`phpunit/phpunit:^11.0.0`](https://github.com/sebastianbergmann/phpunit/tree/11.0.0)
+- [`phpunit/phpunit:^10.0.0`](https://github.com/sebastianbergmann/phpunit/tree/10.0.0)
+
 ## Installation
 
 ### Installation with `composer`
@@ -136,7 +167,7 @@ This project uses the [MIT license](LICENSE.md).
 
 ## Credits
 
-This package is inspired by [`nunomaduro/pao`](https://github.com/nunomaduro/pao), originally licensed under MIT by [Nuno Maduro](https://github.com/nunomaduro).
+This package is inspired by [`nunomaduro/pao`](https://github.com/nunomaduro/pao), originally licensed under MIT by [Nuno Maduro](https://github.com/nunomaduro). The agent detection is inspired by [`shipfastlabs/agent-detector`](https://github.com/shipfastlabs/agent-detector, originallly licensed under MIT by [Pushpak Chhajed](https://github.com/pushpak1300).
 
 ## Social
 
