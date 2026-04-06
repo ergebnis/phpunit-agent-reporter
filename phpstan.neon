@@ -2,6 +2,10 @@ includes:
 	- phpstan-baseline.neon
 
 parameters:
+	excludePaths:
+		- test/EndToEnd/*/ExampleTest.php
+		- test/Phar/*/ExampleTest.php
+
 	inferPrivatePropertyTypeFromConstructor: true
 
 	level: max

@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Ergebnis\PHPUnit\AgentReporter\Agent;
 
 /**
+ * @internal
+ *
  * @see https://github.com/shipfastlabs/agent-detector
  * @see https://github.com/vercel/vercel/blob/main/packages/detect-agent/src/index.ts
  */
