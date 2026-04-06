@@ -45,11 +45,6 @@ final class Detector
     ];
 
     /**
-     * @see https://github.com/vercel/vercel/blob/main/packages/detect-agent/src/index.ts
-     */
-    private const DEVIN_LOCAL_PATH = '/opt/.devin';
-
-    /**
      * @param array<string, string> $environmentVariables
      */
     public function isAgent(array $environmentVariables): bool
@@ -58,10 +53,6 @@ final class Detector
             if (\array_key_exists($variable, $environmentVariables)) {
                 return true;
             }
-        }
-
-        if (\file_exists(self::DEVIN_LOCAL_PATH)) {
-            return true;
         }
 
         return false;
