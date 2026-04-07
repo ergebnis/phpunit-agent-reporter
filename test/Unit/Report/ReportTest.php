@@ -50,6 +50,69 @@ final class ReportTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
+    public function testResultReturnsSuccessWhenShellExitCodeIsSuccess(): void
+    {
+        $report = Report\Report::create(
+            Report\ShellExitCode::success(),
+            Report\ErroredTestList::create(),
+            Report\FailedTestList::create(),
+            Report\IncompleteTestList::create(),
+            Report\SkippedTestList::create(),
+            Report\RiskyTestList::create(),
+            Report\DeprecationList::create(),
+            Report\NoticeList::create(),
+            Report\WarningList::create(),
+            Report\Count::fromInt(0),
+            Report\Count::fromInt(0),
+        );
+
+        $result = $report->result();
+
+        self::assertTrue($result->equals(Report\Result::success()));
+    }
+
+    public function testResultReturnsExceptionWhenShellExitCodeIsException(): void
+    {
+        $report = Report\Report::create(
+            Report\ShellExitCode::exception(),
+            Report\ErroredTestList::create(),
+            Report\FailedTestList::create(),
+            Report\IncompleteTestList::create(),
+            Report\SkippedTestList::create(),
+            Report\RiskyTestList::create(),
+            Report\DeprecationList::create(),
+            Report\NoticeList::create(),
+            Report\WarningList::create(),
+            Report\Count::fromInt(0),
+            Report\Count::fromInt(0),
+        );
+
+        $result = $report->result();
+
+        self::assertTrue($result->equals(Report\Result::exception()));
+    }
+
+    public function testResultReturnsFailureWhenShellExitCodeIsFailure(): void
+    {
+        $report = Report\Report::create(
+            Report\ShellExitCode::failure(),
+            Report\ErroredTestList::create(),
+            Report\FailedTestList::create(),
+            Report\IncompleteTestList::create(),
+            Report\SkippedTestList::create(),
+            Report\RiskyTestList::create(),
+            Report\DeprecationList::create(),
+            Report\NoticeList::create(),
+            Report\WarningList::create(),
+            Report\Count::fromInt(0),
+            Report\Count::fromInt(0),
+        );
+
+        $result = $report->result();
+
+        self::assertTrue($result->equals(Report\Result::failure()));
+    }
+
     public function testCreateReturnsReport(): void
     {
         $faker = self::faker();
