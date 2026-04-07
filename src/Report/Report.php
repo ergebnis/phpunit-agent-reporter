@@ -27,6 +27,7 @@ final class Report
     private readonly DeprecationList $deprecationList;
     private readonly NoticeList $noticeList;
     private readonly WarningList $warningList;
+    private readonly Count $totalAssertionCount;
     private readonly Count $totalTestCount;
 
     private function __construct(
@@ -39,6 +40,7 @@ final class Report
         DeprecationList $deprecationList,
         NoticeList $noticeList,
         WarningList $warningList,
+        Count $totalAssertionCount,
         Count $totalTestCount,
     ) {
         $this->shellExitCode = $shellExitCode;
@@ -50,6 +52,7 @@ final class Report
         $this->deprecationList = $deprecationList;
         $this->noticeList = $noticeList;
         $this->warningList = $warningList;
+        $this->totalAssertionCount = $totalAssertionCount;
         $this->totalTestCount = $totalTestCount;
     }
 
@@ -63,6 +66,7 @@ final class Report
         DeprecationList $deprecationList,
         NoticeList $noticeList,
         WarningList $warningList,
+        Count $totalAssertionCount,
         Count $totalTestCount,
     ): self {
         return new self(
@@ -75,6 +79,7 @@ final class Report
             $deprecationList,
             $noticeList,
             $warningList,
+            $totalAssertionCount,
             $totalTestCount,
         );
     }
@@ -135,6 +140,11 @@ final class Report
     public function warningList(): WarningList
     {
         return $this->warningList;
+    }
+
+    public function totalAssertionCount(): Count
+    {
+        return $this->totalAssertionCount;
     }
 
     public function totalTestCount(): Count

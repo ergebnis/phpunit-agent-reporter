@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`0.1.0...main`][0.1.0...main].
 
+### Added
+
+- Added total assertion count to report summary ([#4]), by [@localheinz]
+
 ## [`0.1.0`][0.1.0]
 
 For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
@@ -23,5 +27,6 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 
 [#1]: https://github.com/ergebnis/phpunit-agent-reporter/pull/1
 [#3]: https://github.com/ergebnis/phpunit-agent-reporter/pull/3
+[#4]: https://github.com/ergebnis/phpunit-agent-reporter/pull/4
 
 [@localheinz]: https://github.com/localheinz

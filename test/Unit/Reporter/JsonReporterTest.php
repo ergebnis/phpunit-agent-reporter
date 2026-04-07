@@ -68,6 +68,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\NoticeList::create(),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithDefaults();
@@ -78,6 +79,7 @@ final class JsonReporterTest extends Framework\TestCase
             [
                 'result' => Report\Result::success()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'tests' => $report->totalTestCount()->toInt(),
@@ -108,6 +110,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\NoticeList::create(),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithDefaults();
@@ -118,6 +121,7 @@ final class JsonReporterTest extends Framework\TestCase
             [
                 'result' => Report\Result::failure()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'tests' => $report->totalTestCount()->toInt(),
@@ -163,6 +167,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\NoticeList::create(),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithDefaults();
@@ -183,6 +188,7 @@ final class JsonReporterTest extends Framework\TestCase
                 ],
                 'result' => Report\Result::exception()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'tests' => $report->totalTestCount()->toInt(),
@@ -233,6 +239,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\NoticeList::create(),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithDefaults();
@@ -260,6 +267,7 @@ final class JsonReporterTest extends Framework\TestCase
                 ],
                 'result' => Report\Result::failure()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'tests' => $report->totalTestCount()->toInt(),
@@ -306,6 +314,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\NoticeList::create(),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithDefaults();
@@ -326,6 +335,7 @@ final class JsonReporterTest extends Framework\TestCase
                 ],
                 'result' => Report\Result::failure()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'tests' => $report->totalTestCount()->toInt(),
@@ -371,6 +381,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\NoticeList::create(),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithDefaults();
@@ -381,6 +392,7 @@ final class JsonReporterTest extends Framework\TestCase
             [
                 'result' => Report\Result::success()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'tests' => $report->totalTestCount()->toInt(),
@@ -426,6 +438,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\NoticeList::create(),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithFailOnSkipped();
@@ -446,6 +459,7 @@ final class JsonReporterTest extends Framework\TestCase
                 ],
                 'result' => Report\Result::failure()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'skipped' => $report->skippedTestList()->count()->toInt(),
@@ -492,6 +506,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\NoticeList::create(),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithFailOnIncomplete();
@@ -512,6 +527,7 @@ final class JsonReporterTest extends Framework\TestCase
                 ],
                 'result' => Report\Result::failure()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'incomplete' => $report->incompleteTestList()->count()->toInt(),
@@ -560,6 +576,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\NoticeList::create(),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithFailOnDeprecation();
@@ -582,6 +599,7 @@ final class JsonReporterTest extends Framework\TestCase
                 ],
                 'result' => Report\Result::failure()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'deprecations' => $report->deprecationList()->count()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
@@ -630,6 +648,7 @@ final class JsonReporterTest extends Framework\TestCase
                 );
             }, \range(0, 2))),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithFailOnWarning();
@@ -652,6 +671,7 @@ final class JsonReporterTest extends Framework\TestCase
                 ],
                 'result' => Report\Result::failure()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'tests' => $report->totalTestCount()->toInt(),
@@ -699,6 +719,7 @@ final class JsonReporterTest extends Framework\TestCase
             }, \range(0, 2))),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithFailOnNotice();
@@ -721,6 +742,7 @@ final class JsonReporterTest extends Framework\TestCase
                 ],
                 'result' => Report\Result::failure()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'notices' => $report->noticeList()->count()->toInt(),
@@ -767,6 +789,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\NoticeList::create(),
             Report\WarningList::create(),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithFailOnRisky();
@@ -787,6 +810,7 @@ final class JsonReporterTest extends Framework\TestCase
                 ],
                 'result' => Report\Result::failure()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),
                     'risky' => $report->riskyTestList()->count()->toInt(),
@@ -914,6 +938,7 @@ final class JsonReporterTest extends Framework\TestCase
                 );
             }, \range(0, 2))),
             Report\Count::fromInt($faker->numberBetween(1, 100)),
+            Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
         $configuration = self::createConfigurationWithFailOnAllIssues();
@@ -980,6 +1005,7 @@ final class JsonReporterTest extends Framework\TestCase
                 ],
                 'result' => Report\Result::failure()->toString(),
                 'summary' => [
+                    'assertions' => $report->totalAssertionCount()->toInt(),
                     'deprecations' => $report->deprecationList()->count()->toInt(),
                     'errors' => $report->erroredTestList()->count()->toInt(),
                     'failures' => $report->failedTestList()->count()->toInt(),

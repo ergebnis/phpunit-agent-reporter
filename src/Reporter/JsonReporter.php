@@ -33,6 +33,7 @@ final class JsonReporter implements Reporter
         $zero = Report\Count::zero();
 
         $summary = [
+            'assertions' => $report->totalAssertionCount()->toInt(),
             'errors' => $report->erroredTestList()->count()->toInt(),
             'failures' => $report->failedTestList()->count()->toInt(),
             'tests' => $report->totalTestCount()->toInt(),

@@ -20,12 +20,17 @@
     "summary": {
       "type": "object",
       "required": [
+        "assertions",
         "errors",
         "failures",
         "tests"
       ],
       "additionalProperties": false,
       "properties": {
+        "assertions": {
+          "type": "integer",
+          "minimum": 0
+        },
         "deprecations": {
           "type": "integer",
           "minimum": 0
