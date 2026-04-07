@@ -15,7 +15,7 @@ This project provides a [`composer`](https://getcomposer.org) package and a [Pha
 
 ## Example
 
-After installing, configuring, and bootstrapping the extension, when running your tests with `phpunit/phpunit`, the extension will replace the default output with text execution details more easily digestable by agents.
+After installing and bootstrapping the extension, when running your tests with `phpunit/phpunit`, the extension will detect whether an agent is running the tests and replace the default output with test execution details that are easier for agents to consume.
 
 When tests pass, the extension outputs:
 
@@ -198,7 +198,7 @@ adjust your `phpunit.xml` configuration file and configure the
 +    extensionsDirectory="directory/where/you/saved/the/extension/phars"
  >
 +    <extensions>
-+        <extension class="Ergebnis\PHPUnit\AgentReporter\Extension"/>
++        <bootstrap class="Ergebnis\PHPUnit\AgentReporter\Extension"/>
 +    </extensions>
      <testsuites>
          <testsuite name="unit">
@@ -242,7 +242,7 @@ This project uses the [MIT license](LICENSE.md).
 
 ## Credits
 
-This package is inspired by [`nunomaduro/pao`](https://github.com/nunomaduro/pao), originally licensed under MIT by [Nuno Maduro](https://github.com/nunomaduro). The agent detection is inspired by [`shipfastlabs/agent-detector`](https://github.com/shipfastlabs/agent-detector), originallly licensed under MIT by [Pushpak Chhajed](https://github.com/pushpak1300).
+This package is inspired by [`nunomaduro/pao`](https://github.com/nunomaduro/pao), originally licensed under MIT by [Nuno Maduro](https://github.com/nunomaduro). The agent detection is inspired by [`shipfastlabs/agent-detector`](https://github.com/shipfastlabs/agent-detector), originally licensed under MIT by [Pushpak Chhajed](https://github.com/pushpak1300).
 
 ## Social
 
