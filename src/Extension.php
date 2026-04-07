@@ -23,5 +23,35 @@ final class Extension implements Runner\Extension\Extension
         Runner\Extension\Facade $facade,
         Runner\Extension\ParameterCollection $parameters,
     ): void {
+        $detector = new Agent\Detector();
+
+        $isAgent = $detector->isAgent(\getenv());
+
+        if (!$isAgent) {
+            return;
+        }
+
+        $facade->replaceOutput();
+
+        $target = 'php://stdout';
+
+        if ($configuration->outputToStandardErrorStream()) {
+            $target = 'php://stderr';
+        }
+
+        $output = \fopen(
+            $target,
+            'wb',
+        );
+
+        if (!\is_resource($output)) {
+            return;
+        }
+
+        $facade->registerSubscribers(new Subscriber\Application\ApplicationFinishedSubscriber(
+            new Report\TestResultTranslator(),
+            new Reporter\JsonReporter($configuration),
+            $output,
+        ));
     }
 }

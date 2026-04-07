@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PHPUnit Agent Reporter Schema",
+  "description": "JSON schema for the JSON report produced by ergebnis/phpunit-agent-reporter",
+  "type": "object",
+  "required": [
+    "result",
+    "summary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "result": {
+      "type": "string",
+      "enum": [
+        "exception",
+        "failure",
+        "success"
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "errors",
+        "failures",
+        "tests"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "deprecations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "errors": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failures": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "incomplete": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "notices": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "risky": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "skipped": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tests": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warnings": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "details": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "deprecations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/deprecation"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/errored-test"
+          }
+        },
+        "failures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/failed-test"
+          }
+        },
+        "incomplete": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/incomplete-test"
+          }
+        },
+        "notices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/notice"
+          }
+        },
+        "risky": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/risky-test"
+          }
+        },
+        "skipped": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/skipped-test"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/warning"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "deprecation": {
+      "type": "object",
+      "required": [
+        "file",
+        "line",
+        "message",
+        "triggeredBy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "triggeredBy": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "errored-test": {
+      "type": "object",
+      "required": [
+        "file",
+        "line",
+        "message",
+        "test"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "test": {
+          "type": "string"
+        }
+      }
+    },
+    "failed-test": {
+      "type": "object",
+      "required": [
+        "file",
+        "line",
+        "message",
+        "test"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "actual": {
+          "type": "string"
+        },
+        "diff": {
+          "type": "string"
+        },
+        "expected": {
+          "type": "string"
+        },
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "test": {
+          "type": "string"
+        }
+      }
+    },
+    "incomplete-test": {
+      "type": "object",
+      "required": [
+        "file",
+        "line",
+        "message",
+        "test"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "test": {
+          "type": "string"
+        }
+      }
+    },
+    "notice": {
+      "type": "object",
+      "required": [
+        "file",
+        "line",
+        "message",
+        "triggeredBy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "triggeredBy": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "risky-test": {
+      "type": "object",
+      "required": [
+        "file",
+        "line",
+        "message",
+        "test"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "test": {
+          "type": "string"
+        }
+      }
+    },
+    "skipped-test": {
+      "type": "object",
+      "required": [
+        "file",
+        "line",
+        "message",
+        "test"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "test": {
+          "type": "string"
+        }
+      }
+    },
+    "warning": {
+      "type": "object",
+      "required": [
+        "file",
+        "line",
+        "message",
+        "triggeredBy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "triggeredBy": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}

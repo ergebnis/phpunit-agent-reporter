@@ -3,6 +3,7 @@
 /.phive/                        export-ignore
 /bin/                           export-ignore
 /phar/                          export-ignore
+/schema/                        export-ignore
 /test/                          export-ignore
 /.editorconfig                  export-ignore
 /.gitattributes                 export-ignore

@@ -1,79 +1,169 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with false will always evaluate to false\.$#'
-			identifier: staticMethod.impossibleType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/EndToEnd/PHPUnit10/Defaults/ExampleTest.php
+			path: test/Unit/Report/ActualTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
-			identifier: staticMethod.alreadyNarrowedType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/EndToEnd/PHPUnit10/Defaults/ExampleTest.php
+			path: test/Unit/Report/CountTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with false will always evaluate to false\.$#'
-			identifier: staticMethod.impossibleType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/EndToEnd/PHPUnit11/Defaults/ExampleTest.php
+			path: test/Unit/Report/DeprecationListTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
-			identifier: staticMethod.alreadyNarrowedType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/EndToEnd/PHPUnit11/Defaults/ExampleTest.php
+			path: test/Unit/Report/DeprecationTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with false will always evaluate to false\.$#'
-			identifier: staticMethod.impossibleType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/EndToEnd/PHPUnit12/Defaults/ExampleTest.php
+			path: test/Unit/Report/DiffTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
-			identifier: staticMethod.alreadyNarrowedType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/EndToEnd/PHPUnit12/Defaults/ExampleTest.php
+			path: test/Unit/Report/ErroredTestListTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with false will always evaluate to false\.$#'
-			identifier: staticMethod.impossibleType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/EndToEnd/PHPUnit13/Defaults/ExampleTest.php
+			path: test/Unit/Report/ErroredTestTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
-			identifier: staticMethod.alreadyNarrowedType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/EndToEnd/PHPUnit13/Defaults/ExampleTest.php
+			path: test/Unit/Report/ExpectedTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
-			identifier: staticMethod.alreadyNarrowedType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/Phar/PHPUnit10/ExampleTest.php
+			path: test/Unit/Report/FailedTestListTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
-			identifier: staticMethod.alreadyNarrowedType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/Phar/PHPUnit11/ExampleTest.php
+			path: test/Unit/Report/FailedTestTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
-			identifier: staticMethod.alreadyNarrowedType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/Phar/PHPUnit12/ExampleTest.php
+			path: test/Unit/Report/FileTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
-			identifier: staticMethod.alreadyNarrowedType
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/Phar/PHPUnit13/ExampleTest.php
+			path: test/Unit/Report/IncompleteTestListTest.php
 
 		-
-			message: '#^Trait Ergebnis\\PHPUnit\\AgentReporter\\Test\\Util\\Helper is used zero times and is not analysed\.$#'
-			identifier: trait.unused
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: test/Util/Helper.php
+			path: test/Unit/Report/IncompleteTestTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/LineTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/MessageTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/NoticeListTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/NoticeTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/ReportTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/RiskyTestListTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/RiskyTestTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/ShellExitCodeTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/SkippedTestListTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/SkippedTestTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/TestIdentifierListTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/TestIdentifierTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/WarningListTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Report/WarningTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, Closure\(array\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: test/Unit/Reporter/JsonReporterTest.php

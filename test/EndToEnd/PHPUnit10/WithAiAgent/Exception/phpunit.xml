@@ -1,0 +1,25 @@
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+    beStrictAboutChangesToGlobalState="true"
+    beStrictAboutOutputDuringTests="true"
+    beStrictAboutTestsThatDoNotTestAnything="true"
+    bootstrap="../../../../../vendor/autoload.php"
+    cacheResult="false"
+    colors="true"
+    columns="max"
+    executionOrder="default"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+>
+    <extensions>
+        <bootstrap class="Ergebnis\PHPUnit\AgentReporter\Extension"/>
+    </extensions>
+    <testsuites>
+        <testsuite name="End-to-End Tests">
+            <directory>.</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

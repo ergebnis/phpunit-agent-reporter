@@ -15,7 +15,79 @@ This project provides a [`composer`](https://getcomposer.org) package and a [Pha
 
 ## Example
 
-After installing, configuring, and bootstrapping the extension, when running your tests with `phpunit/phpunit`, the extension will report test execution details in a format more easily digestable by agents.
+After installing, configuring, and bootstrapping the extension, when running your tests with `phpunit/phpunit`, the extension will replace the default output with text execution details more easily digestable by agents.
+
+When tests pass, the extension outputs:
+
+```json
+{
+    "result": "success",
+    "summary": {
+        "errors": 0,
+        "failures": 0,
+        "tests": 5,
+        "warnings": 0
+    }
+}
+```
+
+When tests fail (exit code 1), the extension outputs:
+
+```json
+{
+    "result": "failure",
+    "summary": {
+        "errors": 0,
+        "failures": 2,
+        "tests": 5,
+        "warnings": 0
+    },
+    "details": {
+        "failures": [
+            {
+                "file": "/path/to/ExampleTest.php",
+                "line": 27,
+                "message": "Failed asserting that false is true.",
+                "test": "Namespace\\ExampleTest::testFailing"
+            }
+        ]
+    }
+}
+```
+
+When tests error (exit code 2), the extension outputs:
+
+```json
+{
+    "result": "exception",
+    "summary": {
+        "errors": 1,
+        "failures": 1,
+        "tests": 5,
+        "warnings": 0
+    },
+    "details": {
+        "errors": [
+            {
+                "file": "/path/to/ExampleTest.php",
+                "line": 32,
+                "message": "Something went wrong.",
+                "test": "Namespace\\ExampleTest::testErroring"
+            }
+        ],
+        "failures": [
+            {
+                "file": "/path/to/ExampleTest.php",
+                "line": 27,
+                "message": "Failed asserting that false is true.",
+                "test": "Namespace\\ExampleTest::testFailing"
+            }
+        ]
+    }
+}
+```
+
+The JSON output conforms to the [JSON schema](schema/agent-report-schema.json) included in this package.
 
 ### Agent Detection
 
@@ -33,7 +105,7 @@ The extension automatically detects the following agents:
 - [OpenCode](https://github.com/sst/opencode)
 - [Replit](https://replit.com)
 
-💡 If your agent is not listed, let your agent set the `AI_AGENT` environment variable to any non-empty value when running tests with `phpunit/phpunit` to report test execution details in a format more easily digestable by agents.
+💡 If your agent is not listed, let your agent set the `AI_AGENT` environment variable to any non-empty value when running tests with `phpunit/phpunit`.
 
 ## Compatibility
 
