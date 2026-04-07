@@ -167,7 +167,7 @@ This project uses the [MIT license](LICENSE.md).
 
 ## Credits
 
-This package is inspired by [`nunomaduro/pao`](https://github.com/nunomaduro/pao), originally licensed under MIT by [Nuno Maduro](https://github.com/nunomaduro). The agent detection is inspired by [`shipfastlabs/agent-detector`](https://github.com/shipfastlabs/agent-detector, originallly licensed under MIT by [Pushpak Chhajed](https://github.com/pushpak1300).
+This package is inspired by [`nunomaduro/pao`](https://github.com/nunomaduro/pao), originally licensed under MIT by [Nuno Maduro](https://github.com/nunomaduro). The agent detection is inspired by [`shipfastlabs/agent-detector`](https://github.com/shipfastlabs/agent-detector), originallly licensed under MIT by [Pushpak Chhajed](https://github.com/pushpak1300).
 
 ## Social
 
