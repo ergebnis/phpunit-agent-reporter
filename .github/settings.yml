@@ -106,7 +106,7 @@ repository:
   has_wiki: false
   is_template: false
   name: "phpunit-agent-reporter"
-  private: true
+  private: false
 
   # https://docs.github.com/en/rest/reference/repos#replace-all-repository-topics
 

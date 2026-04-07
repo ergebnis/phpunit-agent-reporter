@@ -6,14 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`1902cc2...main`][0add326...main].
+For a full diff see [`0.1.0...main`][0.1.0...main].
+
+## [`0.1.0`][0.1.0]
+
+For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 
 ### Added
 
 - Added `Agent\Detector` ([#1]), by [@localheinz]
 - Added `Extension` ([#3]), by [@localheinz]
 
-[0add326...main]: https://github.com/ergebnis/phpunit-agent-reporter/compare/1902cc2...main
+[0.1.0]: https://github.com/ergebnis/phpunit-agent-reporter/releases/tag/0.1.0
+[0.1.0...main]: https://github.com/ergebnis/phpunit-agent-reporter/compare/0.1.0...main
+[1902cc2...0.1.0]: https://github.com/ergebnis/phpunit-agent-reporter/compare/1902cc2...0.1.0
 
 [#1]: https://github.com/ergebnis/phpunit-agent-reporter/pull/1
 [#3]: https://github.com/ergebnis/phpunit-agent-reporter/pull/3
