@@ -20,6 +20,7 @@ $application->run($_SERVER['argv']);
 {
     "result": "failure",
     "summary": {
+        "assertions": 2,
         "errors": 0,
         "failures": 1,
         "tests": 2,

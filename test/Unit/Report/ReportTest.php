@@ -201,6 +201,7 @@ final class ReportTest extends Framework\TestCase
             );
         }, \range(0, 2)));
 
+        $totalAssertionCount = Report\Count::fromInt($faker->numberBetween(1, 100));
         $totalTestCount = Report\Count::fromInt($faker->numberBetween(1, 100));
         $shellExitCode = Report\ShellExitCode::fromInt($faker->numberBetween(0, 2));
 
@@ -214,6 +215,7 @@ final class ReportTest extends Framework\TestCase
             $deprecationList,
             $noticeList,
             $warningList,
+            $totalAssertionCount,
             $totalTestCount,
         );
 
@@ -226,6 +228,7 @@ final class ReportTest extends Framework\TestCase
         self::assertSame($deprecationList, $report->deprecationList());
         self::assertSame($noticeList, $report->noticeList());
         self::assertSame($warningList, $report->warningList());
+        self::assertSame($totalAssertionCount, $report->totalAssertionCount());
         self::assertSame($totalTestCount, $report->totalTestCount());
     }
 }

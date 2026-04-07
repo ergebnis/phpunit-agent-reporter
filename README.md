@@ -23,6 +23,7 @@ When tests pass, the extension outputs:
 {
     "result": "success",
     "summary": {
+        "assertions": 5,
         "errors": 0,
         "failures": 0,
         "tests": 5,
@@ -37,6 +38,7 @@ When tests fail (exit code 1), the extension outputs:
 {
     "result": "failure",
     "summary": {
+        "assertions": 5,
         "errors": 0,
         "failures": 2,
         "tests": 5,
@@ -61,6 +63,7 @@ When tests error (exit code 2), the extension outputs:
 {
     "result": "exception",
     "summary": {
+        "assertions": 5,
         "errors": 1,
         "failures": 1,
         "tests": 5,
