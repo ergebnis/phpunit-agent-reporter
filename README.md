@@ -2,6 +2,7 @@
 
 [![Integrate](https://github.com/ergebnis/phpunit-agent-reporter/workflows/Integrate/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions)
 [![Merge](https://github.com/ergebnis/phpunit-agent-reporter/workflows/Merge/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions)
+[![Nightly](https://github.com/ergebnis/phpunit-agent-reporter/workflows/Nightly/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions)
 [![Release](https://github.com/ergebnis/phpunit-agent-reporter/workflows/Release/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions)
 [![Renew](https://github.com/ergebnis/phpunit-agent-reporter/workflows/Renew/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions)
 
