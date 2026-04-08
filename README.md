@@ -51,11 +51,22 @@ When tests fail (exit code 1), the extension outputs:
                 "line": 27,
                 "message": "Failed asserting that false is true.",
                 "test": "Namespace\\ExampleTest::testFailing"
+            },
+            {
+                "actual": "bar",
+                "diff": "--- Expected\n+++ Actual\n@@ @@\n-'foo'\n+'bar'\n",
+                "expected": "foo",
+                "file": "/path/to/ExampleTest.php",
+                "line": 34,
+                "message": "Failed asserting that two strings are identical.",
+                "test": "Namespace\\ExampleTest::testComparisonFailing"
             }
         ]
     }
 }
 ```
+
+When tests fail with comparison assertions, the `actual`, `diff`, and `expected` fields provide details about the mismatch. These fields are only present for comparison failures.
 
 When tests error (exit code 2), the extension outputs:
 
@@ -65,7 +76,7 @@ When tests error (exit code 2), the extension outputs:
     "summary": {
         "assertions": 5,
         "errors": 1,
-        "failures": 1,
+        "failures": 2,
         "tests": 5,
         "warnings": 0
     },
@@ -84,6 +95,15 @@ When tests error (exit code 2), the extension outputs:
                 "line": 27,
                 "message": "Failed asserting that false is true.",
                 "test": "Namespace\\ExampleTest::testFailing"
+            },
+            {
+                "actual": "bar",
+                "diff": "--- Expected\n+++ Actual\n@@ @@\n-'foo'\n+'bar'\n",
+                "expected": "foo",
+                "file": "/path/to/ExampleTest.php",
+                "line": 34,
+                "message": "Failed asserting that two strings are identical.",
+                "test": "Namespace\\ExampleTest::testComparisonFailing"
             }
         ]
     }
