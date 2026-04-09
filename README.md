@@ -115,21 +115,7 @@ The JSON output conforms to the [JSON schema](schema/agent-report-schema.json) i
 
 ### Agent Detection
 
-The extension automatically detects the following agents:
-
-- [Amp](https://amp.dev)
-- [Antigravity](https://antigravity.ai)
-- [Augment](https://www.augmentcode.com)
-- [Claude Code](https://claude.ai/code)
-- [Codex](https://github.com/openai/codex)
-- [Cursor](https://cursor.com)
-- [Devin](https://devin.ai)
-- [Gemini CLI](https://github.com/google-gemini/gemini-cli)
-- [GitHub Copilot](https://github.com/features/copilot)
-- [OpenCode](https://github.com/sst/opencode)
-- [Replit](https://replit.com)
-
-💡 If your agent is not listed, let your agent set the `AI_AGENT` environment variable to any non-empty value when running tests with `phpunit/phpunit`.
+The extension uses [`ergebnis/agent-detector`](https://github.com/ergebnis/agent-detector) to detect the presence of agents.
 
 ## Compatibility
 
@@ -263,7 +249,7 @@ This project uses the [MIT license](LICENSE.md).
 
 ## Credits
 
-This package is inspired by [`nunomaduro/pao`](https://github.com/nunomaduro/pao), originally licensed under MIT by [Nuno Maduro](https://github.com/nunomaduro). The agent detection is inspired by [`shipfastlabs/agent-detector`](https://github.com/shipfastlabs/agent-detector), originally licensed under MIT by [Pushpak Chhajed](https://github.com/pushpak1300).
+This package is inspired by [`nunomaduro/pao`](https://github.com/nunomaduro/pao), originally licensed under MIT by [Nuno Maduro](https://github.com/nunomaduro).
 
 ## Social
 

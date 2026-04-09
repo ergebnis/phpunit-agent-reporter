@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`0.2.0...main`][0.2.0...main].
 
+### Changed
+
+- Started using `ergebnis/agent-detector` to detect the presence of agents ([#11]), by [@localheinz]
+
 ## [`0.2.0`][0.2.0]
 
 For a full diff see [`0.1.0...0.2.0`][0.1.0...0.2.0].
@@ -35,5 +39,6 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [#1]: https://github.com/ergebnis/phpunit-agent-reporter/pull/1
 [#3]: https://github.com/ergebnis/phpunit-agent-reporter/pull/3
 [#4]: https://github.com/ergebnis/phpunit-agent-reporter/pull/4
+[#11]: https://github.com/ergebnis/phpunit-agent-reporter/pull/11
 
 [@localheinz]: https://github.com/localheinz

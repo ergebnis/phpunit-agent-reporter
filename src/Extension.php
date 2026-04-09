@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter;
 
+use Ergebnis\AgentDetector;
 use PHPUnit\Runner;
 use PHPUnit\TextUI;
 
@@ -23,11 +24,9 @@ final class Extension implements Runner\Extension\Extension
         Runner\Extension\Facade $facade,
         Runner\Extension\ParameterCollection $parameters,
     ): void {
-        $detector = new Agent\Detector();
+        $detector = new AgentDetector\Detector();
 
-        $isAgent = $detector->isAgent(\getenv());
-
-        if (!$isAgent) {
+        if (!$detector->isAgentPresent(\getenv())) {
             return;
         }
 
