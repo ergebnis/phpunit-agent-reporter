@@ -34,6 +34,7 @@ return static function (Config\RectorConfig $rectorConfig): void {
         Rector\Rules\Expressions\Arrays\SortAssociativeArrayByKeyRector::class,
         Rector\Rules\Expressions\Matches\SortMatchArmsByConditionalRector::class,
         Rector\Rules\Faker\GeneratorPropertyFetchToMethodCallRector::class,
+        Rector\Rules\PHPUnit\ReplaceTestAttributeWithTestPrefixRector::class,
     ]);
 
     $rectorConfig->ruleWithConfiguration(Rector\Rules\Files\ReferenceNamespacedSymbolsRelativeToNamespacePrefixRector::class, [
