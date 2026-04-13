@@ -31,8 +31,8 @@ return static function (Config\RectorConfig $rectorConfig): void {
 
     $rectorConfig->rules([
         Php81\Rector\Property\ReadOnlyPropertyRector::class,
-        Rector\Rules\Expressions\CallLikes\RemoveNamedArgumentForSingleParameterRector::class,
         Rector\Rules\Expressions\Arrays\SortAssociativeArrayByKeyRector::class,
+        Rector\Rules\Expressions\CallLikes\RemoveNamedArgumentForSingleParameterRector::class,
         Rector\Rules\Expressions\Matches\SortMatchArmsByConditionalRector::class,
         Rector\Rules\Faker\GeneratorPropertyFetchToMethodCallRector::class,
         Rector\Rules\PHPUnit\ReplaceTestAttributeWithTestPrefixRector::class,
