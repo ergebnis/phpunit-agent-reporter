@@ -321,7 +321,7 @@ jobs:
         run: ".phive/box info ${{ env.PHPUNIT_AGENT_REPORTER_PHAR }} --ansi --list"
 
       - name: "Upload Phar"
-        uses: "actions/upload-artifact@v7.0.0"
+        uses: "actions/upload-artifact@v7.0.1"
         with:
           name: "phpunit-agent-reporter-phar"
           overwrite: true
