@@ -3,6 +3,7 @@
 name: "Merge"
 
 on: # yamllint disable-line rule:truthy
+  # zizmor: ignore[dangerous-triggers] -- required to auto-merge Dependabot pull requests after Integrate workflow completes
   workflow_run:
     types:
       - "completed"
