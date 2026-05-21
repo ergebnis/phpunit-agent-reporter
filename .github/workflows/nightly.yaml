@@ -10,6 +10,10 @@ jobs:
   integrate:
     name: "Integrate"
 
+    permissions:
+      contents: "read"
+
     uses: "./.github/workflows/integrate.yaml"
 
-    secrets: "inherit"
+    secrets:
+      CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"
