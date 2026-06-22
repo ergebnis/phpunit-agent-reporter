@@ -25,8 +25,13 @@ When tests pass, the extension outputs:
     "result": "success",
     "summary": {
         "assertions": 5,
+        "deprecations": 0,
         "errors": 0,
         "failures": 0,
+        "incomplete": 0,
+        "notices": 0,
+        "risky": 0,
+        "skipped": 0,
         "tests": 5,
         "warnings": 0
     }
@@ -40,8 +45,13 @@ When tests fail (exit code 1), the extension outputs:
     "result": "failure",
     "summary": {
         "assertions": 5,
+        "deprecations": 0,
         "errors": 0,
         "failures": 2,
+        "incomplete": 0,
+        "notices": 0,
+        "risky": 0,
+        "skipped": 0,
         "tests": 5,
         "warnings": 0
     },
@@ -76,8 +86,13 @@ When tests error (exit code 2), the extension outputs:
     "result": "exception",
     "summary": {
         "assertions": 5,
+        "deprecations": 0,
         "errors": 1,
         "failures": 2,
+        "incomplete": 0,
+        "notices": 0,
+        "risky": 0,
+        "skipped": 0,
         "tests": 5,
         "warnings": 0
     },
@@ -105,6 +120,38 @@ When tests error (exit code 2), the extension outputs:
                 "line": 34,
                 "message": "Failed asserting that two strings are identical.",
                 "test": "Namespace\\ExampleTest::testComparisonFailing"
+            }
+        ]
+    }
+}
+```
+
+The `summary` always reports the count for every category, so that an agent has a complete overview of the test run. The `details` section, however, only contains an entry for a category when the test run produces at least one occurrence of it, so that an agent has all the information it can act on without unnecessary noise. For example, when tests trigger deprecations, the extension outputs:
+
+```json
+{
+    "result": "success",
+    "summary": {
+        "assertions": 5,
+        "deprecations": 1,
+        "errors": 0,
+        "failures": 0,
+        "incomplete": 0,
+        "notices": 0,
+        "risky": 0,
+        "skipped": 0,
+        "tests": 5,
+        "warnings": 0
+    },
+    "details": {
+        "deprecations": [
+            {
+                "file": "/path/to/ExampleTest.php",
+                "line": 42,
+                "message": "Method Namespace\\Example::doSomething() is deprecated.",
+                "triggeredBy": [
+                    "Namespace\\ExampleTest::testTriggeringDeprecation"
+                ]
             }
         ]
     }

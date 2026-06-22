@@ -17,7 +17,6 @@ use Ergebnis\PHPUnit\AgentReporter\Report;
 use Ergebnis\PHPUnit\AgentReporter\Reporter;
 use Ergebnis\PHPUnit\AgentReporter\Test;
 use PHPUnit\Framework;
-use PHPUnit\TextUI;
 
 #[Framework\Attributes\CoversClass(Reporter\JsonReporter::class)]
 #[Framework\Attributes\UsesClass(Report\Actual::class)]
@@ -53,7 +52,7 @@ final class JsonReporterTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    public function testReportReturnsJsonWithResultPassedWhenShellExitCodeIsSuccess(): void
+    public function testReportReturnsJsonWithResultSuccessWhenShellExitCodeIsSuccess(): void
     {
         $faker = self::faker();
 
@@ -71,20 +70,12 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithDefaults();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'result' => Report\Result::success()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -95,7 +86,7 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportReturnsJsonWithResultFailedWhenShellExitCodeIsNotSucccess(): void
+    public function testReportReturnsJsonWithResultFailureWhenShellExitCodeIsNotSuccess(): void
     {
         $faker = self::faker();
 
@@ -113,20 +104,12 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithDefaults();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'result' => Report\Result::failure()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -137,7 +120,7 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportReturnsJsonWhenRecordHasErroredTests(): void
+    public function testReportReturnsJsonWhenReportHasErroredTests(): void
     {
         $faker = self::faker();
 
@@ -170,9 +153,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithDefaults();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
@@ -187,13 +168,7 @@ final class JsonReporterTest extends Framework\TestCase
                     }, $report->erroredTestList()->toArray()),
                 ],
                 'result' => Report\Result::exception()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -204,7 +179,7 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportReturnsJsonWhenRecordHasFailedTestsWithComparisonFailure(): void
+    public function testReportReturnsJsonWhenReportHasFailedTestsWithComparisonFailure(): void
     {
         $faker = self::faker();
 
@@ -242,9 +217,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithDefaults();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
@@ -266,13 +239,7 @@ final class JsonReporterTest extends Framework\TestCase
                     }, $report->failedTestList()->toArray()),
                 ],
                 'result' => Report\Result::failure()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -283,7 +250,7 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportReturnsJsonWhenRecordHasFailedTestsWithoutComparisonFailure(): void
+    public function testReportReturnsJsonWhenReportHasFailedTestsWithoutComparisonFailure(): void
     {
         $faker = self::faker();
 
@@ -317,9 +284,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithDefaults();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
@@ -334,13 +299,7 @@ final class JsonReporterTest extends Framework\TestCase
                     }, $report->failedTestList()->toArray()),
                 ],
                 'result' => Report\Result::failure()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -351,7 +310,7 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportDoesNotIncludeSkippedWhenFailOnSkippedIsNotActive(): void
+    public function testReportReturnsJsonWhenReportHasSkippedTests(): void
     {
         $faker = self::faker();
 
@@ -384,20 +343,22 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithDefaults();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
+                'details' => [
+                    'skipped' => \array_map(static function (Report\SkippedTest $skippedTest): array {
+                        return [
+                            'file' => $skippedTest->file()->toString(),
+                            'line' => $skippedTest->line()->toInt(),
+                            'message' => $skippedTest->message()->toString(),
+                            'test' => $skippedTest->testIdentifier()->toString(),
+                        ];
+                    }, $report->skippedTestList()->toArray()),
+                ],
                 'result' => Report\Result::success()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -408,75 +369,7 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportIncludesSkippedWhenFailOnSkippedIsActive(): void
-    {
-        $faker = self::faker();
-
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(...\array_map(static function () use ($faker): Report\SkippedTest {
-                return Report\SkippedTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
-                        '%s::%s',
-                        $faker->word(),
-                        $faker->word(),
-                    )),
-                    Report\File::fromString(\sprintf(
-                        '%s/%s.php',
-                        $faker->word(),
-                        $faker->word(),
-                    )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
-                );
-            }, \range(0, 2))),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-        );
-
-        $configuration = self::createConfigurationWithFailOnSkipped();
-
-        $reporter = new Reporter\JsonReporter($configuration);
-
-        $expected = \json_encode(
-            [
-                'details' => [
-                    'skipped' => \array_map(static function (Report\SkippedTest $skippedTest): array {
-                        return [
-                            'file' => $skippedTest->file()->toString(),
-                            'line' => $skippedTest->line()->toInt(),
-                            'message' => $skippedTest->message()->toString(),
-                            'test' => $skippedTest->testIdentifier()->toString(),
-                        ];
-                    }, $report->skippedTestList()->toArray()),
-                ],
-                'result' => Report\Result::failure()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'skipped' => $report->skippedTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
-            ],
-            \JSON_THROW_ON_ERROR,
-        );
-
-        $json = $reporter->report($report);
-
-        self::assertJsonStringEqualsJsonString($expected, $json);
-        self::assertJsonSatisfiesAgentReportSchema($json);
-    }
-
-    public function testReportIncludesIncompleteWhenFailOnIncompleteIsActive(): void
+    public function testReportReturnsJsonWhenReportHasIncompleteTests(): void
     {
         $faker = self::faker();
 
@@ -509,9 +402,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithFailOnIncomplete();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
@@ -526,14 +417,7 @@ final class JsonReporterTest extends Framework\TestCase
                     }, $report->incompleteTestList()->toArray()),
                 ],
                 'result' => Report\Result::failure()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'incomplete' => $report->incompleteTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -544,7 +428,7 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportIncludesDeprecationsWhenFailOnDeprecationIsActive(): void
+    public function testReportReturnsJsonWhenReportHasDeprecations(): void
     {
         $faker = self::faker();
 
@@ -579,9 +463,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithFailOnDeprecation();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
@@ -598,14 +480,7 @@ final class JsonReporterTest extends Framework\TestCase
                     }, $report->deprecationList()->toArray()),
                 ],
                 'result' => Report\Result::failure()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'deprecations' => $report->deprecationList()->count()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -616,7 +491,7 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportIncludesWarningsWhenFailOnWarningIsActive(): void
+    public function testReportReturnsJsonWhenReportHasWarnings(): void
     {
         $faker = self::faker();
 
@@ -651,9 +526,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithFailOnWarning();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
@@ -670,13 +543,7 @@ final class JsonReporterTest extends Framework\TestCase
                     }, $report->warningList()->toArray()),
                 ],
                 'result' => Report\Result::failure()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -687,7 +554,7 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportIncludesNoticesWhenFailOnNoticeIsActive(): void
+    public function testReportReturnsJsonWhenReportHasNotices(): void
     {
         $faker = self::faker();
 
@@ -722,9 +589,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithFailOnNotice();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
@@ -741,14 +606,7 @@ final class JsonReporterTest extends Framework\TestCase
                     }, $report->noticeList()->toArray()),
                 ],
                 'result' => Report\Result::failure()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'notices' => $report->noticeList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -759,7 +617,7 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportIncludesRiskyWhenFailOnRiskyIsActive(): void
+    public function testReportReturnsJsonWhenReportHasRiskyTests(): void
     {
         $faker = self::faker();
 
@@ -792,9 +650,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithFailOnRisky();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
@@ -809,14 +665,7 @@ final class JsonReporterTest extends Framework\TestCase
                     }, $report->riskyTestList()->toArray()),
                 ],
                 'result' => Report\Result::failure()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'risky' => $report->riskyTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -827,14 +676,45 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    public function testReportIncludesAllCategoriesWhenFailOnAllIssuesIsActive(): void
+    public function testReportReturnsJsonWhenReportHasAllCategories(): void
     {
         $faker = self::faker();
 
         $report = Report\Report::create(
             Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
+            Report\ErroredTestList::create(...\array_map(static function () use ($faker): Report\ErroredTest {
+                return Report\ErroredTest::create(
+                    Report\TestIdentifier::fromString(\sprintf(
+                        '%s::%s',
+                        $faker->word(),
+                        $faker->word(),
+                    )),
+                    Report\File::fromString(\sprintf(
+                        '%s/%s.php',
+                        $faker->word(),
+                        $faker->word(),
+                    )),
+                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    Report\Message::fromString($faker->sentence()),
+                );
+            }, \range(0, 2))),
+            Report\FailedTestList::create(...\array_map(static function () use ($faker): Report\FailedTest {
+                return Report\FailedTest::create(
+                    Report\TestIdentifier::fromString(\sprintf(
+                        '%s::%s',
+                        $faker->word(),
+                        $faker->word(),
+                    )),
+                    Report\File::fromString(\sprintf(
+                        '%s/%s.php',
+                        $faker->word(),
+                        $faker->word(),
+                    )),
+                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    Report\Message::fromString($faker->sentence()),
+                    null,
+                );
+            }, \range(0, 2))),
             Report\IncompleteTestList::create(...\array_map(static function () use ($faker): Report\IncompleteTest {
                 return Report\IncompleteTest::create(
                     Report\TestIdentifier::fromString(\sprintf(
@@ -941,9 +821,7 @@ final class JsonReporterTest extends Framework\TestCase
             Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $configuration = self::createConfigurationWithFailOnAllIssues();
-
-        $reporter = new Reporter\JsonReporter($configuration);
+        $reporter = new Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
@@ -958,6 +836,22 @@ final class JsonReporterTest extends Framework\TestCase
                             }, $deprecation->triggeredBy()->toArray()),
                         ];
                     }, $report->deprecationList()->toArray()),
+                    'errors' => \array_map(static function (Report\ErroredTest $erroredTest): array {
+                        return [
+                            'file' => $erroredTest->file()->toString(),
+                            'line' => $erroredTest->line()->toInt(),
+                            'message' => $erroredTest->message()->toString(),
+                            'test' => $erroredTest->testIdentifier()->toString(),
+                        ];
+                    }, $report->erroredTestList()->toArray()),
+                    'failures' => \array_map(static function (Report\FailedTest $failedTest): array {
+                        return [
+                            'file' => $failedTest->file()->toString(),
+                            'line' => $failedTest->line()->toInt(),
+                            'message' => $failedTest->message()->toString(),
+                            'test' => $failedTest->testIdentifier()->toString(),
+                        ];
+                    }, $report->failedTestList()->toArray()),
                     'incomplete' => \array_map(static function (Report\IncompleteTest $incompleteTest): array {
                         return [
                             'file' => $incompleteTest->file()->toString(),
@@ -1004,18 +898,7 @@ final class JsonReporterTest extends Framework\TestCase
                     }, $report->warningList()->toArray()),
                 ],
                 'result' => Report\Result::failure()->toString(),
-                'summary' => [
-                    'assertions' => $report->totalAssertionCount()->toInt(),
-                    'deprecations' => $report->deprecationList()->count()->toInt(),
-                    'errors' => $report->erroredTestList()->count()->toInt(),
-                    'failures' => $report->failedTestList()->count()->toInt(),
-                    'incomplete' => $report->incompleteTestList()->count()->toInt(),
-                    'notices' => $report->noticeList()->count()->toInt(),
-                    'risky' => $report->riskyTestList()->count()->toInt(),
-                    'skipped' => $report->skippedTestList()->count()->toInt(),
-                    'tests' => $report->totalTestCount()->toInt(),
-                    'warnings' => $report->warningList()->count()->toInt(),
-                ],
+                'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
         );
@@ -1026,90 +909,33 @@ final class JsonReporterTest extends Framework\TestCase
         self::assertJsonSatisfiesAgentReportSchema($json);
     }
 
-    private static function createConfigurationWithDefaults(): TextUI\Configuration\Configuration
+    /**
+     * @return array{
+     *     assertions: int,
+     *     deprecations: int,
+     *     errors: int,
+     *     failures: int,
+     *     incomplete: int,
+     *     notices: int,
+     *     risky: int,
+     *     skipped: int,
+     *     tests: int,
+     *     warnings: int
+     * }
+     */
+    private static function summary(Report\Report $report): array
     {
-        $builder = new TextUI\Configuration\Builder();
-
-        return $builder->build([
-            self::configurationOption(),
-        ]);
-    }
-
-    private static function createConfigurationWithFailOnAllIssues(): TextUI\Configuration\Configuration
-    {
-        $builder = new TextUI\Configuration\Builder();
-
-        return $builder->build([
-            self::configurationOption(),
-            '--fail-on-all-issues',
-        ]);
-    }
-
-    private static function createConfigurationWithFailOnDeprecation(): TextUI\Configuration\Configuration
-    {
-        $builder = new TextUI\Configuration\Builder();
-
-        return $builder->build([
-            self::configurationOption(),
-            '--fail-on-deprecation',
-        ]);
-    }
-
-    private static function createConfigurationWithFailOnIncomplete(): TextUI\Configuration\Configuration
-    {
-        $builder = new TextUI\Configuration\Builder();
-
-        return $builder->build([
-            self::configurationOption(),
-            '--fail-on-incomplete',
-        ]);
-    }
-
-    private static function createConfigurationWithFailOnNotice(): TextUI\Configuration\Configuration
-    {
-        $builder = new TextUI\Configuration\Builder();
-
-        return $builder->build([
-            self::configurationOption(),
-            '--fail-on-notice',
-        ]);
-    }
-
-    private static function createConfigurationWithFailOnRisky(): TextUI\Configuration\Configuration
-    {
-        $builder = new TextUI\Configuration\Builder();
-
-        return $builder->build([
-            self::configurationOption(),
-            '--fail-on-risky',
-        ]);
-    }
-
-    private static function createConfigurationWithFailOnSkipped(): TextUI\Configuration\Configuration
-    {
-        $builder = new TextUI\Configuration\Builder();
-
-        return $builder->build([
-            self::configurationOption(),
-            '--fail-on-skipped',
-        ]);
-    }
-
-    private static function createConfigurationWithFailOnWarning(): TextUI\Configuration\Configuration
-    {
-        $builder = new TextUI\Configuration\Builder();
-
-        return $builder->build([
-            self::configurationOption(),
-            '--fail-on-warning',
-        ]);
-    }
-
-    private static function configurationOption(): string
-    {
-        return \sprintf(
-            '--configuration=%s',
-            \realpath(__DIR__ . '/../phpunit.xml'),
-        );
+        return [
+            'assertions' => $report->totalAssertionCount()->toInt(),
+            'deprecations' => $report->deprecationList()->count()->toInt(),
+            'errors' => $report->erroredTestList()->count()->toInt(),
+            'failures' => $report->failedTestList()->count()->toInt(),
+            'incomplete' => $report->incompleteTestList()->count()->toInt(),
+            'notices' => $report->noticeList()->count()->toInt(),
+            'risky' => $report->riskyTestList()->count()->toInt(),
+            'skipped' => $report->skippedTestList()->count()->toInt(),
+            'tests' => $report->totalTestCount()->toInt(),
+            'warnings' => $report->warningList()->count()->toInt(),
+        ];
     }
 }

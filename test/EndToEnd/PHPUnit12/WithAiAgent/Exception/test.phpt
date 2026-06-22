@@ -21,8 +21,13 @@ $application->run($_SERVER['argv']);
     "result": "exception",
     "summary": {
         "assertions": 2,
+        "deprecations": 0,
         "errors": 1,
         "failures": 1,
+        "incomplete": 1,
+        "notices": 0,
+        "risky": 0,
+        "skipped": 1,
         "tests": 5,
         "warnings": 0
     },
@@ -41,6 +46,22 @@ $application->run($_SERVER['argv']);
                 "line": %d,
                 "message": "Failed asserting that false is true.",
                 "test": "Ergebnis\\PHPUnit\\AgentReporter\\Test\\EndToEnd\\PHPUnit12\\WithAiAgent\\Exception\\ExampleTest::testFailing"
+            }
+        ],
+        "incomplete": [
+            {
+                "file": "%s/test/EndToEnd/PHPUnit12/WithAiAgent/Exception/ExampleTest.php",
+                "line": %d,
+                "message": "Not yet implemented.",
+                "test": "Ergebnis\\PHPUnit\\AgentReporter\\Test\\EndToEnd\\PHPUnit12\\WithAiAgent\\Exception\\ExampleTest::testIncomplete"
+            }
+        ],
+        "skipped": [
+            {
+                "file": "%s/test/EndToEnd/PHPUnit12/WithAiAgent/Exception/ExampleTest.php",
+                "line": %d,
+                "message": "Skipped for demonstration purposes.",
+                "test": "Ergebnis\\PHPUnit\\AgentReporter\\Test\\EndToEnd\\PHPUnit12\\WithAiAgent\\Exception\\ExampleTest::testSkipped"
             }
         ]
     }
