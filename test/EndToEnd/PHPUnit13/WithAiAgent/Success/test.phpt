@@ -21,8 +21,13 @@ $application->run($_SERVER['argv']);
     "result": "success",
     "summary": {
         "assertions": 2,
+        "deprecations": 0,
         "errors": 0,
         "failures": 0,
+        "incomplete": 0,
+        "notices": 0,
+        "risky": 0,
+        "skipped": 0,
         "tests": 2,
         "warnings": 0
     }

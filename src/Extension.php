@@ -49,7 +49,7 @@ final class Extension implements Runner\Extension\Extension
 
         $facade->registerSubscribers(new Subscriber\Application\ApplicationFinishedSubscriber(
             new Report\TestResultTranslator(),
-            new Reporter\JsonReporter($configuration),
+            new Reporter\JsonReporter(),
             $output,
         ));
     }

@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`0.3.0...main`][0.3.0...main].
 
+### Changed
+
+- Adjusted `Reporter\JsonReporter` to always include deprecation, incomplete test, notice, risky test, skipped test, and warning counts in the summary, and to report their details whenever they occur, regardless of `phpunit/phpunit` fail-on configuration ([#44]), by [@localheinz]
+
 ## [`0.3.0`][0.3.0]
 
 For a full diff see [`0.2.0...0.3.0`][0.2.0...0.3.0].
@@ -46,5 +50,6 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [#3]: https://github.com/ergebnis/phpunit-agent-reporter/pull/3
 [#4]: https://github.com/ergebnis/phpunit-agent-reporter/pull/4
 [#11]: https://github.com/ergebnis/phpunit-agent-reporter/pull/11
+[#44]: https://github.com/ergebnis/phpunit-agent-reporter/pull/44
 
 [@localheinz]: https://github.com/localheinz

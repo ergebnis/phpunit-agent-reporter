@@ -21,9 +21,15 @@
       "type": "object",
       "required": [
         "assertions",
+        "deprecations",
         "errors",
         "failures",
-        "tests"
+        "incomplete",
+        "notices",
+        "risky",
+        "skipped",
+        "tests",
+        "warnings"
       ],
       "additionalProperties": false,
       "properties": {
