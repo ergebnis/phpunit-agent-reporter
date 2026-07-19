@@ -97,7 +97,7 @@ repository:
   archived: false
   default_branch: "main"
   delete_branch_on_merge: true
-  description: "🤖 Provides an extension for reporting phpunit/phpunit test execution details to agents."
+  description: "🤖 Provides a composer package with an extension for reporting phpunit/phpunit test execution details to agents."
   enable_automated_security_fixes: true
   enable_vulnerability_alerts: true
   has_discussions: false
