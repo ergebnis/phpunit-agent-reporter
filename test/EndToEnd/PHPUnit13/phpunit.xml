@@ -5,7 +5,6 @@
     beStrictAboutOutputDuringTests="true"
     beStrictAboutTestsThatDoNotTestAnything="true"
     bootstrap="../../../vendor/autoload.php"
-    cacheResult="false"
     colors="true"
     columns="max"
     displayDetailsOnIncompleteTests="true"
