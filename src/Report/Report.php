@@ -27,6 +27,9 @@ final class Report
     private readonly DeprecationList $deprecationList;
     private readonly NoticeList $noticeList;
     private readonly WarningList $warningList;
+    private readonly PhpunitDeprecationList $phpunitDeprecationList;
+    private readonly PhpunitNoticeList $phpunitNoticeList;
+    private readonly PhpunitWarningList $phpunitWarningList;
     private readonly Count $totalAssertionCount;
     private readonly Count $totalTestCount;
 
@@ -40,6 +43,9 @@ final class Report
         DeprecationList $deprecationList,
         NoticeList $noticeList,
         WarningList $warningList,
+        PhpunitDeprecationList $phpunitDeprecationList,
+        PhpunitNoticeList $phpunitNoticeList,
+        PhpunitWarningList $phpunitWarningList,
         Count $totalAssertionCount,
         Count $totalTestCount,
     ) {
@@ -52,6 +58,9 @@ final class Report
         $this->deprecationList = $deprecationList;
         $this->noticeList = $noticeList;
         $this->warningList = $warningList;
+        $this->phpunitDeprecationList = $phpunitDeprecationList;
+        $this->phpunitNoticeList = $phpunitNoticeList;
+        $this->phpunitWarningList = $phpunitWarningList;
         $this->totalAssertionCount = $totalAssertionCount;
         $this->totalTestCount = $totalTestCount;
     }
@@ -66,6 +75,9 @@ final class Report
         DeprecationList $deprecationList,
         NoticeList $noticeList,
         WarningList $warningList,
+        PhpunitDeprecationList $phpunitDeprecationList,
+        PhpunitNoticeList $phpunitNoticeList,
+        PhpunitWarningList $phpunitWarningList,
         Count $totalAssertionCount,
         Count $totalTestCount,
     ): self {
@@ -79,6 +91,9 @@ final class Report
             $deprecationList,
             $noticeList,
             $warningList,
+            $phpunitDeprecationList,
+            $phpunitNoticeList,
+            $phpunitWarningList,
             $totalAssertionCount,
             $totalTestCount,
         );
@@ -140,6 +155,21 @@ final class Report
     public function warningList(): WarningList
     {
         return $this->warningList;
+    }
+
+    public function phpunitDeprecationList(): PhpunitDeprecationList
+    {
+        return $this->phpunitDeprecationList;
+    }
+
+    public function phpunitNoticeList(): PhpunitNoticeList
+    {
+        return $this->phpunitNoticeList;
+    }
+
+    public function phpunitWarningList(): PhpunitWarningList
+    {
+        return $this->phpunitWarningList;
     }
 
     public function totalAssertionCount(): Count

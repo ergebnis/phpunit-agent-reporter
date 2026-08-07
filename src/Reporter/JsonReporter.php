@@ -31,6 +31,9 @@ final class JsonReporter implements Reporter
             'failures' => $report->failedTestList()->count()->toInt(),
             'incomplete' => $report->incompleteTestList()->count()->toInt(),
             'notices' => $report->noticeList()->count()->toInt(),
+            'phpunitDeprecations' => $report->phpunitDeprecationList()->count()->toInt(),
+            'phpunitNotices' => $report->phpunitNoticeList()->count()->toInt(),
+            'phpunitWarnings' => $report->phpunitWarningList()->count()->toInt(),
             'risky' => $report->riskyTestList()->count()->toInt(),
             'skipped' => $report->skippedTestList()->count()->toInt(),
             'tests' => $report->totalTestCount()->toInt(),
@@ -90,6 +93,39 @@ final class JsonReporter implements Reporter
 
         if ($report->noticeList()->count()->isGreaterThan($zero)) {
             $details['notices'] = $this->formatNoticeList($report->noticeList());
+        }
+
+        if ($report->phpunitDeprecationList()->count()->isGreaterThan($zero)) {
+            $details['phpunitDeprecations'] = \array_map(static function (Report\PhpunitDeprecation $phpunitDeprecation): array {
+                return self::formatPhpunitIssue(
+                    $phpunitDeprecation->testIdentifier(),
+                    $phpunitDeprecation->file(),
+                    $phpunitDeprecation->line(),
+                    $phpunitDeprecation->message(),
+                );
+            }, $report->phpunitDeprecationList()->toArray());
+        }
+
+        if ($report->phpunitNoticeList()->count()->isGreaterThan($zero)) {
+            $details['phpunitNotices'] = \array_map(static function (Report\PhpunitNotice $phpunitNotice): array {
+                return self::formatPhpunitIssue(
+                    $phpunitNotice->testIdentifier(),
+                    $phpunitNotice->file(),
+                    $phpunitNotice->line(),
+                    $phpunitNotice->message(),
+                );
+            }, $report->phpunitNoticeList()->toArray());
+        }
+
+        if ($report->phpunitWarningList()->count()->isGreaterThan($zero)) {
+            $details['phpunitWarnings'] = \array_map(static function (Report\PhpunitWarning $phpunitWarning): array {
+                return self::formatPhpunitIssue(
+                    $phpunitWarning->testIdentifier(),
+                    $phpunitWarning->file(),
+                    $phpunitWarning->line(),
+                    $phpunitWarning->message(),
+                );
+            }, $report->phpunitWarningList()->toArray());
         }
 
         if ($report->riskyTestList()->count()->isGreaterThan($zero)) {
@@ -165,6 +201,41 @@ final class JsonReporter implements Reporter
                 }, $notice->triggeredBy()->toArray()),
             ];
         }, $noticeList->toArray());
+    }
+
+    /**
+     * @return array{
+     *     file?: string,
+     *     line?: int,
+     *     message: string,
+     *     test?: string
+     * }
+     */
+    private static function formatPhpunitIssue(
+        ?Report\TestIdentifier $testIdentifier,
+        ?Report\File $file,
+        ?Report\Line $line,
+        Report\Message $message,
+    ): array {
+        $item = [
+            'message' => $message->toString(),
+        ];
+
+        if ($testIdentifier instanceof Report\TestIdentifier) {
+            $item['test'] = $testIdentifier->toString();
+        }
+
+        if ($file instanceof Report\File) {
+            $item['file'] = $file->toString();
+        }
+
+        if ($line instanceof Report\Line) {
+            $item['line'] = $line->toInt();
+        }
+
+        \ksort($item);
+
+        return $item;
     }
 
     /**

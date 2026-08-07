@@ -238,6 +238,130 @@ final class TestResultTranslator
         return WarningList::create(...$warnings);
     }
 
+    public function phpunitDeprecationListFrom(TestRunner\TestResult\TestResult $testResult): PhpunitDeprecationList
+    {
+        $phpunitDeprecations = [];
+
+        foreach ($testResult->testTriggeredPhpunitDeprecationEvents() as $eventsForTest) {
+            foreach ($eventsForTest as $event) {
+                $test = $event->test();
+
+                $line = 0;
+
+                if ($test->isTestMethod()) {
+                    /** @var Event\Code\TestMethod $test */
+                    $line = $test->line();
+                }
+
+                $phpunitDeprecations[] = PhpunitDeprecation::create(
+                    TestIdentifier::fromString($test->id()),
+                    File::fromString($test->file()),
+                    Line::fromInt($line),
+                    Message::fromString($event->message()),
+                );
+            }
+        }
+
+        foreach ($testResult->testRunnerTriggeredDeprecationEvents() as $event) {
+            $phpunitDeprecations[] = PhpunitDeprecation::create(
+                null,
+                null,
+                null,
+                Message::fromString($event->message()),
+            );
+        }
+
+        return PhpunitDeprecationList::create(...$phpunitDeprecations);
+    }
+
+    public function phpunitNoticeListFrom(TestRunner\TestResult\TestResult $testResult): PhpunitNoticeList
+    {
+        $phpunitNotices = [];
+
+        /**
+         * @see https://github.com/sebastianbergmann/phpunit/blob/12.1.0/src/Runner/TestResult/TestResult.php
+         */
+        if (\method_exists($testResult, 'testTriggeredPhpunitNoticeEvents')) {
+            /** @var array<string, list<Event\Test\PhpunitNoticeTriggered>> $testTriggeredPhpunitNoticeEvents */
+            $testTriggeredPhpunitNoticeEvents = $testResult->testTriggeredPhpunitNoticeEvents();
+
+            foreach ($testTriggeredPhpunitNoticeEvents as $eventsForTest) {
+                foreach ($eventsForTest as $event) {
+                    $test = $event->test();
+
+                    $line = 0;
+
+                    if ($test->isTestMethod()) {
+                        /** @var Event\Code\TestMethod $test */
+                        $line = $test->line();
+                    }
+
+                    $phpunitNotices[] = PhpunitNotice::create(
+                        TestIdentifier::fromString($test->id()),
+                        File::fromString($test->file()),
+                        Line::fromInt($line),
+                        Message::fromString($event->message()),
+                    );
+                }
+            }
+        }
+
+        /**
+         * @see https://github.com/sebastianbergmann/phpunit/blob/12.1.0/src/Runner/TestResult/TestResult.php
+         */
+        if (\method_exists($testResult, 'testRunnerTriggeredNoticeEvents')) {
+            /** @var list<Event\TestRunner\NoticeTriggered> $testRunnerTriggeredNoticeEvents */
+            $testRunnerTriggeredNoticeEvents = $testResult->testRunnerTriggeredNoticeEvents();
+
+            foreach ($testRunnerTriggeredNoticeEvents as $event) {
+                $phpunitNotices[] = PhpunitNotice::create(
+                    null,
+                    null,
+                    null,
+                    Message::fromString($event->message()),
+                );
+            }
+        }
+
+        return PhpunitNoticeList::create(...$phpunitNotices);
+    }
+
+    public function phpunitWarningListFrom(TestRunner\TestResult\TestResult $testResult): PhpunitWarningList
+    {
+        $phpunitWarnings = [];
+
+        foreach ($testResult->testTriggeredPhpunitWarningEvents() as $eventsForTest) {
+            foreach ($eventsForTest as $event) {
+                $test = $event->test();
+
+                $line = 0;
+
+                if ($test->isTestMethod()) {
+                    /** @var Event\Code\TestMethod $test */
+                    $line = $test->line();
+                }
+
+                $phpunitWarnings[] = PhpunitWarning::create(
+                    TestIdentifier::fromString($test->id()),
+                    File::fromString($test->file()),
+                    Line::fromInt($line),
+                    Message::fromString($event->message()),
+                );
+            }
+        }
+
+        foreach ($testResult->testRunnerTriggeredWarningEvents() as $event) {
+            $phpunitWarnings[] = PhpunitWarning::create(
+                null,
+                null,
+                null,
+                Message::fromString($event->message()),
+            );
+        }
+
+        return PhpunitWarningList::create(...$phpunitWarnings);
+    }
+
     private static function deprecationFrom(TestRunner\TestResult\Issues\Issue $issue): Deprecation
     {
         return Deprecation::create(

@@ -58,6 +58,9 @@ final class ApplicationFinishedSubscriber implements Event\Application\FinishedS
             $this->testResultTranslator->deprecationListFrom($testResult),
             $this->testResultTranslator->noticeListFrom($testResult),
             $this->testResultTranslator->warningListFrom($testResult),
+            $this->testResultTranslator->phpunitDeprecationListFrom($testResult),
+            $this->testResultTranslator->phpunitNoticeListFrom($testResult),
+            $this->testResultTranslator->phpunitWarningListFrom($testResult),
             Report\Count::fromInt($testResult->numberOfAssertions()),
             Report\Count::fromInt($testResult->numberOfTestsRun()),
         );

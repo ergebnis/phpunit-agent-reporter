@@ -26,6 +26,9 @@
         "failures",
         "incomplete",
         "notices",
+        "phpunitDeprecations",
+        "phpunitNotices",
+        "phpunitWarnings",
         "risky",
         "skipped",
         "tests",
@@ -54,6 +57,18 @@
           "minimum": 0
         },
         "notices": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "phpunitDeprecations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "phpunitNotices": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "phpunitWarnings": {
           "type": "integer",
           "minimum": 0
         },
@@ -107,6 +122,24 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/notice"
+          }
+        },
+        "phpunitDeprecations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/phpunit-issue"
+          }
+        },
+        "phpunitNotices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/phpunit-issue"
+          }
+        },
+        "phpunitWarnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/phpunit-issue"
           }
         },
         "risky": {
@@ -270,6 +303,28 @@
             "type": "string"
           },
           "minItems": 1
+        }
+      }
+    },
+    "phpunit-issue": {
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "test": {
+          "type": "string"
         }
       }
     },
