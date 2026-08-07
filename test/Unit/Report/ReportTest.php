@@ -36,6 +36,12 @@ use PHPUnit\Framework;
 #[Framework\Attributes\UsesClass(Report\Message::class)]
 #[Framework\Attributes\UsesClass(Report\Notice::class)]
 #[Framework\Attributes\UsesClass(Report\NoticeList::class)]
+#[Framework\Attributes\UsesClass(Report\PhpunitDeprecation::class)]
+#[Framework\Attributes\UsesClass(Report\PhpunitDeprecationList::class)]
+#[Framework\Attributes\UsesClass(Report\PhpunitNotice::class)]
+#[Framework\Attributes\UsesClass(Report\PhpunitNoticeList::class)]
+#[Framework\Attributes\UsesClass(Report\PhpunitWarning::class)]
+#[Framework\Attributes\UsesClass(Report\PhpunitWarningList::class)]
 #[Framework\Attributes\UsesClass(Report\Result::class)]
 #[Framework\Attributes\UsesClass(Report\RiskyTest::class)]
 #[Framework\Attributes\UsesClass(Report\RiskyTestList::class)]
@@ -62,6 +68,9 @@ final class ReportTest extends Framework\TestCase
             Report\DeprecationList::create(),
             Report\NoticeList::create(),
             Report\WarningList::create(),
+            Report\PhpunitDeprecationList::create(),
+            Report\PhpunitNoticeList::create(),
+            Report\PhpunitWarningList::create(),
             Report\Count::fromInt(0),
             Report\Count::fromInt(0),
         );
@@ -83,6 +92,9 @@ final class ReportTest extends Framework\TestCase
             Report\DeprecationList::create(),
             Report\NoticeList::create(),
             Report\WarningList::create(),
+            Report\PhpunitDeprecationList::create(),
+            Report\PhpunitNoticeList::create(),
+            Report\PhpunitWarningList::create(),
             Report\Count::fromInt(0),
             Report\Count::fromInt(0),
         );
@@ -104,6 +116,9 @@ final class ReportTest extends Framework\TestCase
             Report\DeprecationList::create(),
             Report\NoticeList::create(),
             Report\WarningList::create(),
+            Report\PhpunitDeprecationList::create(),
+            Report\PhpunitNoticeList::create(),
+            Report\PhpunitWarningList::create(),
             Report\Count::fromInt(0),
             Report\Count::fromInt(0),
         );
@@ -264,6 +279,57 @@ final class ReportTest extends Framework\TestCase
             );
         }, \range(0, 2)));
 
+        $phpunitDeprecationList = Report\PhpunitDeprecationList::create(...\array_map(static function () use ($faker): Report\PhpunitDeprecation {
+            return Report\PhpunitDeprecation::create(
+                Report\TestIdentifier::fromString(\sprintf(
+                    '%s::%s',
+                    $faker->word(),
+                    $faker->word(),
+                )),
+                Report\File::fromString(\sprintf(
+                    '%s/%s.php',
+                    $faker->word(),
+                    $faker->word(),
+                )),
+                Report\Line::fromInt($faker->numberBetween(1, 500)),
+                Report\Message::fromString($faker->sentence()),
+            );
+        }, \range(0, 2)));
+
+        $phpunitNoticeList = Report\PhpunitNoticeList::create(...\array_map(static function () use ($faker): Report\PhpunitNotice {
+            return Report\PhpunitNotice::create(
+                Report\TestIdentifier::fromString(\sprintf(
+                    '%s::%s',
+                    $faker->word(),
+                    $faker->word(),
+                )),
+                Report\File::fromString(\sprintf(
+                    '%s/%s.php',
+                    $faker->word(),
+                    $faker->word(),
+                )),
+                Report\Line::fromInt($faker->numberBetween(1, 500)),
+                Report\Message::fromString($faker->sentence()),
+            );
+        }, \range(0, 2)));
+
+        $phpunitWarningList = Report\PhpunitWarningList::create(...\array_map(static function () use ($faker): Report\PhpunitWarning {
+            return Report\PhpunitWarning::create(
+                Report\TestIdentifier::fromString(\sprintf(
+                    '%s::%s',
+                    $faker->word(),
+                    $faker->word(),
+                )),
+                Report\File::fromString(\sprintf(
+                    '%s/%s.php',
+                    $faker->word(),
+                    $faker->word(),
+                )),
+                Report\Line::fromInt($faker->numberBetween(1, 500)),
+                Report\Message::fromString($faker->sentence()),
+            );
+        }, \range(0, 2)));
+
         $totalAssertionCount = Report\Count::fromInt($faker->numberBetween(1, 100));
         $totalTestCount = Report\Count::fromInt($faker->numberBetween(1, 100));
         $shellExitCode = Report\ShellExitCode::fromInt($faker->numberBetween(0, 2));
@@ -278,6 +344,9 @@ final class ReportTest extends Framework\TestCase
             $deprecationList,
             $noticeList,
             $warningList,
+            $phpunitDeprecationList,
+            $phpunitNoticeList,
+            $phpunitWarningList,
             $totalAssertionCount,
             $totalTestCount,
         );
@@ -291,6 +360,9 @@ final class ReportTest extends Framework\TestCase
         self::assertSame($deprecationList, $report->deprecationList());
         self::assertSame($noticeList, $report->noticeList());
         self::assertSame($warningList, $report->warningList());
+        self::assertSame($phpunitDeprecationList, $report->phpunitDeprecationList());
+        self::assertSame($phpunitNoticeList, $report->phpunitNoticeList());
+        self::assertSame($phpunitWarningList, $report->phpunitWarningList());
         self::assertSame($totalAssertionCount, $report->totalAssertionCount());
         self::assertSame($totalTestCount, $report->totalTestCount());
     }

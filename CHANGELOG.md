@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`1.0.0...main`][1.0.0...main].
 
+### Added
+
+- Added `phpunitDeprecations`, `phpunitNotices`, and `phpunitWarnings` categories reporting deprecations, notices, and warnings triggered by `phpunit/phpunit` itself ([#69]), by [@localheinz]
+
 ## [`1.0.0`][1.0.0]
 
 For a full diff see [`0.3.0...1.0.0`][0.3.0...1.0.0].
@@ -57,5 +61,6 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [#4]: https://github.com/ergebnis/phpunit-agent-reporter/pull/4
 [#11]: https://github.com/ergebnis/phpunit-agent-reporter/pull/11
 [#44]: https://github.com/ergebnis/phpunit-agent-reporter/pull/44
+[#69]: https://github.com/ergebnis/phpunit-agent-reporter/pull/69
 
 [@localheinz]: https://github.com/localheinz

@@ -30,6 +30,9 @@ When tests pass, the extension outputs:
         "failures": 0,
         "incomplete": 0,
         "notices": 0,
+        "phpunitDeprecations": 0,
+        "phpunitNotices": 0,
+        "phpunitWarnings": 0,
         "risky": 0,
         "skipped": 0,
         "tests": 5,
@@ -50,6 +53,9 @@ When tests fail (exit code 1), the extension outputs:
         "failures": 2,
         "incomplete": 0,
         "notices": 0,
+        "phpunitDeprecations": 0,
+        "phpunitNotices": 0,
+        "phpunitWarnings": 0,
         "risky": 0,
         "skipped": 0,
         "tests": 5,
@@ -91,6 +97,9 @@ When tests error (exit code 2), the extension outputs:
         "failures": 2,
         "incomplete": 0,
         "notices": 0,
+        "phpunitDeprecations": 0,
+        "phpunitNotices": 0,
+        "phpunitWarnings": 0,
         "risky": 0,
         "skipped": 0,
         "tests": 5,
@@ -138,6 +147,9 @@ The `summary` always reports the count for every category, so that an agent has 
         "failures": 0,
         "incomplete": 0,
         "notices": 0,
+        "phpunitDeprecations": 0,
+        "phpunitNotices": 0,
+        "phpunitWarnings": 0,
         "risky": 0,
         "skipped": 0,
         "tests": 5,
@@ -157,6 +169,41 @@ The `summary` always reports the count for every category, so that an agent has 
     }
 }
 ```
+
+The `phpunitDeprecations`, `phpunitNotices`, and `phpunitWarnings` categories report deprecations, notices, and warnings triggered by `phpunit/phpunit` itself - as opposed to deprecations, notices, and warnings triggered by PHP or by the code under test. For example, when a test configures no expectations for a mock object, `phpunit/phpunit` triggers a PHPUnit notice, and the extension outputs:
+
+```json
+{
+    "result": "success",
+    "summary": {
+        "assertions": 5,
+        "deprecations": 0,
+        "errors": 0,
+        "failures": 0,
+        "incomplete": 0,
+        "notices": 0,
+        "phpunitDeprecations": 0,
+        "phpunitNotices": 1,
+        "phpunitWarnings": 0,
+        "risky": 0,
+        "skipped": 0,
+        "tests": 5,
+        "warnings": 0
+    },
+    "details": {
+        "phpunitNotices": [
+            {
+                "file": "/path/to/ExampleTest.php",
+                "line": 21,
+                "message": "No expectations were configured for the mock object for Namespace\\Example. Consider refactoring your test code to use a test stub instead. The #[AllowMockObjectsWithoutExpectations] attribute can be used to opt out of this check.",
+                "test": "Namespace\\ExampleTest::testTriggeringPhpunitNotice"
+            }
+        ]
+    }
+}
+```
+
+A `phpunitDeprecations`, `phpunitNotices`, or `phpunitWarnings` entry triggered by the test runner itself - rather than by a test - contains only a `message`. The `phpunitNotices` category requires [`phpunit/phpunit:^12.1.0`](https://github.com/sebastianbergmann/phpunit/tree/12.1.0); on older versions its count is always `0`.
 
 The JSON output conforms to the [JSON schema](schema/agent-report-schema.json) included in this package.
 
