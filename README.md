@@ -1,10 +1,10 @@
 # phpunit-agent-reporter
 
-[![Integrate](https://github.com/ergebnis/phpunit-agent-reporter/workflows/Integrate/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions)
-[![Merge](https://github.com/ergebnis/phpunit-agent-reporter/workflows/Merge/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions)
-[![Nightly](https://github.com/ergebnis/phpunit-agent-reporter/workflows/Nightly/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions)
-[![Release](https://github.com/ergebnis/phpunit-agent-reporter/workflows/Release/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions)
-[![Renew](https://github.com/ergebnis/phpunit-agent-reporter/workflows/Renew/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions)
+[![Integrate](https://github.com/ergebnis/phpunit-agent-reporter/actions/workflows/integrate.yaml/badge.svg?branch=main)](https://github.com/ergebnis/phpunit-agent-reporter/actions/workflows/integrate.yaml)
+[![Merge](https://github.com/ergebnis/phpunit-agent-reporter/actions/workflows/merge.yaml/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions/workflows/merge.yaml)
+[![Nightly](https://github.com/ergebnis/phpunit-agent-reporter/actions/workflows/nightly.yaml/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions/workflows/nightly.yaml)
+[![Release](https://github.com/ergebnis/phpunit-agent-reporter/actions/workflows/release.yaml/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions/workflows/release.yaml)
+[![Renew](https://github.com/ergebnis/phpunit-agent-reporter/actions/workflows/renew.yaml/badge.svg)](https://github.com/ergebnis/phpunit-agent-reporter/actions/workflows/renew.yaml)
 
 [![Code Coverage](https://codecov.io/gh/ergebnis/phpunit-agent-reporter/branch/main/graph/badge.svg)](https://codecov.io/gh/ergebnis/phpunit-agent-reporter)
 
