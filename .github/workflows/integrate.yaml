@@ -66,7 +66,7 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
       - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-        uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
+        uses: "ergebnis/.github/actions/composer/install@fa753ba19f89b4923380b19dfcd80ad7eca4def9" # 1.13.0
         with:
           dependencies: "${{ matrix.dependencies }}"
 
@@ -136,7 +136,7 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
       - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-        uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
+        uses: "ergebnis/.github/actions/composer/install@fa753ba19f89b4923380b19dfcd80ad7eca4def9" # 1.13.0
         with:
           dependencies: "${{ matrix.dependencies }}"
 
@@ -204,7 +204,7 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
       - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-        uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
+        uses: "ergebnis/.github/actions/composer/install@fa753ba19f89b4923380b19dfcd80ad7eca4def9" # 1.13.0
         with:
           dependencies: "${{ matrix.dependencies }}"
 
@@ -287,7 +287,7 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
       - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-        uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
+        uses: "ergebnis/.github/actions/composer/install@fa753ba19f89b4923380b19dfcd80ad7eca4def9" # 1.13.0
         with:
           dependencies: "${{ matrix.dependencies }}"
 
@@ -352,7 +352,7 @@ jobs:
         run: "composer remove phpunit/phpunit --ansi --no-interaction --no-progress"
 
       - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-        uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
+        uses: "ergebnis/.github/actions/composer/install@fa753ba19f89b4923380b19dfcd80ad7eca4def9" # 1.13.0
         with:
           dependencies: "${{ matrix.dependencies }}"
 
@@ -429,7 +429,7 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
       - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-        uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
+        uses: "ergebnis/.github/actions/composer/install@fa753ba19f89b4923380b19dfcd80ad7eca4def9" # 1.13.0
         with:
           dependencies: "${{ matrix.dependencies }}"
 
@@ -493,7 +493,7 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
       - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-        uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
+        uses: "ergebnis/.github/actions/composer/install@fa753ba19f89b4923380b19dfcd80ad7eca4def9" # 1.13.0
         with:
           dependencies: "${{ matrix.dependencies }}"
 
@@ -548,7 +548,7 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
       - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-        uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
+        uses: "ergebnis/.github/actions/composer/install@fa753ba19f89b4923380b19dfcd80ad7eca4def9" # 1.13.0
         with:
           dependencies: "${{ matrix.dependencies }}"
 
@@ -712,7 +712,7 @@ jobs:
         run: "composer require phpunit/phpunit:^${{ matrix.phpunit-version }} --ansi --no-interaction --no-progress --update-with-all-dependencies"
 
       - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-        uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
+        uses: "ergebnis/.github/actions/composer/install@fa753ba19f89b4923380b19dfcd80ad7eca4def9" # 1.13.0
         with:
           dependencies: "${{ matrix.dependencies }}"
 
@@ -746,7 +746,7 @@ jobs:
         run: "php bin/remove-autoload-configuration.php"
 
       - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-        uses: "ergebnis/.github/actions/composer/install@9785f99b3546d64df9cb331449e7fcdc41885d25" # 1.11.0
+        uses: "ergebnis/.github/actions/composer/install@fa753ba19f89b4923380b19dfcd80ad7eca4def9" # 1.13.0
         with:
           dependencies: "${{ matrix.dependencies }}"
 
