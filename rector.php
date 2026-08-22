@@ -44,8 +44,4 @@ return static function (Config\RectorConfig $rectorConfig): void {
             'Ergebnis\PHPUnit\AgentReporter',
         ],
     ]);
-
-    $rectorConfig->sets([
-        PHPUnit\Set\PHPUnitSetList::PHPUNIT_100,
-    ]);
 };
