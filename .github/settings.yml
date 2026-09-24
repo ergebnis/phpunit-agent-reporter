@@ -19,6 +19,7 @@ branches:
           - context: "Dependency Analysis (8.1, locked)"
           - context: "GitHub Actions Analysis"
           - context: "Mutation Tests (8.1, locked)"
+          - context: "Phar (8.1, locked)"
           - context: "Refactoring (8.1, locked)"
           - context: "Security Analysis (8.1, locked)"
           - context: "Static Code Analysis (8.1, locked)"
