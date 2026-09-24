@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`1.1.0...main`][1.1.0...main].
+For a full diff see [`1.2.0...main`][1.2.0...main].
+
+## [`1.2.0`][1.2.0]
+
+For a full diff see [`1.1.0...1.2.0`][1.1.0...1.2.0].
 
 ### Changed
 
@@ -63,7 +67,9 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [0.2.0...0.3.0]: https://github.com/ergebnis/phpunit-agent-reporter/compare/0.2.0...0.3.0
 [0.3.0...1.0.0]: https://github.com/ergebnis/phpunit-agent-reporter/compare/0.3.0...1.0.0
 [1.0.0...1.1.0]: https://github.com/ergebnis/phpunit-agent-reporter/compare/1.0.0...1.1.0
-[1.1.0...main]: https://github.com/ergebnis/phpunit-agent-reporter/compare/1.1.0...main
+[1.1.0...1.2.0]: https://github.com/ergebnis/phpunit-agent-reporter/compare/1.1.0...1.2.0
+[1.2.0]: https://github.com/ergebnis/phpunit-agent-reporter/releases/tag/1.2.0
+[1.2.0...main]: https://github.com/ergebnis/phpunit-agent-reporter/compare/1.2.0...main
 [1902cc2...0.1.0]: https://github.com/ergebnis/phpunit-agent-reporter/compare/1902cc2...0.1.0
 
 [#1]: https://github.com/ergebnis/phpunit-agent-reporter/pull/1
