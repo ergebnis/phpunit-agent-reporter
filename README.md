@@ -10,7 +10,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/ergebnis/phpunit-agent-reporter/v/stable)](https://packagist.org/packages/ergebnis/phpunit-agent-reporter)
 [![Total Downloads](https://poser.pugx.org/ergebnis/phpunit-agent-reporter/downloads)](https://packagist.org/packages/ergebnis/phpunit-agent-reporter)
-[![Monthly Downloads](http://poser.pugx.org/ergebnis/phpunit-agent-reporter/d/monthly)](https://packagist.org/packages/ergebnis/phpunit-agent-reporter)
+[![Monthly Downloads](https://poser.pugx.org/ergebnis/phpunit-agent-reporter/d/monthly)](https://packagist.org/packages/ergebnis/phpunit-agent-reporter)
 
 This project provides a [`composer`](https://getcomposer.org) package and a [Phar archive](https://www.php.net/manual/en/book.phar.php) with an extension for reporting [`phpunit/phpunit`](https://github.com/sebastianbergmann/phpunit) test execution details to agents.
 
