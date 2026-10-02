@@ -4,7 +4,7 @@
 
 The following versions of `ergebnis/phpunit-agent-reporter` have active support:
 
-- `1.1.0`
+- `^1.2.0`
 
 ## Unsupported Versions
 
