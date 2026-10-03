@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`1.2.0...main`][1.2.0...main].
 
+### Fixed
+
+- Stopped excluding `schema/agent-report-schema.json` from the distributable archive ([#142]), by [@localheinz]
+
 ## [`1.2.0`][1.2.0]
 
 For a full diff see [`1.1.0...1.2.0`][1.1.0...1.2.0].
@@ -79,5 +83,6 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [#44]: https://github.com/ergebnis/phpunit-agent-reporter/pull/44
 [#69]: https://github.com/ergebnis/phpunit-agent-reporter/pull/69
 [#123]: https://github.com/ergebnis/phpunit-agent-reporter/pull/123
+[#142]: https://github.com/ergebnis/phpunit-agent-reporter/pull/142
 
 [@localheinz]: https://github.com/localheinz
