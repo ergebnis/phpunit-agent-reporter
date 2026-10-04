@@ -211,6 +211,8 @@ The JSON output conforms to the [JSON schema](schema/agent-report-schema.json) i
 
 The extension uses [`ergebnis/agent-detector`](https://github.com/ergebnis/agent-detector) to detect the presence of agents.
 
+The extension does not replace the default output when [`infection/infection`](https://github.com/infection/infection) runs tests against a mutant, because `infection/infection` relies on the default output of `phpunit/phpunit` to decide whether a mutant escaped.
+
 ## Compatibility
 
 The extension is compatible with the following versions of `phpunit/phpunit`:

@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`1.2.1...main`][1.2.1...main].
 
+### Fixed
+
+- Stopped replacing the default output when `infection/infection` runs tests against a mutant ([#143]), by [@localheinz]
+
 ## [`1.2.1`][1.2.1]
 
 For a full diff see [`1.2.0...1.2.1`][1.2.0...1.2.1].
@@ -90,5 +94,6 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [#69]: https://github.com/ergebnis/phpunit-agent-reporter/pull/69
 [#123]: https://github.com/ergebnis/phpunit-agent-reporter/pull/123
 [#142]: https://github.com/ergebnis/phpunit-agent-reporter/pull/142
+[#143]: https://github.com/ergebnis/phpunit-agent-reporter/pull/143
 
 [@localheinz]: https://github.com/localheinz
