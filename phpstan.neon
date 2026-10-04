@@ -3,6 +3,9 @@ includes:
 
 parameters:
 	excludePaths:
+		# phpunit/phpunit:^12.2.0 introduced the events these subscribers subscribe to, while static analysis runs against phpunit/phpunit:^10.5.62
+		- src/Subscriber/Test/AfterLastTestMethodFailedSubscriber.php
+		- src/Subscriber/Test/BeforeFirstTestMethodFailedSubscriber.php
 		- test/EndToEnd/*/ExampleTest.php
 		- test/Phar/*/ExampleTest.php
 

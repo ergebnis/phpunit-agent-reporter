@@ -1,5 +1,5 @@
 --TEST--
-Extension outputs JSON with result failure when tests fail
+Extension prints failures as they happen and summary line when tests fail
 --ENV--
 AI_AGENT=1
 --FILE--
@@ -17,31 +17,25 @@ $application = new TextUI\Application();
 
 $application->run($_SERVER['argv']);
 --EXPECTF--
-{
-    "result": "failure",
-    "summary": {
-        "assertions": 2,
-        "deprecations": 0,
-        "errors": 0,
-        "failures": 1,
-        "incomplete": 0,
-        "notices": 0,
-        "phpunitDeprecations": 0,
-        "phpunitNotices": 0,
-        "phpunitWarnings": 0,
-        "risky": 0,
-        "skipped": 0,
-        "tests": 2,
-        "warnings": 0
-    },
-    "details": {
-        "failures": [
-            {
-                "file": "%s/test/EndToEnd/PHPUnit13/WithAiAgent/Failure/ExampleTest.php",
-                "line": %d,
-                "message": "Failed asserting that false is true.",
-                "test": "Ergebnis\\PHPUnit\\AgentReporter\\Test\\EndToEnd\\PHPUnit13\\WithAiAgent\\Failure\\ExampleTest::testFailing"
-            }
-        ]
-    }
-}
+PHPUnit %s by Sebastian Bergmann and contributors.
+
+Runtime:       PHP %s
+Configuration: %s/test/EndToEnd/PHPUnit13/WithAiAgent/Failure/phpunit.xml
+
+
+--- FAILURE: Ergebnis\PHPUnit\AgentReporter\Test\EndToEnd\PHPUnit13\WithAiAgent\Failure\ExampleTest::testFailing
+Failed asserting that false is true.
+
+%s/test/EndToEnd/PHPUnit13/WithAiAgent/Failure/ExampleTest.php:27
+
+--- FAILURE: Ergebnis\PHPUnit\AgentReporter\Test\EndToEnd\PHPUnit13\WithAiAgent\Failure\ExampleTest::testFailingStringComparison
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'foo'
++'bar'
+
+%s/test/EndToEnd/PHPUnit13/WithAiAgent/Failure/ExampleTest.php:35
+
+FAILURES (3 tests, 3 assertions, 2 failures)
