@@ -15,60 +15,11 @@ namespace Ergebnis\PHPUnit\AgentReporter\Test\Util;
 
 use Faker\Factory;
 use Faker\Generator;
-use JsonSchema\Validator;
-use PHPUnit\Framework;
+use PHPUnit\Event;
+use PHPUnit\Metadata;
 
 trait Helper
 {
-    final protected static function assertJsonSatisfiesAgentReportSchema(string $json): void
-    {
-        Framework\Assert::assertJson($json);
-
-        $schemaFile = self::schemaFile();
-
-        Framework\Assert::assertFileExists($schemaFile);
-
-        $data = \json_decode($json);
-
-        $validator = new Validator();
-
-        $validator->validate(
-            $data,
-            (object) [
-                '$ref' => \sprintf(
-                    'file://%s',
-                    \realpath($schemaFile),
-                ),
-            ],
-        );
-
-        $errors = $validator->getErrors();
-
-        self::assertIsArray($errors);
-
-        Framework\Assert::assertTrue($validator->isValid(), \sprintf(
-            <<<'TXT'
-Failed asserting that the JSON string satisfies the agent report schema:
-
-%s
-TXT
-            ,
-            \implode('', \array_map(static function (array $error): string {
-                self::assertArrayHasKey('property', $error);
-                self::assertIsString($error['property']);
-                self::assertArrayHasKey('message', $error);
-                self::assertIsString($error['message']);
-
-                return \sprintf(
-                    '- [%s] %s%s',
-                    $error['property'],
-                    $error['message'],
-                    \PHP_EOL,
-                );
-            }, $errors)),
-        ));
-    }
-
     final protected static function faker(string $locale = 'en_US'): Generator
     {
         /**
@@ -87,8 +38,54 @@ TXT
         return $fakers[$locale];
     }
 
-    final protected static function schemaFile(): string
+    /**
+     * @param resource $stream
+     */
+    final protected static function contentsOf($stream): string
     {
-        return __DIR__ . '/../../schema/agent-report-schema.json';
+        \rewind($stream);
+
+        $contents = \stream_get_contents($stream);
+
+        self::assertIsString($contents);
+
+        return $contents;
+    }
+
+    /**
+     * @return resource
+     */
+    final protected static function memoryStream()
+    {
+        $stream = \fopen(
+            'php://memory',
+            'w+b',
+        );
+
+        self::assertIsResource($stream);
+
+        return $stream;
+    }
+
+    final protected static function testMethod(Event\TestData\TestDataCollection $testData): Event\Code\TestMethod
+    {
+        $faker = self::faker();
+
+        $className = self::class;
+        $methodName = 'test' . \ucfirst($faker->word());
+
+        return new Event\Code\TestMethod(
+            $className,
+            $methodName,
+            '/' . $faker->word() . '.php',
+            __LINE__,
+            new Event\Code\TestDox(
+                $className,
+                $methodName,
+                $methodName,
+            ),
+            Metadata\MetadataCollection::fromArray([]),
+            $testData,
+        );
     }
 }
