@@ -218,9 +218,9 @@ The extension does not replace the default output when [`infection/infection`](h
 The extension is compatible with the following versions of `phpunit/phpunit`:
 
 - [`phpunit/phpunit:^13.0.0`](https://github.com/sebastianbergmann/phpunit/tree/13.0.0)
-- [`phpunit/phpunit:^12.0.0`](https://github.com/sebastianbergmann/phpunit/tree/12.0.0)
-- [`phpunit/phpunit:^11.0.0`](https://github.com/sebastianbergmann/phpunit/tree/11.0.0)
-- [`phpunit/phpunit:^10.0.0`](https://github.com/sebastianbergmann/phpunit/tree/10.0.0)
+- [`phpunit/phpunit:^12.5.8`](https://github.com/sebastianbergmann/phpunit/tree/12.5.8)
+- [`phpunit/phpunit:^11.5.50`](https://github.com/sebastianbergmann/phpunit/tree/11.5.50)
+- [`phpunit/phpunit:^10.5.62`](https://github.com/sebastianbergmann/phpunit/tree/10.5.62)
 
 ## Installation
 
@@ -249,16 +249,16 @@ Before the extension can report test execution details in `phpunit/phpunit`, you
 To bootstrap the extension as a `composer` package when using
 
 - `phpunit/phpunit:^13.0.0`
-- `phpunit/phpunit:^12.0.0`
-- `phpunit/phpunit:^11.0.0`
-- `phpunit/phpunit:^10.0.0`
+- `phpunit/phpunit:^12.5.8`
+- `phpunit/phpunit:^11.5.50`
+- `phpunit/phpunit:^10.5.62`
 
 adjust your `phpunit.xml` configuration file and configure the
 
 - [`extensions` element](https://docs.phpunit.de/en/13.0/configuration.html#the-extensions-element) on [`phpunit/phpunit:^13.0.0`](https://docs.phpunit.de/en/13.0/)
-- [`extensions` element](https://docs.phpunit.de/en/12.0/configuration.html#the-extensions-element) on [`phpunit/phpunit:^12.0.0`](https://docs.phpunit.de/en/12.0/)
-- [`extensions` element](https://docs.phpunit.de/en/11.0/configuration.html#the-extensions-element) on [`phpunit/phpunit:^11.0.0`](https://docs.phpunit.de/en/11.0/)
-- [`extensions` element](https://docs.phpunit.de/en/10.5/configuration.html#the-extensions-element) on [`phpunit/phpunit:^10.0.0`](https://docs.phpunit.de/en/10.5/)
+- [`extensions` element](https://docs.phpunit.de/en/12.0/configuration.html#the-extensions-element) on [`phpunit/phpunit:^12.5.8`](https://docs.phpunit.de/en/12.0/)
+- [`extensions` element](https://docs.phpunit.de/en/11.0/configuration.html#the-extensions-element) on [`phpunit/phpunit:^11.5.50`](https://docs.phpunit.de/en/11.0/)
+- [`extensions` element](https://docs.phpunit.de/en/10.5/configuration.html#the-extensions-element) on [`phpunit/phpunit:^10.5.62`](https://docs.phpunit.de/en/10.5/)
 
 ```diff
  <phpunit
@@ -282,16 +282,16 @@ adjust your `phpunit.xml` configuration file and configure the
 To bootstrap the extension as a PHAR when using
 
 - `phpunit/phpunit:^13.0.0`
-- `phpunit/phpunit:^12.0.0`
-- `phpunit/phpunit:^11.0.0`
-- `phpunit/phpunit:^10.0.0`
+- `phpunit/phpunit:^12.5.8`
+- `phpunit/phpunit:^11.5.50`
+- `phpunit/phpunit:^10.5.62`
 
 adjust your `phpunit.xml` configuration file and configure the
 
 - [`extensionsDirectory` attribute](https://docs.phpunit.de/en/13.0/configuration.html#the-extensionsdirectory-attribute) and the [`extensions` element](https://docs.phpunit.de/en/13.0/configuration.html#the-extensions-element) on [`phpunit/phpunit:^13.0.0`](https://docs.phpunit.de/en/13.0/)
-- [`extensionsDirectory` attribute](https://docs.phpunit.de/en/12.0/configuration.html#the-extensionsdirectory-attribute) and the [`extensions` element](https://docs.phpunit.de/en/12.0/configuration.html#the-extensions-element) on [`phpunit/phpunit:^12.0.0`](https://docs.phpunit.de/en/12.0/)
-- [`extensionsDirectory` attribute](https://docs.phpunit.de/en/11.0/configuration.html#the-extensionsdirectory-attribute) and the [`extensions` element](https://docs.phpunit.de/en/11.0/configuration.html#the-extensions-element) on [`phpunit/phpunit:^11.0.0`](https://docs.phpunit.de/en/11.0/)
-- [`extensionsDirectory` attribute](https://docs.phpunit.de/en/10.5/configuration.html#the-extensionsdirectory-attribute) and the [`extensions` element](https://docs.phpunit.de/en/10.5/configuration.html#the-extensions-element) on [`phpunit/phpunit:^10.0.0`](https://docs.phpunit.de/en/10.5/)
+- [`extensionsDirectory` attribute](https://docs.phpunit.de/en/12.0/configuration.html#the-extensionsdirectory-attribute) and the [`extensions` element](https://docs.phpunit.de/en/12.0/configuration.html#the-extensions-element) on [`phpunit/phpunit:^12.5.8`](https://docs.phpunit.de/en/12.0/)
+- [`extensionsDirectory` attribute](https://docs.phpunit.de/en/11.0/configuration.html#the-extensionsdirectory-attribute) and the [`extensions` element](https://docs.phpunit.de/en/11.0/configuration.html#the-extensions-element) on [`phpunit/phpunit:^11.5.50`](https://docs.phpunit.de/en/11.0/)
+- [`extensionsDirectory` attribute](https://docs.phpunit.de/en/10.5/configuration.html#the-extensionsdirectory-attribute) and the [`extensions` element](https://docs.phpunit.de/en/10.5/configuration.html#the-extensions-element) on [`phpunit/phpunit:^10.5.62`](https://docs.phpunit.de/en/10.5/)
 
 ```diff
  <phpunit
