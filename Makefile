@@ -65,20 +65,20 @@ tests: tests-unit tests-end-to-end tests-phar ## Runs unit, end-to-end, and phar
 
 .PHONY: tests-end-to-end
 tests-end-to-end: docker-build ## Runs end-to-end tests with phpunit/phpunit in Docker containers
-	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php81 -c "/app/src/.docker/tests-end-to-end.sh 10.0.0 lowest"
-	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php81 -c "/app/src/.docker/tests-end-to-end.sh 10.0.0 highest"
-	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php82 -c "/app/src/.docker/tests-end-to-end.sh 11.0.0 lowest"
-	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php82 -c "/app/src/.docker/tests-end-to-end.sh 11.0.0 highest"
-	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php83 -c "/app/src/.docker/tests-end-to-end.sh 12.0.0 lowest"
-	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php83 -c "/app/src/.docker/tests-end-to-end.sh 12.0.0 highest"
+	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php81 -c "/app/src/.docker/tests-end-to-end.sh 10.5.62 lowest"
+	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php81 -c "/app/src/.docker/tests-end-to-end.sh 10.5.62 highest"
+	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php82 -c "/app/src/.docker/tests-end-to-end.sh 11.5.50 lowest"
+	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php82 -c "/app/src/.docker/tests-end-to-end.sh 11.5.50 highest"
+	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php83 -c "/app/src/.docker/tests-end-to-end.sh 12.5.8 lowest"
+	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php83 -c "/app/src/.docker/tests-end-to-end.sh 12.5.8 highest"
 	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php84 -c "/app/src/.docker/tests-end-to-end.sh 13.0.0 lowest"
 	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php84 -c "/app/src/.docker/tests-end-to-end.sh 13.0.0 highest"
 
 .PHONY: tests-phar
 tests-phar: phar docker-build ## Runs phar tests with phpunit/phpunit in Docker containers
-	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php81 -c "/app/src/.docker/tests-phar.sh 10.0.0"
-	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php82 -c "/app/src/.docker/tests-phar.sh 11.0.0"
-	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php83 -c "/app/src/.docker/tests-phar.sh 12.0.0"
+	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php81 -c "/app/src/.docker/tests-phar.sh 10.5.62"
+	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php82 -c "/app/src/.docker/tests-phar.sh 11.5.50"
+	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php83 -c "/app/src/.docker/tests-phar.sh 12.5.8"
 	docker container run --rm --volume $(CURDIR):/app/src:ro --volume composer-cache:/root/.composer phpunit-agent-reporter-php84 -c "/app/src/.docker/tests-phar.sh 13.0.0"
 
 .PHONY: tests-unit

@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`1.2.2...main`][1.2.2...main].
 
+### Changed
+
+- Required `phpunit/phpunit:^10.5.62 || ^11.5.50 || ^12.5.8 || ^13.0.0`, versions not affected by security advisories ([#144]), by [@localheinz]
+
 ## [`1.2.2`][1.2.2]
 
 For a full diff see [`1.2.1...1.2.2`][1.2.1...1.2.2].
@@ -101,5 +105,6 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [#123]: https://github.com/ergebnis/phpunit-agent-reporter/pull/123
 [#142]: https://github.com/ergebnis/phpunit-agent-reporter/pull/142
 [#143]: https://github.com/ergebnis/phpunit-agent-reporter/pull/143
+[#144]: https://github.com/ergebnis/phpunit-agent-reporter/pull/144
 
 [@localheinz]: https://github.com/localheinz

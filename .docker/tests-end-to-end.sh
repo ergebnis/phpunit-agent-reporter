@@ -7,7 +7,7 @@ DEPENDENCIES="${2}"
 
 if [ -z "${PHPUNIT_VERSION}" ] || [ -z "${DEPENDENCIES}" ]; then
     echo "Usage: tests-end-to-end.sh <phpunit-version> <dependencies>"
-    echo "  phpunit-version: e.g. 10.0.0, 11.0.0, 12.0.0, 13.0.0"
+    echo "  phpunit-version: e.g. 10.5.62, 11.5.50, 12.5.8, 13.0.0"
     echo "  dependencies:    lowest or highest"
     exit 1
 fi
@@ -19,9 +19,9 @@ if [ "${DEPENDENCIES}" != "lowest" ] && [ "${DEPENDENCIES}" != "highest" ]; then
 fi
 
 case "${PHPUNIT_VERSION}" in
-    10.0.0) DIRECTORY="PHPUnit10" ;;
-    11.0.0) DIRECTORY="PHPUnit11" ;;
-    12.0.0) DIRECTORY="PHPUnit12" ;;
+    10.5.62) DIRECTORY="PHPUnit10" ;;
+    11.5.50) DIRECTORY="PHPUnit11" ;;
+    12.5.8) DIRECTORY="PHPUnit12" ;;
     13.0.0) DIRECTORY="PHPUnit13" ;;
     *)
         echo "Unknown PHPUnit version: ${PHPUNIT_VERSION}"
