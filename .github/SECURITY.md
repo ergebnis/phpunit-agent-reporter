@@ -4,13 +4,13 @@
 
 The following versions of `ergebnis/phpunit-agent-reporter` have active support:
 
-- `^1.2.1`
+- `^1.2.2`
 
 ## Unsupported Versions
 
 The following versions of `ergebnis/phpunit-agent-reporter` have reached their end of life:
 
-- `<1.2.1`
+- `<1.2.2`
 
 ## Reporting a Vulnerability
 
