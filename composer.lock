@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "485663a47e9fdc8ca57ecb0b38b0d0c0",
+    "content-hash": "c18ccbf8b3798d91f06c8403eceae2da",
     "packages": [
         {
             "name": "ergebnis/agent-detector",
@@ -6499,7 +6499,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
+        "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0",
+        "ext-mbstring": "*"
     },
     "platform-dev": {},
     "platform-overrides": {

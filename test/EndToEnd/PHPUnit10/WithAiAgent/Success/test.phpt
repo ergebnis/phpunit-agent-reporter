@@ -1,5 +1,5 @@
 --TEST--
-Extension outputs JSON with result success when all tests pass
+Extension prints summary line when tests succeed
 --ENV--
 AI_AGENT=1
 --FILE--
@@ -17,21 +17,9 @@ $application = new TextUI\Application();
 
 $application->run($_SERVER['argv']);
 --EXPECTF--
-{
-    "result": "success",
-    "summary": {
-        "assertions": 2,
-        "deprecations": 0,
-        "errors": 0,
-        "failures": 0,
-        "incomplete": 0,
-        "notices": 0,
-        "phpunitDeprecations": 0,
-        "phpunitNotices": 0,
-        "phpunitWarnings": 0,
-        "risky": 0,
-        "skipped": 0,
-        "tests": 2,
-        "warnings": 0
-    }
-}
+PHPUnit %s by Sebastian Bergmann and contributors.
+
+Runtime:       PHP %s
+Configuration: %s/test/EndToEnd/PHPUnit10/WithAiAgent/Success/phpunit.xml
+
+OK (2 tests, 2 assertions)
