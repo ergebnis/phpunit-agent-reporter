@@ -16,196 +16,93 @@ This project provides a [`composer`](https://getcomposer.org) package and a [Pha
 
 ## Example
 
-After installing and bootstrapping the extension, when running your tests with `phpunit/phpunit`, the extension will detect whether an agent is running the tests and replace the default output with test execution details that are easier for agents to consume.
+After installing and bootstrapping the extension, when running your tests with `phpunit/phpunit`, the extension will detect whether an agent is running the tests and replace the progress and result output of `phpunit/phpunit` with the compact output that `phpunit/phpunit` prints with the `--compact` option since [`phpunit/phpunit:13.2.0`](https://github.com/sebastianbergmann/phpunit/tree/13.2.0). The extension prints this output on every supported version of `phpunit/phpunit`.
 
 When tests pass, the extension outputs:
 
-```json
-{
-    "result": "success",
-    "summary": {
-        "assertions": 5,
-        "deprecations": 0,
-        "errors": 0,
-        "failures": 0,
-        "incomplete": 0,
-        "notices": 0,
-        "phpunitDeprecations": 0,
-        "phpunitNotices": 0,
-        "phpunitWarnings": 0,
-        "risky": 0,
-        "skipped": 0,
-        "tests": 5,
-        "warnings": 0
-    }
-}
+```text
+PHPUnit 13.4.0 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.26
+Configuration: /path/to/phpunit.xml
+
+OK (5 tests, 5 assertions)
 ```
 
-When tests fail (exit code 1), the extension outputs:
+When tests fail, the extension prints each failure as soon as it happens, followed by the summary:
 
-```json
-{
-    "result": "failure",
-    "summary": {
-        "assertions": 5,
-        "deprecations": 0,
-        "errors": 0,
-        "failures": 2,
-        "incomplete": 0,
-        "notices": 0,
-        "phpunitDeprecations": 0,
-        "phpunitNotices": 0,
-        "phpunitWarnings": 0,
-        "risky": 0,
-        "skipped": 0,
-        "tests": 5,
-        "warnings": 0
-    },
-    "details": {
-        "failures": [
-            {
-                "file": "/path/to/ExampleTest.php",
-                "line": 27,
-                "message": "Failed asserting that false is true.",
-                "test": "Namespace\\ExampleTest::testFailing"
-            },
-            {
-                "actual": "bar",
-                "diff": "--- Expected\n+++ Actual\n@@ @@\n-'foo'\n+'bar'\n",
-                "expected": "foo",
-                "file": "/path/to/ExampleTest.php",
-                "line": 34,
-                "message": "Failed asserting that two strings are identical.",
-                "test": "Namespace\\ExampleTest::testComparisonFailing"
-            }
-        ]
-    }
-}
+```text
+PHPUnit 13.4.0 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.26
+Configuration: /path/to/phpunit.xml
+
+
+--- FAILURE: Namespace\ExampleTest::testFailing
+Failed asserting that false is true.
+
+/path/to/ExampleTest.php:27
+
+--- FAILURE: Namespace\ExampleTest::testComparisonFailing
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'foo'
++'bar'
+
+/path/to/ExampleTest.php:35
+
+FAILURES (5 tests, 5 assertions, 2 failures)
 ```
 
-When tests fail with comparison assertions, the `actual`, `diff`, and `expected` fields provide details about the mismatch. These fields are only present for comparison failures.
+When tests error, the extension prints each error as soon as it happens, including previous exceptions:
 
-When tests error (exit code 2), the extension outputs:
+```text
+--- ERROR: Namespace\ExampleTest::testErroring
+RuntimeException: Something went wrong.
 
-```json
-{
-    "result": "exception",
-    "summary": {
-        "assertions": 5,
-        "deprecations": 0,
-        "errors": 1,
-        "failures": 2,
-        "incomplete": 0,
-        "notices": 0,
-        "phpunitDeprecations": 0,
-        "phpunitNotices": 0,
-        "phpunitWarnings": 0,
-        "risky": 0,
-        "skipped": 0,
-        "tests": 5,
-        "warnings": 0
-    },
-    "details": {
-        "errors": [
-            {
-                "file": "/path/to/ExampleTest.php",
-                "line": 32,
-                "message": "Something went wrong.",
-                "test": "Namespace\\ExampleTest::testErroring"
-            }
-        ],
-        "failures": [
-            {
-                "file": "/path/to/ExampleTest.php",
-                "line": 27,
-                "message": "Failed asserting that false is true.",
-                "test": "Namespace\\ExampleTest::testFailing"
-            },
-            {
-                "actual": "bar",
-                "diff": "--- Expected\n+++ Actual\n@@ @@\n-'foo'\n+'bar'\n",
-                "expected": "foo",
-                "file": "/path/to/ExampleTest.php",
-                "line": 34,
-                "message": "Failed asserting that two strings are identical.",
-                "test": "Namespace\\ExampleTest::testComparisonFailing"
-            }
-        ]
-    }
-}
+/path/to/ExampleTest.php:27
+Caused by
+LogicException: Something else went wrong before.
+
+/path/to/ExampleTest.php:30
+
+ERRORS (5 tests, 4 assertions, 1 error)
 ```
 
-The `summary` always reports the count for every category, so that an agent has a complete overview of the test run. The `details` section, however, only contains an entry for a category when the test run produces at least one occurrence of it, so that an agent has all the information it can act on without unnecessary noise. For example, when tests trigger deprecations, the extension outputs:
+The summary always counts deprecations, notices, warnings, skipped, incomplete, and risky tests. As `phpunit/phpunit` does, the extension prints details about deprecations, notices, warnings, skipped, and incomplete tests only when you enable them, for example with `--display-all-issues`, `--display-deprecations`, or the corresponding `displayDetailsOn*` attributes in `phpunit.xml`:
 
-```json
-{
-    "result": "success",
-    "summary": {
-        "assertions": 5,
-        "deprecations": 1,
-        "errors": 0,
-        "failures": 0,
-        "incomplete": 0,
-        "notices": 0,
-        "phpunitDeprecations": 0,
-        "phpunitNotices": 0,
-        "phpunitWarnings": 0,
-        "risky": 0,
-        "skipped": 0,
-        "tests": 5,
-        "warnings": 0
-    },
-    "details": {
-        "deprecations": [
-            {
-                "file": "/path/to/ExampleTest.php",
-                "line": 42,
-                "message": "Method Namespace\\Example::doSomething() is deprecated.",
-                "triggeredBy": [
-                    "Namespace\\ExampleTest::testTriggeringDeprecation"
-                ]
-            }
-        ]
-    }
-}
+```text
+OK (5 tests, 5 assertions, 1 deprecation)
+
+--- DEPRECATION: /path/to/Example.php:42
+Method Namespace\Example::doSomething() is deprecated.
+Triggered by: Namespace\ExampleTest::testTriggeringDeprecation (/path/to/ExampleTest.php:21)
 ```
 
-The `phpunitDeprecations`, `phpunitNotices`, and `phpunitWarnings` categories report deprecations, notices, and warnings triggered by `phpunit/phpunit` itself - as opposed to deprecations, notices, and warnings triggered by PHP or by the code under test. For example, when a test configures no expectations for a mock object, `phpunit/phpunit` triggers a PHPUnit notice, and the extension outputs:
+### Output format
 
-```json
-{
-    "result": "success",
-    "summary": {
-        "assertions": 5,
-        "deprecations": 0,
-        "errors": 0,
-        "failures": 0,
-        "incomplete": 0,
-        "notices": 0,
-        "phpunitDeprecations": 0,
-        "phpunitNotices": 1,
-        "phpunitWarnings": 0,
-        "risky": 0,
-        "skipped": 0,
-        "tests": 5,
-        "warnings": 0
-    },
-    "details": {
-        "phpunitNotices": [
-            {
-                "file": "/path/to/ExampleTest.php",
-                "line": 21,
-                "message": "No expectations were configured for the mock object for Namespace\\Example. Consider refactoring your test code to use a test stub instead. The #[AllowMockObjectsWithoutExpectations] attribute can be used to opt out of this check.",
-                "test": "Namespace\\ExampleTest::testTriggeringPhpunitNotice"
-            }
-        ]
-    }
-}
-```
+The output follows the compact output of [`phpunit/phpunit:^13.4.0`](https://github.com/sebastianbergmann/phpunit/tree/13.4.0) and is meant for agents. The console output is not covered by the backward compatibility promise of this project: it may change in any release, for example when `phpunit/phpunit` changes its compact output.
 
-A `phpunitDeprecations`, `phpunitNotices`, or `phpunitWarnings` entry triggered by the test runner itself - rather than by a test - contains only a `message`. The `phpunitNotices` category requires [`phpunit/phpunit:^12.1.0`](https://github.com/sebastianbergmann/phpunit/tree/12.1.0); on older versions its count is always `0`.
+When you run `phpunit/phpunit:^13.2.0` with the `--compact` option or the `PHPUNIT_COMPACT_OUTPUT` environment variable, `phpunit/phpunit` prints compact output itself, and the extension does nothing.
 
-The JSON output conforms to the [JSON schema](schema/agent-report-schema.json) included in this package.
+On older versions of `phpunit/phpunit`, the extension prints only what the events of that version provide:
+
+- Before [`phpunit/phpunit:12.2.0`](https://github.com/sebastianbergmann/phpunit/tree/12.2.0), the extension prints a failed assertion in `setUpBeforeClass()` or `tearDownAfterClass()` as a failure, but the summary counts it as an error.
+- Before [`phpunit/phpunit:12.1.0`](https://github.com/sebastianbergmann/phpunit/tree/12.1.0), the summary does not count notices triggered by `phpunit/phpunit` itself.
+- Before [`phpunit/phpunit:11.5.51`](https://github.com/sebastianbergmann/phpunit/tree/11.5.51), [`phpunit/phpunit:12.5.9`](https://github.com/sebastianbergmann/phpunit/tree/12.5.9), and [`phpunit/phpunit:13.0.0`](https://github.com/sebastianbergmann/phpunit/tree/13.0.0), the summary does not count tests skipped because their test suite was skipped.
+- Before [`phpunit/phpunit:13.2.0`](https://github.com/sebastianbergmann/phpunit/tree/13.2.0), the extension does not print deprecations, notices, warnings, and errors triggered outside of tests.
+
+The extension cannot prevent `phpunit/phpunit` from printing output of tests, so for output printed by a test, the extension prints only the `--- OUTPUT:` header, and `phpunit/phpunit` prints the output right below it. This differs from compact output in the following ways:
+
+- Trailing blank lines in the output remain.
+- Before [`phpunit/phpunit:12.5.36`](https://github.com/sebastianbergmann/phpunit/tree/12.5.36) and [`phpunit/phpunit:13.3.5`](https://github.com/sebastianbergmann/phpunit/tree/13.3.5), `phpunit/phpunit` does not escape control characters in the output.
+- With `--disallow-test-output`, `phpunit/phpunit` still prints the output.
+
+For the same reason, `phpunit/phpunit` prints the message that the time limit for the test run was exceeded itself.
+
+Because `phpunit/phpunit` may still report warnings after all tests have run, the extension prints the summary when the application has finished, that is, after a code coverage report printed to the console.
 
 ### Agent Detection
 
@@ -350,6 +247,10 @@ This project uses the [MIT license](LICENSE.md).
 ## Credits
 
 This package is inspired by [`nunomaduro/pao`](https://github.com/nunomaduro/pao), originally licensed under MIT by [Nuno Maduro](https://github.com/nunomaduro).
+
+The output of this package is inspired by and attempts to match the compact output of [`phpunit/phpunit`](https://github.com/sebastianbergmann/phpunit) by [Sebastian Bergmann](https://github.com/sebastianbergmann), which `phpunit/phpunit` prints since [`phpunit/phpunit:13.2.0`](https://github.com/sebastianbergmann/phpunit/tree/13.2.0). This package backports it to older versions of `phpunit/phpunit`.
+
+The sanitization of control characters in `src/Output/Sanitizer.php` is ported from [`phpunit/phpunit`](https://github.com/sebastianbergmann/phpunit), originally licensed under BSD-3-Clause by [Sebastian Bergmann](https://github.com/sebastianbergmann).
 
 ## Social
 

@@ -26,4 +26,12 @@ final class ExampleTest extends Framework\TestCase
     {
         self::assertTrue(false);
     }
+
+    public function testFailingStringComparison(): void
+    {
+        $expected = 'foo';
+        $actual = 'bar';
+
+        self::assertSame($expected, $actual);
+    }
 }
