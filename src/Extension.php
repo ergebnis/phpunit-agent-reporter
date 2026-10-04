@@ -24,9 +24,21 @@ final class Extension implements Runner\Extension\Extension
         Runner\Extension\Facade $facade,
         Runner\Extension\ParameterCollection $parameters,
     ): void {
+        $environment = \getenv();
+
         $detector = new AgentDetector\Detector();
 
-        if (!$detector->isAgentPresent(\getenv())) {
+        if (!$detector->isAgentPresent($environment)) {
+            return;
+        }
+
+        /**
+         * infection/infection sets this environment variable for every process that runs tests against a mutant, and
+         * decides whether a mutant escaped by matching the default output of phpunit/phpunit.
+         *
+         * @see https://github.com/infection/infection/blob/0.27.11/src/Process/Runner/ParallelProcessRunner.php
+         */
+        if (\array_key_exists('INFECTION', $environment)) {
             return;
         }
 
