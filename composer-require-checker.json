@@ -1,3 +1,8 @@
 {
-  "symbol-whitelist": []
+  "symbol-whitelist": [
+    "PHPUnit\\Event\\Test\\AfterLastTestMethodFailed",
+    "PHPUnit\\Event\\Test\\AfterLastTestMethodFailedSubscriber",
+    "PHPUnit\\Event\\Test\\BeforeFirstTestMethodFailed",
+    "PHPUnit\\Event\\Test\\BeforeFirstTestMethodFailedSubscriber"
+  ]
 }

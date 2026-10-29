@@ -17,12 +17,12 @@ use PHPUnit\Framework;
 
 final class ExampleTest extends Framework\TestCase
 {
-    public function testSucceedingOne(): void
+    public function testSucceeding(): void
     {
         self::assertTrue(true);
     }
 
-    public function testSucceedingTwo(): void
+    public function testSucceedingAsWell(): void
     {
         self::assertSame(1, 1);
     }
