@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`1.5.0...main`][1.5.0...main].
 
+### Added
+
+- Added support for PHP 8.6 ([#180]), by [@localheinz]
+
 ## [`1.5.0`][1.5.0]
 
 For a full diff see [`1.4.0...1.5.0`][1.4.0...1.5.0].
@@ -133,6 +137,7 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [#143]: https://github.com/ergebnis/phpunit-agent-reporter/pull/143
 [#144]: https://github.com/ergebnis/phpunit-agent-reporter/pull/144
 [#163]: https://github.com/ergebnis/phpunit-agent-reporter/pull/163
+[#180]: https://github.com/ergebnis/phpunit-agent-reporter/pull/180
 [#181]: https://github.com/ergebnis/phpunit-agent-reporter/pull/181
 [#186]: https://github.com/ergebnis/phpunit-agent-reporter/pull/186
 
