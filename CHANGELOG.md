@@ -11,6 +11,7 @@ For a full diff see [`1.3.0...main`][1.3.0...main].
 ### Added
 
 - Allowed installation of `ergebnis/agent-detector:^2.0.0` ([#163]), by [@localheinz]
+- Added support for PHP 8.6 ([#180]), by [@localheinz]
 
 ## [`1.3.0`][1.3.0]
 
@@ -117,5 +118,6 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [#143]: https://github.com/ergebnis/phpunit-agent-reporter/pull/143
 [#144]: https://github.com/ergebnis/phpunit-agent-reporter/pull/144
 [#163]: https://github.com/ergebnis/phpunit-agent-reporter/pull/163
+[#180]: https://github.com/ergebnis/phpunit-agent-reporter/pull/180
 
 [@localheinz]: https://github.com/localheinz
