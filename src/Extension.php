@@ -24,11 +24,9 @@ final class Extension implements Runner\Extension\Extension
         Runner\Extension\Facade $facade,
         Runner\Extension\ParameterCollection $parameters,
     ): void {
-        $environment = \getenv();
-
         $detector = new AgentDetector\Detector();
 
-        if (!$detector->isAgentPresent($environment)) {
+        if (!$detector->isAgentPresent()) {
             return;
         }
 
@@ -38,7 +36,7 @@ final class Extension implements Runner\Extension\Extension
          *
          * @see https://github.com/infection/infection/blob/0.27.11/src/Process/Runner/ParallelProcessRunner.php
          */
-        if (\array_key_exists('INFECTION', $environment)) {
+        if (\getenv('INFECTION') !== false) {
             return;
         }
 

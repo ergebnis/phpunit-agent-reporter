@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Method Ergebnis\\AgentDetector\\Detector\:\:isAgentPresent\(\) invoked with 1 parameter, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: src/Extension.php
-
-		-
 			message: '#^Call to function method_exists\(\) with PHPUnit\\TestRunner\\TestResult\\TestResult and ''testRunnerTriggered…'' will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
