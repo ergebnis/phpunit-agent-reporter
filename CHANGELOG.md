@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`1.6.0...main`][1.6.0...main].
 
+### Changed
+
+- Allowed installation on PHP 8.7 ([#187]), by [@localheinz]
+
 ## [`1.6.0`][1.6.0]
 
 For a full diff see [`1.5.0...1.6.0`][1.5.0...1.6.0].
@@ -146,5 +150,6 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [#180]: https://github.com/ergebnis/phpunit-agent-reporter/pull/180
 [#181]: https://github.com/ergebnis/phpunit-agent-reporter/pull/181
 [#186]: https://github.com/ergebnis/phpunit-agent-reporter/pull/186
+[#187]: https://github.com/ergebnis/phpunit-agent-reporter/pull/187
 
 [@localheinz]: https://github.com/localheinz
