@@ -48,10 +48,10 @@ trait Helper
 
         Framework\Assert::assertTrue($validator->isValid(), \sprintf(
             <<<'TXT'
-Failed asserting that the JSON string satisfies the agent report schema:
+                Failed asserting that the JSON string satisfies the agent report schema:
 
-%s
-TXT
+                %s
+                TXT
             ,
             \implode('', \array_map(static function (array $error): string {
                 self::assertArrayHasKey('property', $error);
