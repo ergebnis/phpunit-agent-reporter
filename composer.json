@@ -26,15 +26,14 @@
     "ergebnis/license": "^2.9.0",
     "ergebnis/php-cs-fixer-config": "^6.65.0",
     "ergebnis/phpstan-rules": "^2.17.1",
-    "ergebnis/rector-rules": "^1.19.0",
+    "ergebnis/rector-config": "~0.5.0",
     "fakerphp/faker": "^1.24.1",
     "infection/infection": "~0.27.11",
     "justinrainbow/json-schema": "^5.0.0 || ^6.0.0",
     "phpstan/phpstan": "^2.2.16",
     "phpstan/phpstan-deprecation-rules": "^2.0.6",
     "phpstan/phpstan-phpunit": "^2.1.2",
-    "phpstan/phpstan-strict-rules": "^2.1.2",
-    "rector/rector": "^2.8.5"
+    "phpstan/phpstan-strict-rules": "^2.1.2"
   },
   "autoload": {
     "psr-4": {
