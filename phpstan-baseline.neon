@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Call to method isAgentPresent\(\) on an unknown class Ergebnis\\AgentDetector\\EnvironmentDetector\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Extension.php
+
+		-
 			message: '#^Call to function method_exists\(\) with PHPUnit\\TestRunner\\TestResult\\TestResult and ''testRunnerTriggered…'' will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
