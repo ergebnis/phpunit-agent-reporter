@@ -24,7 +24,11 @@ final class Extension implements Runner\Extension\Extension
         Runner\Extension\Facade $facade,
         Runner\Extension\ParameterCollection $parameters,
     ): void {
-        $detector = new AgentDetector\Detector();
+        if (\class_exists(AgentDetector\EnvironmentDetector::class)) {
+            $detector = new AgentDetector\EnvironmentDetector();
+        } else {
+            $detector = new AgentDetector\Detector();
+        }
 
         if (!$detector->isAgentPresent()) {
             return;

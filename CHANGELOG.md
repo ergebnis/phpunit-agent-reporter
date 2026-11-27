@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`1.7.0...main`][1.7.0...main].
 
+### Added
+
+- Added support for `ergebnis/agent-detector:^3.0.0` ([#194]), by [@localheinz]
+
 ## [`1.7.0`][1.7.0]
 
 For a full diff see [`1.6.0...1.7.0`][1.6.0...1.7.0].
@@ -157,5 +161,6 @@ For a full diff see [`1902cc2...0.1.0`][1902cc2...0.1.0].
 [#181]: https://github.com/ergebnis/phpunit-agent-reporter/pull/181
 [#186]: https://github.com/ergebnis/phpunit-agent-reporter/pull/186
 [#187]: https://github.com/ergebnis/phpunit-agent-reporter/pull/187
+[#194]: https://github.com/ergebnis/phpunit-agent-reporter/pull/194
 
 [@localheinz]: https://github.com/localheinz
