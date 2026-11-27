@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69b411f0afcede50a5d6d0c3f7e92475",
+    "content-hash": "fac05f4eddc529eb99a51812ae8d1cba",
     "packages": [
         {
             "name": "ergebnis/agent-detector",
