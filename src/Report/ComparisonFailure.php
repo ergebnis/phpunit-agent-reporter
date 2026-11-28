@@ -18,8 +18,11 @@ namespace Ergebnis\PHPUnit\AgentReporter\Report;
  */
 final class ComparisonFailure
 {
-    private function __construct(private readonly Actual $actual, private readonly Diff $diff, private readonly Expected $expected)
-    {
+    private function __construct(
+        private readonly Actual $actual,
+        private readonly Diff $diff,
+        private readonly Expected $expected,
+    ) {
     }
 
     public static function create(

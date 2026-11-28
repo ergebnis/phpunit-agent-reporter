@@ -25,8 +25,11 @@ final class ApplicationFinishedSubscriber implements Event\Application\FinishedS
     /**
      * @param resource $output
      */
-    public function __construct(private readonly AgentReporter\Report\TestResultTranslator $testResultTranslator, private readonly AgentReporter\Reporter\Reporter $reporter, private $output)
-    {
+    public function __construct(
+        private readonly AgentReporter\Report\TestResultTranslator $testResultTranslator,
+        private readonly AgentReporter\Reporter\Reporter $reporter,
+        private $output,
+    ) {
     }
 
     public function notify(Event\Application\Finished $event): void

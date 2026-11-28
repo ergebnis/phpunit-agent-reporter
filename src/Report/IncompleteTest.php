@@ -18,8 +18,12 @@ namespace Ergebnis\PHPUnit\AgentReporter\Report;
  */
 final class IncompleteTest
 {
-    private function __construct(private readonly TestIdentifier $testIdentifier, private readonly File $file, private readonly Line $line, private readonly Message $message)
-    {
+    private function __construct(
+        private readonly TestIdentifier $testIdentifier,
+        private readonly File $file,
+        private readonly Line $line,
+        private readonly Message $message,
+    ) {
     }
 
     public static function create(

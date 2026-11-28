@@ -18,8 +18,22 @@ namespace Ergebnis\PHPUnit\AgentReporter\Report;
  */
 final class Report
 {
-    private function __construct(private readonly ShellExitCode $shellExitCode, private readonly ErroredTestList $erroredTestList, private readonly FailedTestList $failedTestList, private readonly IncompleteTestList $incompleteTestList, private readonly SkippedTestList $skippedTestList, private readonly RiskyTestList $riskyTestList, private readonly DeprecationList $deprecationList, private readonly NoticeList $noticeList, private readonly WarningList $warningList, private readonly PhpunitDeprecationList $phpunitDeprecationList, private readonly PhpunitNoticeList $phpunitNoticeList, private readonly PhpunitWarningList $phpunitWarningList, private readonly Count $totalAssertionCount, private readonly Count $totalTestCount)
-    {
+    private function __construct(
+        private readonly ShellExitCode $shellExitCode,
+        private readonly ErroredTestList $erroredTestList,
+        private readonly FailedTestList $failedTestList,
+        private readonly IncompleteTestList $incompleteTestList,
+        private readonly SkippedTestList $skippedTestList,
+        private readonly RiskyTestList $riskyTestList,
+        private readonly DeprecationList $deprecationList,
+        private readonly NoticeList $noticeList,
+        private readonly WarningList $warningList,
+        private readonly PhpunitDeprecationList $phpunitDeprecationList,
+        private readonly PhpunitNoticeList $phpunitNoticeList,
+        private readonly PhpunitWarningList $phpunitWarningList,
+        private readonly Count $totalAssertionCount,
+        private readonly Count $totalTestCount,
+    ) {
     }
 
     public static function create(
