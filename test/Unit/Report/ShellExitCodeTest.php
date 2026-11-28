@@ -13,14 +13,13 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\ShellExitCode::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\ShellExitCode::class)]
 final class ShellExitCodeTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testFromIntReturnsShellExitCode(): void
     {
@@ -28,15 +27,15 @@ final class ShellExitCodeTest extends Framework\TestCase
 
         $value = $faker->numberBetween(0, 255);
 
-        $shellExitCode = Report\ShellExitCode::fromInt($value);
+        $shellExitCode = AgentReporter\Report\ShellExitCode::fromInt($value);
 
         self::assertSame($value, $shellExitCode->toInt());
     }
 
     public function testEqualsReturnsFalseWhenValueIsDifferent(): void
     {
-        $one = Report\ShellExitCode::fromInt(0);
-        $other = Report\ShellExitCode::fromInt(1);
+        $one = AgentReporter\Report\ShellExitCode::fromInt(0);
+        $other = AgentReporter\Report\ShellExitCode::fromInt(1);
 
         self::assertFalse($one->equals($other));
     }
@@ -45,29 +44,29 @@ final class ShellExitCodeTest extends Framework\TestCase
     {
         $value = 42;
 
-        $one = Report\ShellExitCode::fromInt($value);
-        $other = Report\ShellExitCode::fromInt($value);
+        $one = AgentReporter\Report\ShellExitCode::fromInt($value);
+        $other = AgentReporter\Report\ShellExitCode::fromInt($value);
 
         self::assertTrue($one->equals($other));
     }
 
     public function testExceptionReturnsShellExitCodeWithValueTwo(): void
     {
-        $shellExitCode = Report\ShellExitCode::exception();
+        $shellExitCode = AgentReporter\Report\ShellExitCode::exception();
 
         self::assertSame(2, $shellExitCode->toInt());
     }
 
     public function testFailureReturnsShellExitCodeWithValueOne(): void
     {
-        $shellExitCode = Report\ShellExitCode::failure();
+        $shellExitCode = AgentReporter\Report\ShellExitCode::failure();
 
         self::assertSame(1, $shellExitCode->toInt());
     }
 
     public function testSuccessReturnsShellExitCodeWithValueZero(): void
     {
-        $shellExitCode = Report\ShellExitCode::success();
+        $shellExitCode = AgentReporter\Report\ShellExitCode::success();
 
         self::assertSame(0, $shellExitCode->toInt());
     }

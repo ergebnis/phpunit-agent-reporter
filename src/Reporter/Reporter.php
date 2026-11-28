@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Reporter;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
+use Ergebnis\PHPUnit\AgentReporter;
 
 /**
  * @internal
  */
 interface Reporter
 {
-    public function report(Report\Report $report): string;
+    public function report(AgentReporter\Report\Report $report): string;
 }

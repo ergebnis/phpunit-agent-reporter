@@ -18,24 +18,8 @@ namespace Ergebnis\PHPUnit\AgentReporter\Report;
  */
 final class FailedTest
 {
-    private readonly TestIdentifier $testIdentifier;
-    private readonly File $file;
-    private readonly Line $line;
-    private readonly Message $message;
-    private readonly ?ComparisonFailure $comparisonFailure;
-
-    private function __construct(
-        TestIdentifier $testIdentifier,
-        File $file,
-        Line $line,
-        Message $message,
-        ?ComparisonFailure $comparisonFailure,
-    ) {
-        $this->testIdentifier = $testIdentifier;
-        $this->file = $file;
-        $this->line = $line;
-        $this->message = $message;
-        $this->comparisonFailure = $comparisonFailure;
+    private function __construct(private readonly TestIdentifier $testIdentifier, private readonly File $file, private readonly Line $line, private readonly Message $message, private readonly ?ComparisonFailure $comparisonFailure)
+    {
     }
 
     public static function create(

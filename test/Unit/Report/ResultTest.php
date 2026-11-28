@@ -13,45 +13,45 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\Result::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\Result::class)]
 final class ResultTest extends Framework\TestCase
 {
     public function testExceptionReturnsResultWithValueException(): void
     {
-        $result = Report\Result::exception();
+        $result = AgentReporter\Report\Result::exception();
 
         self::assertSame('exception', $result->toString());
     }
 
     public function testFailureReturnsResultWithValueFailure(): void
     {
-        $result = Report\Result::failure();
+        $result = AgentReporter\Report\Result::failure();
 
         self::assertSame('failure', $result->toString());
     }
 
     public function testSuccessReturnsResultWithValueSuccess(): void
     {
-        $result = Report\Result::success();
+        $result = AgentReporter\Report\Result::success();
 
         self::assertSame('success', $result->toString());
     }
 
     public function testEqualsReturnsFalseWhenValueIsDifferent(): void
     {
-        $one = Report\Result::success();
-        $other = Report\Result::failure();
+        $one = AgentReporter\Report\Result::success();
+        $other = AgentReporter\Report\Result::failure();
 
         self::assertFalse($one->equals($other));
     }
 
     public function testEqualsReturnsTrueWhenValueIsSame(): void
     {
-        $one = Report\Result::success();
-        $other = Report\Result::success();
+        $one = AgentReporter\Report\Result::success();
+        $other = AgentReporter\Report\Result::success();
 
         self::assertTrue($one->equals($other));
     }

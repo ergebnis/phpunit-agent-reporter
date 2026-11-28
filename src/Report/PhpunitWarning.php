@@ -18,21 +18,8 @@ namespace Ergebnis\PHPUnit\AgentReporter\Report;
  */
 final class PhpunitWarning
 {
-    private readonly ?TestIdentifier $testIdentifier;
-    private readonly ?File $file;
-    private readonly ?Line $line;
-    private readonly Message $message;
-
-    private function __construct(
-        ?TestIdentifier $testIdentifier,
-        ?File $file,
-        ?Line $line,
-        Message $message,
-    ) {
-        $this->testIdentifier = $testIdentifier;
-        $this->file = $file;
-        $this->line = $line;
-        $this->message = $message;
+    private function __construct(private readonly ?TestIdentifier $testIdentifier, private readonly ?File $file, private readonly ?Line $line, private readonly Message $message)
+    {
     }
 
     public static function create(

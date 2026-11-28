@@ -13,53 +13,52 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\SkippedTestList::class)]
-#[Framework\Attributes\UsesClass(Report\Count::class)]
-#[Framework\Attributes\UsesClass(Report\File::class)]
-#[Framework\Attributes\UsesClass(Report\SkippedTest::class)]
-#[Framework\Attributes\UsesClass(Report\Line::class)]
-#[Framework\Attributes\UsesClass(Report\Message::class)]
-#[Framework\Attributes\UsesClass(Report\TestIdentifier::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\SkippedTestList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Count::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\File::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\SkippedTest::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Line::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Message::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\TestIdentifier::class)]
 final class SkippedTestListTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testCreateReturnsSkippedTestListWhenValuesAreEmpty(): void
     {
-        $skippedTestList = Report\SkippedTestList::create();
+        $skippedTestList = AgentReporter\Report\SkippedTestList::create();
 
         self::assertSame([], $skippedTestList->toArray());
-        self::assertEquals(Report\Count::zero(), $skippedTestList->count());
+        self::assertEquals(AgentReporter\Report\Count::zero(), $skippedTestList->count());
     }
 
     public function testCreateReturnsSkippedTestListWhenValuesAreNotEmpty(): void
     {
         $faker = self::faker();
 
-        $values = \array_map(static function () use ($faker): Report\SkippedTest {
-            return Report\SkippedTest::create(
-                Report\TestIdentifier::fromString(\sprintf(
+        $values = \array_map(static function () use ($faker): AgentReporter\Report\SkippedTest {
+            return AgentReporter\Report\SkippedTest::create(
+                AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                     '%s::%s',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\File::fromString(\sprintf(
+                AgentReporter\Report\File::fromString(\sprintf(
                     '%s/%s.php',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\Line::fromInt($faker->numberBetween(1, 500)),
-                Report\Message::fromString($faker->sentence()),
+                AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 500)),
+                AgentReporter\Report\Message::fromString($faker->sentence()),
             );
         }, \range(0, $faker->numberBetween(1, 9)));
 
-        $skippedTestList = Report\SkippedTestList::create(...$values);
+        $skippedTestList = AgentReporter\Report\SkippedTestList::create(...$values);
 
         self::assertSame($values, $skippedTestList->toArray());
-        self::assertEquals(Report\Count::fromInt(\count($values)), $skippedTestList->count());
+        self::assertEquals(AgentReporter\Report\Count::fromInt(\count($values)), $skippedTestList->count());
     }
 }

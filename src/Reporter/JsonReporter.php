@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Reporter;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
+use Ergebnis\PHPUnit\AgentReporter;
 
 /**
  * @internal
  */
 final class JsonReporter implements Reporter
 {
-    public function report(Report\Report $report): string
+    public function report(AgentReporter\Report\Report $report): string
     {
-        $zero = Report\Count::zero();
+        $zero = AgentReporter\Report\Count::zero();
 
         $summary = [
             'assertions' => $report->totalAssertionCount()->toInt(),
@@ -45,7 +45,7 @@ final class JsonReporter implements Reporter
         $details = [];
 
         if ($report->erroredTestList()->count()->isGreaterThan($zero)) {
-            $details['errors'] = \array_map(static function (Report\ErroredTest $erroredTest): array {
+            $details['errors'] = \array_map(static function (AgentReporter\Report\ErroredTest $erroredTest): array {
                 return [
                     'file' => $erroredTest->file()->toString(),
                     'line' => $erroredTest->line()->toInt(),
@@ -56,7 +56,7 @@ final class JsonReporter implements Reporter
         }
 
         if ($report->failedTestList()->count()->isGreaterThan($zero)) {
-            $details['failures'] = \array_map(static function (Report\FailedTest $failedTest): array {
+            $details['failures'] = \array_map(static function (AgentReporter\Report\FailedTest $failedTest): array {
                 $item = [
                     'file' => $failedTest->file()->toString(),
                     'line' => $failedTest->line()->toInt(),
@@ -64,7 +64,7 @@ final class JsonReporter implements Reporter
                     'test' => $failedTest->testIdentifier()->toString(),
                 ];
 
-                if ($failedTest->comparisonFailure() instanceof Report\ComparisonFailure) {
+                if ($failedTest->comparisonFailure() instanceof AgentReporter\Report\ComparisonFailure) {
                     $item['actual'] = $failedTest->comparisonFailure()->actual()->toString();
                     $item['diff'] = $failedTest->comparisonFailure()->diff()->toString();
                     $item['expected'] = $failedTest->comparisonFailure()->expected()->toString();
@@ -81,7 +81,7 @@ final class JsonReporter implements Reporter
         }
 
         if ($report->incompleteTestList()->count()->isGreaterThan($zero)) {
-            $details['incomplete'] = \array_map(static function (Report\IncompleteTest $incompleteTest): array {
+            $details['incomplete'] = \array_map(static function (AgentReporter\Report\IncompleteTest $incompleteTest): array {
                 return [
                     'file' => $incompleteTest->file()->toString(),
                     'line' => $incompleteTest->line()->toInt(),
@@ -96,7 +96,7 @@ final class JsonReporter implements Reporter
         }
 
         if ($report->phpunitDeprecationList()->count()->isGreaterThan($zero)) {
-            $details['phpunitDeprecations'] = \array_map(static function (Report\PhpunitDeprecation $phpunitDeprecation): array {
+            $details['phpunitDeprecations'] = \array_map(static function (AgentReporter\Report\PhpunitDeprecation $phpunitDeprecation): array {
                 return self::formatPhpunitIssue(
                     $phpunitDeprecation->testIdentifier(),
                     $phpunitDeprecation->file(),
@@ -107,7 +107,7 @@ final class JsonReporter implements Reporter
         }
 
         if ($report->phpunitNoticeList()->count()->isGreaterThan($zero)) {
-            $details['phpunitNotices'] = \array_map(static function (Report\PhpunitNotice $phpunitNotice): array {
+            $details['phpunitNotices'] = \array_map(static function (AgentReporter\Report\PhpunitNotice $phpunitNotice): array {
                 return self::formatPhpunitIssue(
                     $phpunitNotice->testIdentifier(),
                     $phpunitNotice->file(),
@@ -118,7 +118,7 @@ final class JsonReporter implements Reporter
         }
 
         if ($report->phpunitWarningList()->count()->isGreaterThan($zero)) {
-            $details['phpunitWarnings'] = \array_map(static function (Report\PhpunitWarning $phpunitWarning): array {
+            $details['phpunitWarnings'] = \array_map(static function (AgentReporter\Report\PhpunitWarning $phpunitWarning): array {
                 return self::formatPhpunitIssue(
                     $phpunitWarning->testIdentifier(),
                     $phpunitWarning->file(),
@@ -129,7 +129,7 @@ final class JsonReporter implements Reporter
         }
 
         if ($report->riskyTestList()->count()->isGreaterThan($zero)) {
-            $details['risky'] = \array_map(static function (Report\RiskyTest $riskyTest): array {
+            $details['risky'] = \array_map(static function (AgentReporter\Report\RiskyTest $riskyTest): array {
                 return [
                     'file' => $riskyTest->file()->toString(),
                     'line' => $riskyTest->line()->toInt(),
@@ -140,7 +140,7 @@ final class JsonReporter implements Reporter
         }
 
         if ($report->skippedTestList()->count()->isGreaterThan($zero)) {
-            $details['skipped'] = \array_map(static function (Report\SkippedTest $skippedTest): array {
+            $details['skipped'] = \array_map(static function (AgentReporter\Report\SkippedTest $skippedTest): array {
                 return [
                     'file' => $skippedTest->file()->toString(),
                     'line' => $skippedTest->line()->toInt(),
@@ -172,14 +172,14 @@ final class JsonReporter implements Reporter
     /**
      * @return list<array{file: string, line: int, message: string, triggeredBy: list<string>}>
      */
-    private function formatDeprecationList(Report\DeprecationList $deprecationList): array
+    private function formatDeprecationList(AgentReporter\Report\DeprecationList $deprecationList): array
     {
-        return \array_map(static function (Report\Deprecation $deprecation): array {
+        return \array_map(static function (AgentReporter\Report\Deprecation $deprecation): array {
             return [
                 'file' => $deprecation->file()->toString(),
                 'line' => $deprecation->line()->toInt(),
                 'message' => $deprecation->message()->toString(),
-                'triggeredBy' => \array_map(static function (Report\TestIdentifier $testIdentifier): string {
+                'triggeredBy' => \array_map(static function (AgentReporter\Report\TestIdentifier $testIdentifier): string {
                     return $testIdentifier->toString();
                 }, $deprecation->triggeredBy()->toArray()),
             ];
@@ -189,14 +189,14 @@ final class JsonReporter implements Reporter
     /**
      * @return list<array{file: string, line: int, message: string, triggeredBy: list<string>}>
      */
-    private function formatNoticeList(Report\NoticeList $noticeList): array
+    private function formatNoticeList(AgentReporter\Report\NoticeList $noticeList): array
     {
-        return \array_map(static function (Report\Notice $notice): array {
+        return \array_map(static function (AgentReporter\Report\Notice $notice): array {
             return [
                 'file' => $notice->file()->toString(),
                 'line' => $notice->line()->toInt(),
                 'message' => $notice->message()->toString(),
-                'triggeredBy' => \array_map(static function (Report\TestIdentifier $testIdentifier): string {
+                'triggeredBy' => \array_map(static function (AgentReporter\Report\TestIdentifier $testIdentifier): string {
                     return $testIdentifier->toString();
                 }, $notice->triggeredBy()->toArray()),
             ];
@@ -212,24 +212,24 @@ final class JsonReporter implements Reporter
      * }
      */
     private static function formatPhpunitIssue(
-        ?Report\TestIdentifier $testIdentifier,
-        ?Report\File $file,
-        ?Report\Line $line,
-        Report\Message $message,
+        ?AgentReporter\Report\TestIdentifier $testIdentifier,
+        ?AgentReporter\Report\File $file,
+        ?AgentReporter\Report\Line $line,
+        AgentReporter\Report\Message $message,
     ): array {
         $item = [
             'message' => $message->toString(),
         ];
 
-        if ($testIdentifier instanceof Report\TestIdentifier) {
+        if ($testIdentifier instanceof AgentReporter\Report\TestIdentifier) {
             $item['test'] = $testIdentifier->toString();
         }
 
-        if ($file instanceof Report\File) {
+        if ($file instanceof AgentReporter\Report\File) {
             $item['file'] = $file->toString();
         }
 
-        if ($line instanceof Report\Line) {
+        if ($line instanceof AgentReporter\Report\Line) {
             $item['line'] = $line->toInt();
         }
 
@@ -241,14 +241,14 @@ final class JsonReporter implements Reporter
     /**
      * @return list<array{file: string, line: int, message: string, triggeredBy: list<string>}>
      */
-    private function formatWarningList(Report\WarningList $warningList): array
+    private function formatWarningList(AgentReporter\Report\WarningList $warningList): array
     {
-        return \array_map(static function (Report\Warning $warning): array {
+        return \array_map(static function (AgentReporter\Report\Warning $warning): array {
             return [
                 'file' => $warning->file()->toString(),
                 'line' => $warning->line()->toInt(),
                 'message' => $warning->message()->toString(),
-                'triggeredBy' => \array_map(static function (Report\TestIdentifier $testIdentifier): string {
+                'triggeredBy' => \array_map(static function (AgentReporter\Report\TestIdentifier $testIdentifier): string {
                     return $testIdentifier->toString();
                 }, $warning->triggeredBy()->toArray()),
             ];

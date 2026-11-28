@@ -13,77 +13,75 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Reporter;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Reporter;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Reporter\JsonReporter::class)]
-#[Framework\Attributes\UsesClass(Report\Actual::class)]
-#[Framework\Attributes\UsesClass(Report\ComparisonFailure::class)]
-#[Framework\Attributes\UsesClass(Report\Count::class)]
-#[Framework\Attributes\UsesClass(Report\Deprecation::class)]
-#[Framework\Attributes\UsesClass(Report\DeprecationList::class)]
-#[Framework\Attributes\UsesClass(Report\Diff::class)]
-#[Framework\Attributes\UsesClass(Report\ErroredTest::class)]
-#[Framework\Attributes\UsesClass(Report\ErroredTestList::class)]
-#[Framework\Attributes\UsesClass(Report\Expected::class)]
-#[Framework\Attributes\UsesClass(Report\FailedTest::class)]
-#[Framework\Attributes\UsesClass(Report\FailedTestList::class)]
-#[Framework\Attributes\UsesClass(Report\File::class)]
-#[Framework\Attributes\UsesClass(Report\IncompleteTest::class)]
-#[Framework\Attributes\UsesClass(Report\IncompleteTestList::class)]
-#[Framework\Attributes\UsesClass(Report\Line::class)]
-#[Framework\Attributes\UsesClass(Report\Message::class)]
-#[Framework\Attributes\UsesClass(Report\Notice::class)]
-#[Framework\Attributes\UsesClass(Report\NoticeList::class)]
-#[Framework\Attributes\UsesClass(Report\PhpunitDeprecation::class)]
-#[Framework\Attributes\UsesClass(Report\PhpunitDeprecationList::class)]
-#[Framework\Attributes\UsesClass(Report\PhpunitNotice::class)]
-#[Framework\Attributes\UsesClass(Report\PhpunitNoticeList::class)]
-#[Framework\Attributes\UsesClass(Report\PhpunitWarning::class)]
-#[Framework\Attributes\UsesClass(Report\PhpunitWarningList::class)]
-#[Framework\Attributes\UsesClass(Report\Report::class)]
-#[Framework\Attributes\UsesClass(Report\Result::class)]
-#[Framework\Attributes\UsesClass(Report\RiskyTest::class)]
-#[Framework\Attributes\UsesClass(Report\RiskyTestList::class)]
-#[Framework\Attributes\UsesClass(Report\ShellExitCode::class)]
-#[Framework\Attributes\UsesClass(Report\SkippedTest::class)]
-#[Framework\Attributes\UsesClass(Report\SkippedTestList::class)]
-#[Framework\Attributes\UsesClass(Report\TestIdentifier::class)]
-#[Framework\Attributes\UsesClass(Report\TestIdentifierList::class)]
-#[Framework\Attributes\UsesClass(Report\Warning::class)]
-#[Framework\Attributes\UsesClass(Report\WarningList::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Reporter\JsonReporter::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Actual::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\ComparisonFailure::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Count::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Deprecation::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\DeprecationList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Diff::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\ErroredTest::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\ErroredTestList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Expected::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\FailedTest::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\FailedTestList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\File::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\IncompleteTest::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\IncompleteTestList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Line::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Message::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Notice::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\NoticeList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\PhpunitDeprecation::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\PhpunitDeprecationList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\PhpunitNotice::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\PhpunitNoticeList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\PhpunitWarning::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\PhpunitWarningList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Report::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Result::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\RiskyTest::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\RiskyTestList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\ShellExitCode::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\SkippedTest::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\SkippedTestList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\TestIdentifier::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\TestIdentifierList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Warning::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\WarningList::class)]
 final class JsonReporterTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testReportReturnsJsonWithResultSuccessWhenShellExitCodeIsSuccess(): void
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::success(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::success(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
-                'result' => Report\Result::success()->toString(),
+                'result' => AgentReporter\Report\Result::success()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -99,28 +97,28 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::fromInt($faker->numberBetween(1, 100)),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -136,44 +134,44 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::exception(),
-            Report\ErroredTestList::create(...\array_map(static function () use ($faker): Report\ErroredTest {
-                return Report\ErroredTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::exception(),
+            AgentReporter\Report\ErroredTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\ErroredTest {
+                return AgentReporter\Report\ErroredTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
-                    'errors' => \array_map(static function (Report\ErroredTest $erroredTest): array {
+                    'errors' => \array_map(static function (AgentReporter\Report\ErroredTest $erroredTest): array {
                         return [
                             'file' => $erroredTest->file()->toString(),
                             'line' => $erroredTest->line()->toInt(),
@@ -182,7 +180,7 @@ final class JsonReporterTest extends Framework\TestCase
                         ];
                     }, $report->erroredTestList()->toArray()),
                 ],
-                'result' => Report\Result::exception()->toString(),
+                'result' => AgentReporter\Report\Result::exception()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -198,52 +196,52 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(...\array_map(static function () use ($faker): Report\FailedTest {
-                return Report\FailedTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\FailedTest {
+                return AgentReporter\Report\FailedTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
-                    Report\ComparisonFailure::create(
-                        Report\Actual::fromString($faker->sentence()),
-                        Report\Diff::fromString($faker->sentence()),
-                        Report\Expected::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\ComparisonFailure::create(
+                        AgentReporter\Report\Actual::fromString($faker->sentence()),
+                        AgentReporter\Report\Diff::fromString($faker->sentence()),
+                        AgentReporter\Report\Expected::fromString($faker->sentence()),
                     ),
                 );
             }, \range(0, 2))),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
-                    'failures' => \array_map(static function (Report\FailedTest $failedTest): array {
+                    'failures' => \array_map(static function (AgentReporter\Report\FailedTest $failedTest): array {
                         $comparisonFailure = $failedTest->comparisonFailure();
 
-                        self::assertInstanceOf(Report\ComparisonFailure::class, $comparisonFailure);
+                        self::assertInstanceOf(AgentReporter\Report\ComparisonFailure::class, $comparisonFailure);
 
                         return [
                             'actual' => $comparisonFailure->actual()->toString(),
@@ -256,7 +254,7 @@ final class JsonReporterTest extends Framework\TestCase
                         ];
                     }, $report->failedTestList()->toArray()),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -272,45 +270,45 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(...\array_map(static function () use ($faker): Report\FailedTest {
-                return Report\FailedTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\FailedTest {
+                return AgentReporter\Report\FailedTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                     null,
                 );
             }, \range(0, 2))),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
-                    'failures' => \array_map(static function (Report\FailedTest $failedTest): array {
+                    'failures' => \array_map(static function (AgentReporter\Report\FailedTest $failedTest): array {
                         return [
                             'file' => $failedTest->file()->toString(),
                             'line' => $failedTest->line()->toInt(),
@@ -319,7 +317,7 @@ final class JsonReporterTest extends Framework\TestCase
                         ];
                     }, $report->failedTestList()->toArray()),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -335,44 +333,44 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::success(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(...\array_map(static function () use ($faker): Report\SkippedTest {
-                return Report\SkippedTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::success(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\SkippedTest {
+                return AgentReporter\Report\SkippedTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
-                    'skipped' => \array_map(static function (Report\SkippedTest $skippedTest): array {
+                    'skipped' => \array_map(static function (AgentReporter\Report\SkippedTest $skippedTest): array {
                         return [
                             'file' => $skippedTest->file()->toString(),
                             'line' => $skippedTest->line()->toInt(),
@@ -381,7 +379,7 @@ final class JsonReporterTest extends Framework\TestCase
                         ];
                     }, $report->skippedTestList()->toArray()),
                 ],
-                'result' => Report\Result::success()->toString(),
+                'result' => AgentReporter\Report\Result::success()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -397,44 +395,44 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(...\array_map(static function () use ($faker): Report\IncompleteTest {
-                return Report\IncompleteTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\IncompleteTest {
+                return AgentReporter\Report\IncompleteTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
-                    'incomplete' => \array_map(static function (Report\IncompleteTest $incompleteTest): array {
+                    'incomplete' => \array_map(static function (AgentReporter\Report\IncompleteTest $incompleteTest): array {
                         return [
                             'file' => $incompleteTest->file()->toString(),
                             'line' => $incompleteTest->line()->toInt(),
@@ -443,7 +441,7 @@ final class JsonReporterTest extends Framework\TestCase
                         ];
                     }, $report->incompleteTestList()->toArray()),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -459,24 +457,24 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(...\array_map(static function () use ($faker): Report\Deprecation {
-                return Report\Deprecation::create(
-                    Report\File::fromString(\sprintf(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(...\array_map(static function () use ($faker): AgentReporter\Report\Deprecation {
+                return AgentReporter\Report\Deprecation::create(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
-                    Report\TestIdentifierList::create(...\array_map(static function () use ($faker): Report\TestIdentifier {
-                        return Report\TestIdentifier::fromString(\sprintf(
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\TestIdentifierList::create(...\array_map(static function () use ($faker): AgentReporter\Report\TestIdentifier {
+                        return AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                             '%s::%s',
                             $faker->word(),
                             $faker->word(),
@@ -484,32 +482,32 @@ final class JsonReporterTest extends Framework\TestCase
                     }, \range(0, 2))),
                 );
             }, \range(0, 2))),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
-                    'deprecations' => \array_map(static function (Report\Deprecation $deprecation): array {
+                    'deprecations' => \array_map(static function (AgentReporter\Report\Deprecation $deprecation): array {
                         return [
                             'file' => $deprecation->file()->toString(),
                             'line' => $deprecation->line()->toInt(),
                             'message' => $deprecation->message()->toString(),
-                            'triggeredBy' => \array_map(static function (Report\TestIdentifier $testIdentifier): string {
+                            'triggeredBy' => \array_map(static function (AgentReporter\Report\TestIdentifier $testIdentifier): string {
                                 return $testIdentifier->toString();
                             }, $deprecation->triggeredBy()->toArray()),
                         ];
                     }, $report->deprecationList()->toArray()),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -525,26 +523,26 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(...\array_map(static function () use ($faker): Report\Warning {
-                return Report\Warning::create(
-                    Report\File::fromString(\sprintf(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(...\array_map(static function () use ($faker): AgentReporter\Report\Warning {
+                return AgentReporter\Report\Warning::create(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
-                    Report\TestIdentifierList::create(...\array_map(static function () use ($faker): Report\TestIdentifier {
-                        return Report\TestIdentifier::fromString(\sprintf(
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\TestIdentifierList::create(...\array_map(static function () use ($faker): AgentReporter\Report\TestIdentifier {
+                        return AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                             '%s::%s',
                             $faker->word(),
                             $faker->word(),
@@ -552,30 +550,30 @@ final class JsonReporterTest extends Framework\TestCase
                     }, \range(0, 2))),
                 );
             }, \range(0, 2))),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
-                    'warnings' => \array_map(static function (Report\Warning $warning): array {
+                    'warnings' => \array_map(static function (AgentReporter\Report\Warning $warning): array {
                         return [
                             'file' => $warning->file()->toString(),
                             'line' => $warning->line()->toInt(),
                             'message' => $warning->message()->toString(),
-                            'triggeredBy' => \array_map(static function (Report\TestIdentifier $testIdentifier): string {
+                            'triggeredBy' => \array_map(static function (AgentReporter\Report\TestIdentifier $testIdentifier): string {
                                 return $testIdentifier->toString();
                             }, $warning->triggeredBy()->toArray()),
                         ];
                     }, $report->warningList()->toArray()),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -591,25 +589,25 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(...\array_map(static function () use ($faker): Report\Notice {
-                return Report\Notice::create(
-                    Report\File::fromString(\sprintf(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(...\array_map(static function () use ($faker): AgentReporter\Report\Notice {
+                return AgentReporter\Report\Notice::create(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
-                    Report\TestIdentifierList::create(...\array_map(static function () use ($faker): Report\TestIdentifier {
-                        return Report\TestIdentifier::fromString(\sprintf(
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\TestIdentifierList::create(...\array_map(static function () use ($faker): AgentReporter\Report\TestIdentifier {
+                        return AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                             '%s::%s',
                             $faker->word(),
                             $faker->word(),
@@ -617,31 +615,31 @@ final class JsonReporterTest extends Framework\TestCase
                     }, \range(0, 2))),
                 );
             }, \range(0, 2))),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
-                    'notices' => \array_map(static function (Report\Notice $notice): array {
+                    'notices' => \array_map(static function (AgentReporter\Report\Notice $notice): array {
                         return [
                             'file' => $notice->file()->toString(),
                             'line' => $notice->line()->toInt(),
                             'message' => $notice->message()->toString(),
-                            'triggeredBy' => \array_map(static function (Report\TestIdentifier $testIdentifier): string {
+                            'triggeredBy' => \array_map(static function (AgentReporter\Report\TestIdentifier $testIdentifier): string {
                                 return $testIdentifier->toString();
                             }, $notice->triggeredBy()->toArray()),
                         ];
                     }, $report->noticeList()->toArray()),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -657,44 +655,44 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(...\array_map(static function () use ($faker): Report\RiskyTest {
-                return Report\RiskyTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\RiskyTest {
+                return AgentReporter\Report\RiskyTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
-                    'risky' => \array_map(static function (Report\RiskyTest $riskyTest): array {
+                    'risky' => \array_map(static function (AgentReporter\Report\RiskyTest $riskyTest): array {
                         return [
                             'file' => $riskyTest->file()->toString(),
                             'line' => $riskyTest->line()->toInt(),
@@ -703,7 +701,7 @@ final class JsonReporterTest extends Framework\TestCase
                         ];
                     }, $report->riskyTestList()->toArray()),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -719,66 +717,66 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $phpunitDeprecationsTriggeredByTest = \array_map(static function () use ($faker): Report\PhpunitDeprecation {
-            return Report\PhpunitDeprecation::create(
-                Report\TestIdentifier::fromString(\sprintf(
+        $phpunitDeprecationsTriggeredByTest = \array_map(static function () use ($faker): AgentReporter\Report\PhpunitDeprecation {
+            return AgentReporter\Report\PhpunitDeprecation::create(
+                AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                     '%s::%s',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\File::fromString(\sprintf(
+                AgentReporter\Report\File::fromString(\sprintf(
                     '%s/%s.php',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                Report\Message::fromString($faker->sentence()),
+                AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                AgentReporter\Report\Message::fromString($faker->sentence()),
             );
         }, \range(0, 2));
 
-        $phpunitDeprecationsTriggeredByTestRunner = \array_map(static function () use ($faker): Report\PhpunitDeprecation {
-            return Report\PhpunitDeprecation::create(
+        $phpunitDeprecationsTriggeredByTestRunner = \array_map(static function () use ($faker): AgentReporter\Report\PhpunitDeprecation {
+            return AgentReporter\Report\PhpunitDeprecation::create(
                 null,
                 null,
                 null,
-                Report\Message::fromString($faker->sentence()),
+                AgentReporter\Report\Message::fromString($faker->sentence()),
             );
         }, \range(0, 2));
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(...\array_merge(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(...\array_merge(
                 $phpunitDeprecationsTriggeredByTest,
                 $phpunitDeprecationsTriggeredByTestRunner,
             )),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
                     'phpunitDeprecations' => \array_merge(
-                        \array_map(static function (Report\PhpunitDeprecation $phpunitDeprecation): array {
+                        \array_map(static function (AgentReporter\Report\PhpunitDeprecation $phpunitDeprecation): array {
                             $testIdentifier = $phpunitDeprecation->testIdentifier();
                             $file = $phpunitDeprecation->file();
                             $line = $phpunitDeprecation->line();
 
-                            self::assertInstanceOf(Report\TestIdentifier::class, $testIdentifier);
-                            self::assertInstanceOf(Report\File::class, $file);
-                            self::assertInstanceOf(Report\Line::class, $line);
+                            self::assertInstanceOf(AgentReporter\Report\TestIdentifier::class, $testIdentifier);
+                            self::assertInstanceOf(AgentReporter\Report\File::class, $file);
+                            self::assertInstanceOf(AgentReporter\Report\Line::class, $line);
 
                             return [
                                 'file' => $file->toString(),
@@ -787,14 +785,14 @@ final class JsonReporterTest extends Framework\TestCase
                                 'test' => $testIdentifier->toString(),
                             ];
                         }, $phpunitDeprecationsTriggeredByTest),
-                        \array_map(static function (Report\PhpunitDeprecation $phpunitDeprecation): array {
+                        \array_map(static function (AgentReporter\Report\PhpunitDeprecation $phpunitDeprecation): array {
                             return [
                                 'message' => $phpunitDeprecation->message()->toString(),
                             ];
                         }, $phpunitDeprecationsTriggeredByTestRunner),
                     ),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -810,66 +808,66 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $phpunitNoticesTriggeredByTest = \array_map(static function () use ($faker): Report\PhpunitNotice {
-            return Report\PhpunitNotice::create(
-                Report\TestIdentifier::fromString(\sprintf(
+        $phpunitNoticesTriggeredByTest = \array_map(static function () use ($faker): AgentReporter\Report\PhpunitNotice {
+            return AgentReporter\Report\PhpunitNotice::create(
+                AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                     '%s::%s',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\File::fromString(\sprintf(
+                AgentReporter\Report\File::fromString(\sprintf(
                     '%s/%s.php',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                Report\Message::fromString($faker->sentence()),
+                AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                AgentReporter\Report\Message::fromString($faker->sentence()),
             );
         }, \range(0, 2));
 
-        $phpunitNoticesTriggeredByTestRunner = \array_map(static function () use ($faker): Report\PhpunitNotice {
-            return Report\PhpunitNotice::create(
+        $phpunitNoticesTriggeredByTestRunner = \array_map(static function () use ($faker): AgentReporter\Report\PhpunitNotice {
+            return AgentReporter\Report\PhpunitNotice::create(
                 null,
                 null,
                 null,
-                Report\Message::fromString($faker->sentence()),
+                AgentReporter\Report\Message::fromString($faker->sentence()),
             );
         }, \range(0, 2));
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(...\array_merge(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(...\array_merge(
                 $phpunitNoticesTriggeredByTest,
                 $phpunitNoticesTriggeredByTestRunner,
             )),
-            Report\PhpunitWarningList::create(),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\PhpunitWarningList::create(),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
                     'phpunitNotices' => \array_merge(
-                        \array_map(static function (Report\PhpunitNotice $phpunitNotice): array {
+                        \array_map(static function (AgentReporter\Report\PhpunitNotice $phpunitNotice): array {
                             $testIdentifier = $phpunitNotice->testIdentifier();
                             $file = $phpunitNotice->file();
                             $line = $phpunitNotice->line();
 
-                            self::assertInstanceOf(Report\TestIdentifier::class, $testIdentifier);
-                            self::assertInstanceOf(Report\File::class, $file);
-                            self::assertInstanceOf(Report\Line::class, $line);
+                            self::assertInstanceOf(AgentReporter\Report\TestIdentifier::class, $testIdentifier);
+                            self::assertInstanceOf(AgentReporter\Report\File::class, $file);
+                            self::assertInstanceOf(AgentReporter\Report\Line::class, $line);
 
                             return [
                                 'file' => $file->toString(),
@@ -878,14 +876,14 @@ final class JsonReporterTest extends Framework\TestCase
                                 'test' => $testIdentifier->toString(),
                             ];
                         }, $phpunitNoticesTriggeredByTest),
-                        \array_map(static function (Report\PhpunitNotice $phpunitNotice): array {
+                        \array_map(static function (AgentReporter\Report\PhpunitNotice $phpunitNotice): array {
                             return [
                                 'message' => $phpunitNotice->message()->toString(),
                             ];
                         }, $phpunitNoticesTriggeredByTestRunner),
                     ),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -901,66 +899,66 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $phpunitWarningsTriggeredByTest = \array_map(static function () use ($faker): Report\PhpunitWarning {
-            return Report\PhpunitWarning::create(
-                Report\TestIdentifier::fromString(\sprintf(
+        $phpunitWarningsTriggeredByTest = \array_map(static function () use ($faker): AgentReporter\Report\PhpunitWarning {
+            return AgentReporter\Report\PhpunitWarning::create(
+                AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                     '%s::%s',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\File::fromString(\sprintf(
+                AgentReporter\Report\File::fromString(\sprintf(
                     '%s/%s.php',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                Report\Message::fromString($faker->sentence()),
+                AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                AgentReporter\Report\Message::fromString($faker->sentence()),
             );
         }, \range(0, 2));
 
-        $phpunitWarningsTriggeredByTestRunner = \array_map(static function () use ($faker): Report\PhpunitWarning {
-            return Report\PhpunitWarning::create(
+        $phpunitWarningsTriggeredByTestRunner = \array_map(static function () use ($faker): AgentReporter\Report\PhpunitWarning {
+            return AgentReporter\Report\PhpunitWarning::create(
                 null,
                 null,
                 null,
-                Report\Message::fromString($faker->sentence()),
+                AgentReporter\Report\Message::fromString($faker->sentence()),
             );
         }, \range(0, 2));
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(),
-            Report\FailedTestList::create(),
-            Report\IncompleteTestList::create(),
-            Report\SkippedTestList::create(),
-            Report\RiskyTestList::create(),
-            Report\DeprecationList::create(),
-            Report\NoticeList::create(),
-            Report\WarningList::create(),
-            Report\PhpunitDeprecationList::create(),
-            Report\PhpunitNoticeList::create(),
-            Report\PhpunitWarningList::create(...\array_merge(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(),
+            AgentReporter\Report\FailedTestList::create(),
+            AgentReporter\Report\IncompleteTestList::create(),
+            AgentReporter\Report\SkippedTestList::create(),
+            AgentReporter\Report\RiskyTestList::create(),
+            AgentReporter\Report\DeprecationList::create(),
+            AgentReporter\Report\NoticeList::create(),
+            AgentReporter\Report\WarningList::create(),
+            AgentReporter\Report\PhpunitDeprecationList::create(),
+            AgentReporter\Report\PhpunitNoticeList::create(),
+            AgentReporter\Report\PhpunitWarningList::create(...\array_merge(
                 $phpunitWarningsTriggeredByTest,
                 $phpunitWarningsTriggeredByTestRunner,
             )),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
                     'phpunitWarnings' => \array_merge(
-                        \array_map(static function (Report\PhpunitWarning $phpunitWarning): array {
+                        \array_map(static function (AgentReporter\Report\PhpunitWarning $phpunitWarning): array {
                             $testIdentifier = $phpunitWarning->testIdentifier();
                             $file = $phpunitWarning->file();
                             $line = $phpunitWarning->line();
 
-                            self::assertInstanceOf(Report\TestIdentifier::class, $testIdentifier);
-                            self::assertInstanceOf(Report\File::class, $file);
-                            self::assertInstanceOf(Report\Line::class, $line);
+                            self::assertInstanceOf(AgentReporter\Report\TestIdentifier::class, $testIdentifier);
+                            self::assertInstanceOf(AgentReporter\Report\File::class, $file);
+                            self::assertInstanceOf(AgentReporter\Report\Line::class, $line);
 
                             return [
                                 'file' => $file->toString(),
@@ -969,14 +967,14 @@ final class JsonReporterTest extends Framework\TestCase
                                 'test' => $testIdentifier->toString(),
                             ];
                         }, $phpunitWarningsTriggeredByTest),
-                        \array_map(static function (Report\PhpunitWarning $phpunitWarning): array {
+                        \array_map(static function (AgentReporter\Report\PhpunitWarning $phpunitWarning): array {
                             return [
                                 'message' => $phpunitWarning->message()->toString(),
                             ];
                         }, $phpunitWarningsTriggeredByTestRunner),
                     ),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -992,100 +990,100 @@ final class JsonReporterTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::failure(),
-            Report\ErroredTestList::create(...\array_map(static function () use ($faker): Report\ErroredTest {
-                return Report\ErroredTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::failure(),
+            AgentReporter\Report\ErroredTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\ErroredTest {
+                return AgentReporter\Report\ErroredTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\FailedTestList::create(...\array_map(static function () use ($faker): Report\FailedTest {
-                return Report\FailedTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+            AgentReporter\Report\FailedTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\FailedTest {
+                return AgentReporter\Report\FailedTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                     null,
                 );
             }, \range(0, 2))),
-            Report\IncompleteTestList::create(...\array_map(static function () use ($faker): Report\IncompleteTest {
-                return Report\IncompleteTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+            AgentReporter\Report\IncompleteTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\IncompleteTest {
+                return AgentReporter\Report\IncompleteTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\SkippedTestList::create(...\array_map(static function () use ($faker): Report\SkippedTest {
-                return Report\SkippedTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+            AgentReporter\Report\SkippedTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\SkippedTest {
+                return AgentReporter\Report\SkippedTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\RiskyTestList::create(...\array_map(static function () use ($faker): Report\RiskyTest {
-                return Report\RiskyTest::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+            AgentReporter\Report\RiskyTestList::create(...\array_map(static function () use ($faker): AgentReporter\Report\RiskyTest {
+                return AgentReporter\Report\RiskyTest::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\DeprecationList::create(...\array_map(static function () use ($faker): Report\Deprecation {
-                return Report\Deprecation::create(
-                    Report\File::fromString(\sprintf(
+            AgentReporter\Report\DeprecationList::create(...\array_map(static function () use ($faker): AgentReporter\Report\Deprecation {
+                return AgentReporter\Report\Deprecation::create(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
-                    Report\TestIdentifierList::create(...\array_map(static function () use ($faker): Report\TestIdentifier {
-                        return Report\TestIdentifier::fromString(\sprintf(
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\TestIdentifierList::create(...\array_map(static function () use ($faker): AgentReporter\Report\TestIdentifier {
+                        return AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                             '%s::%s',
                             $faker->word(),
                             $faker->word(),
@@ -1093,17 +1091,17 @@ final class JsonReporterTest extends Framework\TestCase
                     }, \range(0, 2))),
                 );
             }, \range(0, 2))),
-            Report\NoticeList::create(...\array_map(static function () use ($faker): Report\Notice {
-                return Report\Notice::create(
-                    Report\File::fromString(\sprintf(
+            AgentReporter\Report\NoticeList::create(...\array_map(static function () use ($faker): AgentReporter\Report\Notice {
+                return AgentReporter\Report\Notice::create(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
-                    Report\TestIdentifierList::create(...\array_map(static function () use ($faker): Report\TestIdentifier {
-                        return Report\TestIdentifier::fromString(\sprintf(
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\TestIdentifierList::create(...\array_map(static function () use ($faker): AgentReporter\Report\TestIdentifier {
+                        return AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                             '%s::%s',
                             $faker->word(),
                             $faker->word(),
@@ -1111,17 +1109,17 @@ final class JsonReporterTest extends Framework\TestCase
                     }, \range(0, 2))),
                 );
             }, \range(0, 2))),
-            Report\WarningList::create(...\array_map(static function () use ($faker): Report\Warning {
-                return Report\Warning::create(
-                    Report\File::fromString(\sprintf(
+            AgentReporter\Report\WarningList::create(...\array_map(static function () use ($faker): AgentReporter\Report\Warning {
+                return AgentReporter\Report\Warning::create(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
-                    Report\TestIdentifierList::create(...\array_map(static function () use ($faker): Report\TestIdentifier {
-                        return Report\TestIdentifier::fromString(\sprintf(
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\TestIdentifierList::create(...\array_map(static function () use ($faker): AgentReporter\Report\TestIdentifier {
+                        return AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                             '%s::%s',
                             $faker->word(),
                             $faker->word(),
@@ -1129,74 +1127,74 @@ final class JsonReporterTest extends Framework\TestCase
                     }, \range(0, 2))),
                 );
             }, \range(0, 2))),
-            Report\PhpunitDeprecationList::create(...\array_map(static function () use ($faker): Report\PhpunitDeprecation {
-                return Report\PhpunitDeprecation::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+            AgentReporter\Report\PhpunitDeprecationList::create(...\array_map(static function () use ($faker): AgentReporter\Report\PhpunitDeprecation {
+                return AgentReporter\Report\PhpunitDeprecation::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\PhpunitNoticeList::create(...\array_map(static function () use ($faker): Report\PhpunitNotice {
-                return Report\PhpunitNotice::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+            AgentReporter\Report\PhpunitNoticeList::create(...\array_map(static function () use ($faker): AgentReporter\Report\PhpunitNotice {
+                return AgentReporter\Report\PhpunitNotice::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\PhpunitWarningList::create(...\array_map(static function () use ($faker): Report\PhpunitWarning {
-                return Report\PhpunitWarning::create(
-                    Report\TestIdentifier::fromString(\sprintf(
+            AgentReporter\Report\PhpunitWarningList::create(...\array_map(static function () use ($faker): AgentReporter\Report\PhpunitWarning {
+                return AgentReporter\Report\PhpunitWarning::create(
+                    AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\File::fromString(\sprintf(
+                    AgentReporter\Report\File::fromString(\sprintf(
                         '%s/%s.php',
                         $faker->word(),
                         $faker->word(),
                     )),
-                    Report\Line::fromInt($faker->numberBetween(1, 1000)),
-                    Report\Message::fromString($faker->sentence()),
+                    AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 1000)),
+                    AgentReporter\Report\Message::fromString($faker->sentence()),
                 );
             }, \range(0, 2))),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
-            Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
+            AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100)),
         );
 
-        $reporter = new Reporter\JsonReporter();
+        $reporter = new AgentReporter\Reporter\JsonReporter();
 
         $expected = \json_encode(
             [
                 'details' => [
-                    'deprecations' => \array_map(static function (Report\Deprecation $deprecation): array {
+                    'deprecations' => \array_map(static function (AgentReporter\Report\Deprecation $deprecation): array {
                         return [
                             'file' => $deprecation->file()->toString(),
                             'line' => $deprecation->line()->toInt(),
                             'message' => $deprecation->message()->toString(),
-                            'triggeredBy' => \array_map(static function (Report\TestIdentifier $testIdentifier): string {
+                            'triggeredBy' => \array_map(static function (AgentReporter\Report\TestIdentifier $testIdentifier): string {
                                 return $testIdentifier->toString();
                             }, $deprecation->triggeredBy()->toArray()),
                         ];
                     }, $report->deprecationList()->toArray()),
-                    'errors' => \array_map(static function (Report\ErroredTest $erroredTest): array {
+                    'errors' => \array_map(static function (AgentReporter\Report\ErroredTest $erroredTest): array {
                         return [
                             'file' => $erroredTest->file()->toString(),
                             'line' => $erroredTest->line()->toInt(),
@@ -1204,7 +1202,7 @@ final class JsonReporterTest extends Framework\TestCase
                             'test' => $erroredTest->testIdentifier()->toString(),
                         ];
                     }, $report->erroredTestList()->toArray()),
-                    'failures' => \array_map(static function (Report\FailedTest $failedTest): array {
+                    'failures' => \array_map(static function (AgentReporter\Report\FailedTest $failedTest): array {
                         return [
                             'file' => $failedTest->file()->toString(),
                             'line' => $failedTest->line()->toInt(),
@@ -1212,7 +1210,7 @@ final class JsonReporterTest extends Framework\TestCase
                             'test' => $failedTest->testIdentifier()->toString(),
                         ];
                     }, $report->failedTestList()->toArray()),
-                    'incomplete' => \array_map(static function (Report\IncompleteTest $incompleteTest): array {
+                    'incomplete' => \array_map(static function (AgentReporter\Report\IncompleteTest $incompleteTest): array {
                         return [
                             'file' => $incompleteTest->file()->toString(),
                             'line' => $incompleteTest->line()->toInt(),
@@ -1220,24 +1218,24 @@ final class JsonReporterTest extends Framework\TestCase
                             'test' => $incompleteTest->testIdentifier()->toString(),
                         ];
                     }, $report->incompleteTestList()->toArray()),
-                    'notices' => \array_map(static function (Report\Notice $notice): array {
+                    'notices' => \array_map(static function (AgentReporter\Report\Notice $notice): array {
                         return [
                             'file' => $notice->file()->toString(),
                             'line' => $notice->line()->toInt(),
                             'message' => $notice->message()->toString(),
-                            'triggeredBy' => \array_map(static function (Report\TestIdentifier $testIdentifier): string {
+                            'triggeredBy' => \array_map(static function (AgentReporter\Report\TestIdentifier $testIdentifier): string {
                                 return $testIdentifier->toString();
                             }, $notice->triggeredBy()->toArray()),
                         ];
                     }, $report->noticeList()->toArray()),
-                    'phpunitDeprecations' => \array_map(static function (Report\PhpunitDeprecation $phpunitDeprecation): array {
+                    'phpunitDeprecations' => \array_map(static function (AgentReporter\Report\PhpunitDeprecation $phpunitDeprecation): array {
                         $testIdentifier = $phpunitDeprecation->testIdentifier();
                         $file = $phpunitDeprecation->file();
                         $line = $phpunitDeprecation->line();
 
-                        self::assertInstanceOf(Report\TestIdentifier::class, $testIdentifier);
-                        self::assertInstanceOf(Report\File::class, $file);
-                        self::assertInstanceOf(Report\Line::class, $line);
+                        self::assertInstanceOf(AgentReporter\Report\TestIdentifier::class, $testIdentifier);
+                        self::assertInstanceOf(AgentReporter\Report\File::class, $file);
+                        self::assertInstanceOf(AgentReporter\Report\Line::class, $line);
 
                         return [
                             'file' => $file->toString(),
@@ -1246,14 +1244,14 @@ final class JsonReporterTest extends Framework\TestCase
                             'test' => $testIdentifier->toString(),
                         ];
                     }, $report->phpunitDeprecationList()->toArray()),
-                    'phpunitNotices' => \array_map(static function (Report\PhpunitNotice $phpunitNotice): array {
+                    'phpunitNotices' => \array_map(static function (AgentReporter\Report\PhpunitNotice $phpunitNotice): array {
                         $testIdentifier = $phpunitNotice->testIdentifier();
                         $file = $phpunitNotice->file();
                         $line = $phpunitNotice->line();
 
-                        self::assertInstanceOf(Report\TestIdentifier::class, $testIdentifier);
-                        self::assertInstanceOf(Report\File::class, $file);
-                        self::assertInstanceOf(Report\Line::class, $line);
+                        self::assertInstanceOf(AgentReporter\Report\TestIdentifier::class, $testIdentifier);
+                        self::assertInstanceOf(AgentReporter\Report\File::class, $file);
+                        self::assertInstanceOf(AgentReporter\Report\Line::class, $line);
 
                         return [
                             'file' => $file->toString(),
@@ -1262,14 +1260,14 @@ final class JsonReporterTest extends Framework\TestCase
                             'test' => $testIdentifier->toString(),
                         ];
                     }, $report->phpunitNoticeList()->toArray()),
-                    'phpunitWarnings' => \array_map(static function (Report\PhpunitWarning $phpunitWarning): array {
+                    'phpunitWarnings' => \array_map(static function (AgentReporter\Report\PhpunitWarning $phpunitWarning): array {
                         $testIdentifier = $phpunitWarning->testIdentifier();
                         $file = $phpunitWarning->file();
                         $line = $phpunitWarning->line();
 
-                        self::assertInstanceOf(Report\TestIdentifier::class, $testIdentifier);
-                        self::assertInstanceOf(Report\File::class, $file);
-                        self::assertInstanceOf(Report\Line::class, $line);
+                        self::assertInstanceOf(AgentReporter\Report\TestIdentifier::class, $testIdentifier);
+                        self::assertInstanceOf(AgentReporter\Report\File::class, $file);
+                        self::assertInstanceOf(AgentReporter\Report\Line::class, $line);
 
                         return [
                             'file' => $file->toString(),
@@ -1278,7 +1276,7 @@ final class JsonReporterTest extends Framework\TestCase
                             'test' => $testIdentifier->toString(),
                         ];
                     }, $report->phpunitWarningList()->toArray()),
-                    'risky' => \array_map(static function (Report\RiskyTest $riskyTest): array {
+                    'risky' => \array_map(static function (AgentReporter\Report\RiskyTest $riskyTest): array {
                         return [
                             'file' => $riskyTest->file()->toString(),
                             'line' => $riskyTest->line()->toInt(),
@@ -1286,7 +1284,7 @@ final class JsonReporterTest extends Framework\TestCase
                             'test' => $riskyTest->testIdentifier()->toString(),
                         ];
                     }, $report->riskyTestList()->toArray()),
-                    'skipped' => \array_map(static function (Report\SkippedTest $skippedTest): array {
+                    'skipped' => \array_map(static function (AgentReporter\Report\SkippedTest $skippedTest): array {
                         return [
                             'file' => $skippedTest->file()->toString(),
                             'line' => $skippedTest->line()->toInt(),
@@ -1294,18 +1292,18 @@ final class JsonReporterTest extends Framework\TestCase
                             'test' => $skippedTest->testIdentifier()->toString(),
                         ];
                     }, $report->skippedTestList()->toArray()),
-                    'warnings' => \array_map(static function (Report\Warning $warning): array {
+                    'warnings' => \array_map(static function (AgentReporter\Report\Warning $warning): array {
                         return [
                             'file' => $warning->file()->toString(),
                             'line' => $warning->line()->toInt(),
                             'message' => $warning->message()->toString(),
-                            'triggeredBy' => \array_map(static function (Report\TestIdentifier $testIdentifier): string {
+                            'triggeredBy' => \array_map(static function (AgentReporter\Report\TestIdentifier $testIdentifier): string {
                                 return $testIdentifier->toString();
                             }, $warning->triggeredBy()->toArray()),
                         ];
                     }, $report->warningList()->toArray()),
                 ],
-                'result' => Report\Result::failure()->toString(),
+                'result' => AgentReporter\Report\Result::failure()->toString(),
                 'summary' => self::summary($report),
             ],
             \JSON_THROW_ON_ERROR,
@@ -1334,7 +1332,7 @@ final class JsonReporterTest extends Framework\TestCase
      *     warnings: int
      * }
      */
-    private static function summary(Report\Report $report): array
+    private static function summary(AgentReporter\Report\Report $report): array
     {
         return [
             'assertions' => $report->totalAssertionCount()->toInt(),

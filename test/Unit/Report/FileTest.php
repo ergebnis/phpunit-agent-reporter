@@ -13,14 +13,13 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\File::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\File::class)]
 final class FileTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testFromStringReturnsFile(): void
     {
@@ -32,7 +31,7 @@ final class FileTest extends Framework\TestCase
             $faker->word(),
         );
 
-        $file = Report\File::fromString($value);
+        $file = AgentReporter\Report\File::fromString($value);
 
         self::assertSame($value, $file->toString());
     }
