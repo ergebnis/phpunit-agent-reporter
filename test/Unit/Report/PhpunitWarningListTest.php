@@ -13,53 +13,52 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\PhpunitWarningList::class)]
-#[Framework\Attributes\UsesClass(Report\Count::class)]
-#[Framework\Attributes\UsesClass(Report\File::class)]
-#[Framework\Attributes\UsesClass(Report\Line::class)]
-#[Framework\Attributes\UsesClass(Report\Message::class)]
-#[Framework\Attributes\UsesClass(Report\PhpunitWarning::class)]
-#[Framework\Attributes\UsesClass(Report\TestIdentifier::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\PhpunitWarningList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Count::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\File::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Line::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Message::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\PhpunitWarning::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\TestIdentifier::class)]
 final class PhpunitWarningListTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testCreateReturnsPhpunitWarningListWhenValuesAreEmpty(): void
     {
-        $phpunitWarningList = Report\PhpunitWarningList::create();
+        $phpunitWarningList = AgentReporter\Report\PhpunitWarningList::create();
 
         self::assertSame([], $phpunitWarningList->toArray());
-        self::assertEquals(Report\Count::zero(), $phpunitWarningList->count());
+        self::assertEquals(AgentReporter\Report\Count::zero(), $phpunitWarningList->count());
     }
 
     public function testCreateReturnsPhpunitWarningListWhenValuesAreNotEmpty(): void
     {
         $faker = self::faker();
 
-        $values = \array_map(static function () use ($faker): Report\PhpunitWarning {
-            return Report\PhpunitWarning::create(
-                Report\TestIdentifier::fromString(\sprintf(
+        $values = \array_map(static function () use ($faker): AgentReporter\Report\PhpunitWarning {
+            return AgentReporter\Report\PhpunitWarning::create(
+                AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                     '%s::%s',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\File::fromString(\sprintf(
+                AgentReporter\Report\File::fromString(\sprintf(
                     '%s/%s.php',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\Line::fromInt($faker->numberBetween(1, 500)),
-                Report\Message::fromString($faker->sentence()),
+                AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 500)),
+                AgentReporter\Report\Message::fromString($faker->sentence()),
             );
         }, \range(0, $faker->numberBetween(1, 9)));
 
-        $phpunitWarningList = Report\PhpunitWarningList::create(...$values);
+        $phpunitWarningList = AgentReporter\Report\PhpunitWarningList::create(...$values);
 
         self::assertSame($values, $phpunitWarningList->toArray());
-        self::assertEquals(Report\Count::fromInt(\count($values)), $phpunitWarningList->count());
+        self::assertEquals(AgentReporter\Report\Count::fromInt(\count($values)), $phpunitWarningList->count());
     }
 }

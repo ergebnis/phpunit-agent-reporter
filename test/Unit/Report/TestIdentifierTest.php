@@ -13,14 +13,13 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\TestIdentifier::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\TestIdentifier::class)]
 final class TestIdentifierTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testFromStringReturnsTestIdentifier(): void
     {
@@ -32,7 +31,7 @@ final class TestIdentifierTest extends Framework\TestCase
             $faker->word(),
         );
 
-        $testIdentifier = Report\TestIdentifier::fromString($value);
+        $testIdentifier = AgentReporter\Report\TestIdentifier::fromString($value);
 
         self::assertSame($value, $testIdentifier->toString());
     }

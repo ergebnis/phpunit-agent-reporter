@@ -18,11 +18,8 @@ namespace Ergebnis\PHPUnit\AgentReporter\Report;
  */
 final class ShellExitCode
 {
-    private readonly int $value;
-
-    private function __construct(int $value)
+    private function __construct(private readonly int $value)
     {
-        $this->value = $value;
     }
 
     /**

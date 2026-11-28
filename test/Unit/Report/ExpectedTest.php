@@ -13,20 +13,19 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\Expected::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\Expected::class)]
 final class ExpectedTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testFromStringReturnsExpected(): void
     {
         $value = self::faker()->word();
 
-        $expected = Report\Expected::fromString($value);
+        $expected = AgentReporter\Report\Expected::fromString($value);
 
         self::assertSame($value, $expected->toString());
     }

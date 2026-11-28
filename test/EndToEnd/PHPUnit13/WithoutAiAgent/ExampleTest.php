@@ -27,16 +27,19 @@ final class ExampleTest extends Framework\TestCase
         self::assertTrue(false);
     }
 
+    #[Framework\Attributes\DoesNotPerformAssertions()]
     public function testErroring(): void
     {
         throw new \RuntimeException('Something went wrong.');
     }
 
+    #[Framework\Attributes\DoesNotPerformAssertions()]
     public function testSkipped(): void
     {
         self::markTestSkipped('Skipped for demonstration purposes.');
     }
 
+    #[Framework\Attributes\DoesNotPerformAssertions()]
     public function testIncomplete(): void
     {
         self::markTestIncomplete('Not yet implemented.');

@@ -18,11 +18,8 @@ namespace Ergebnis\PHPUnit\AgentReporter\Report;
  */
 final class Result
 {
-    private readonly string $value;
-
-    private function __construct(string $value)
+    private function __construct(private readonly string $value)
     {
-        $this->value = $value;
     }
 
     public static function exception(): self

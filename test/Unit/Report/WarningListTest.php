@@ -13,45 +13,44 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\WarningList::class)]
-#[Framework\Attributes\UsesClass(Report\Count::class)]
-#[Framework\Attributes\UsesClass(Report\File::class)]
-#[Framework\Attributes\UsesClass(Report\Line::class)]
-#[Framework\Attributes\UsesClass(Report\Message::class)]
-#[Framework\Attributes\UsesClass(Report\TestIdentifier::class)]
-#[Framework\Attributes\UsesClass(Report\TestIdentifierList::class)]
-#[Framework\Attributes\UsesClass(Report\Warning::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\WarningList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Count::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\File::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Line::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Message::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\TestIdentifier::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\TestIdentifierList::class)]
+#[Framework\Attributes\UsesClass(AgentReporter\Report\Warning::class)]
 final class WarningListTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testCreateReturnsWarningListWhenValuesAreEmpty(): void
     {
-        $warningList = Report\WarningList::create();
+        $warningList = AgentReporter\Report\WarningList::create();
 
         self::assertSame([], $warningList->toArray());
-        self::assertEquals(Report\Count::zero(), $warningList->count());
+        self::assertEquals(AgentReporter\Report\Count::zero(), $warningList->count());
     }
 
     public function testCreateReturnsWarningListWhenValuesAreNotEmpty(): void
     {
         $faker = self::faker();
 
-        $values = \array_map(static function () use ($faker): Report\Warning {
-            return Report\Warning::create(
-                Report\File::fromString(\sprintf(
+        $values = \array_map(static function () use ($faker): AgentReporter\Report\Warning {
+            return AgentReporter\Report\Warning::create(
+                AgentReporter\Report\File::fromString(\sprintf(
                     '%s/%s.php',
                     $faker->word(),
                     $faker->word(),
                 )),
-                Report\Line::fromInt($faker->numberBetween(1, 500)),
-                Report\Message::fromString($faker->sentence()),
-                Report\TestIdentifierList::create(...\array_map(static function () use ($faker): Report\TestIdentifier {
-                    return Report\TestIdentifier::fromString(\sprintf(
+                AgentReporter\Report\Line::fromInt($faker->numberBetween(1, 500)),
+                AgentReporter\Report\Message::fromString($faker->sentence()),
+                AgentReporter\Report\TestIdentifierList::create(...\array_map(static function () use ($faker): AgentReporter\Report\TestIdentifier {
+                    return AgentReporter\Report\TestIdentifier::fromString(\sprintf(
                         '%s::%s',
                         $faker->word(),
                         $faker->word(),
@@ -60,9 +59,9 @@ final class WarningListTest extends Framework\TestCase
             );
         }, \range(0, $faker->numberBetween(1, 9)));
 
-        $warningList = Report\WarningList::create(...$values);
+        $warningList = AgentReporter\Report\WarningList::create(...$values);
 
         self::assertSame($values, $warningList->toArray());
-        self::assertEquals(Report\Count::fromInt(\count($values)), $warningList->count());
+        self::assertEquals(AgentReporter\Report\Count::fromInt(\count($values)), $warningList->count());
     }
 }

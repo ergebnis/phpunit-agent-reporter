@@ -13,20 +13,19 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\Actual::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\Actual::class)]
 final class ActualTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testFromStringReturnsActual(): void
     {
         $value = self::faker()->word();
 
-        $actual = Report\Actual::fromString($value);
+        $actual = AgentReporter\Report\Actual::fromString($value);
 
         self::assertSame($value, $actual->toString());
     }

@@ -18,51 +18,22 @@ namespace Ergebnis\PHPUnit\AgentReporter\Report;
  */
 final class Report
 {
-    private readonly ShellExitCode $shellExitCode;
-    private readonly ErroredTestList $erroredTestList;
-    private readonly FailedTestList $failedTestList;
-    private readonly IncompleteTestList $incompleteTestList;
-    private readonly SkippedTestList $skippedTestList;
-    private readonly RiskyTestList $riskyTestList;
-    private readonly DeprecationList $deprecationList;
-    private readonly NoticeList $noticeList;
-    private readonly WarningList $warningList;
-    private readonly PhpunitDeprecationList $phpunitDeprecationList;
-    private readonly PhpunitNoticeList $phpunitNoticeList;
-    private readonly PhpunitWarningList $phpunitWarningList;
-    private readonly Count $totalAssertionCount;
-    private readonly Count $totalTestCount;
-
     private function __construct(
-        ShellExitCode $shellExitCode,
-        ErroredTestList $erroredTestList,
-        FailedTestList $failedTestList,
-        IncompleteTestList $incompleteTestList,
-        SkippedTestList $skippedTestList,
-        RiskyTestList $riskyTestList,
-        DeprecationList $deprecationList,
-        NoticeList $noticeList,
-        WarningList $warningList,
-        PhpunitDeprecationList $phpunitDeprecationList,
-        PhpunitNoticeList $phpunitNoticeList,
-        PhpunitWarningList $phpunitWarningList,
-        Count $totalAssertionCount,
-        Count $totalTestCount,
+        private readonly ShellExitCode $shellExitCode,
+        private readonly ErroredTestList $erroredTestList,
+        private readonly FailedTestList $failedTestList,
+        private readonly IncompleteTestList $incompleteTestList,
+        private readonly SkippedTestList $skippedTestList,
+        private readonly RiskyTestList $riskyTestList,
+        private readonly DeprecationList $deprecationList,
+        private readonly NoticeList $noticeList,
+        private readonly WarningList $warningList,
+        private readonly PhpunitDeprecationList $phpunitDeprecationList,
+        private readonly PhpunitNoticeList $phpunitNoticeList,
+        private readonly PhpunitWarningList $phpunitWarningList,
+        private readonly Count $totalAssertionCount,
+        private readonly Count $totalTestCount,
     ) {
-        $this->shellExitCode = $shellExitCode;
-        $this->erroredTestList = $erroredTestList;
-        $this->failedTestList = $failedTestList;
-        $this->incompleteTestList = $incompleteTestList;
-        $this->skippedTestList = $skippedTestList;
-        $this->riskyTestList = $riskyTestList;
-        $this->deprecationList = $deprecationList;
-        $this->noticeList = $noticeList;
-        $this->warningList = $warningList;
-        $this->phpunitDeprecationList = $phpunitDeprecationList;
-        $this->phpunitNoticeList = $phpunitNoticeList;
-        $this->phpunitWarningList = $phpunitWarningList;
-        $this->totalAssertionCount = $totalAssertionCount;
-        $this->totalTestCount = $totalTestCount;
     }
 
     public static function create(

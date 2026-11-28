@@ -13,18 +13,17 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\Count::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\Count::class)]
 final class CountTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testZeroReturnsCountWithValueZero(): void
     {
-        $count = Report\Count::zero();
+        $count = AgentReporter\Report\Count::zero();
 
         self::assertSame(0, $count->toInt());
     }
@@ -33,7 +32,7 @@ final class CountTest extends Framework\TestCase
     {
         $value = self::faker()->numberBetween(0, 500);
 
-        $count = Report\Count::fromInt($value);
+        $count = AgentReporter\Report\Count::fromInt($value);
 
         self::assertSame($value, $count->toInt());
     }
@@ -42,8 +41,8 @@ final class CountTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $one = Report\Count::fromInt($faker->numberBetween(0, 249));
-        $two = Report\Count::fromInt($faker->numberBetween(250, 500));
+        $one = AgentReporter\Report\Count::fromInt($faker->numberBetween(0, 249));
+        $two = AgentReporter\Report\Count::fromInt($faker->numberBetween(250, 500));
 
         self::assertFalse($one->equals($two));
     }
@@ -52,8 +51,8 @@ final class CountTest extends Framework\TestCase
     {
         $value = self::faker()->numberBetween(0, 500);
 
-        $one = Report\Count::fromInt($value);
-        $two = Report\Count::fromInt($value);
+        $one = AgentReporter\Report\Count::fromInt($value);
+        $two = AgentReporter\Report\Count::fromInt($value);
 
         self::assertTrue($one->equals($two));
     }
@@ -62,8 +61,8 @@ final class CountTest extends Framework\TestCase
     {
         $value = self::faker()->numberBetween(0, 500);
 
-        $one = Report\Count::fromInt($value);
-        $two = Report\Count::fromInt($value);
+        $one = AgentReporter\Report\Count::fromInt($value);
+        $two = AgentReporter\Report\Count::fromInt($value);
 
         self::assertFalse($one->isGreaterThan($two));
     }
@@ -72,8 +71,8 @@ final class CountTest extends Framework\TestCase
     {
         $value = self::faker()->numberBetween(0, 500);
 
-        $one = Report\Count::fromInt($value - 1);
-        $two = Report\Count::fromInt($value);
+        $one = AgentReporter\Report\Count::fromInt($value - 1);
+        $two = AgentReporter\Report\Count::fromInt($value);
 
         self::assertFalse($one->isGreaterThan($two));
     }
@@ -82,8 +81,8 @@ final class CountTest extends Framework\TestCase
     {
         $value = self::faker()->numberBetween(0, 500);
 
-        $one = Report\Count::fromInt($value + 1);
-        $two = Report\Count::fromInt($value);
+        $one = AgentReporter\Report\Count::fromInt($value + 1);
+        $two = AgentReporter\Report\Count::fromInt($value);
 
         self::assertTrue($one->isGreaterThan($two));
     }
@@ -92,8 +91,8 @@ final class CountTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $one = Report\Count::fromInt($faker->numberBetween(1, 100));
-        $two = Report\Count::fromInt($faker->numberBetween(1, 100));
+        $one = AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100));
+        $two = AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 100));
 
         $three = $one->add($two);
 
@@ -106,8 +105,8 @@ final class CountTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $one = Report\Count::fromInt($faker->numberBetween(100, 200));
-        $two = Report\Count::fromInt($faker->numberBetween(1, 99));
+        $one = AgentReporter\Report\Count::fromInt($faker->numberBetween(100, 200));
+        $two = AgentReporter\Report\Count::fromInt($faker->numberBetween(1, 99));
 
         $three = $one->minus($two);
 

@@ -13,20 +13,19 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\Line::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\Line::class)]
 final class LineTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testFromIntReturnsLine(): void
     {
         $value = self::faker()->numberBetween(0, 500);
 
-        $line = Report\Line::fromInt($value);
+        $line = AgentReporter\Report\Line::fromInt($value);
 
         self::assertSame($value, $line->toInt());
     }

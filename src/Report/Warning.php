@@ -18,21 +18,12 @@ namespace Ergebnis\PHPUnit\AgentReporter\Report;
  */
 final class Warning
 {
-    private readonly File $file;
-    private readonly Line $line;
-    private readonly Message $message;
-    private readonly TestIdentifierList $triggeredBy;
-
     private function __construct(
-        File $file,
-        Line $line,
-        Message $message,
-        TestIdentifierList $triggeredBy,
+        private readonly File $file,
+        private readonly Line $line,
+        private readonly Message $message,
+        private readonly TestIdentifierList $triggeredBy,
     ) {
-        $this->file = $file;
-        $this->line = $line;
-        $this->message = $message;
-        $this->triggeredBy = $triggeredBy;
     }
 
     public static function create(

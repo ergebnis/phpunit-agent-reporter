@@ -13,20 +13,19 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Test\Unit\Report;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Test;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Framework;
 
-#[Framework\Attributes\CoversClass(Report\Diff::class)]
+#[Framework\Attributes\CoversClass(AgentReporter\Report\Diff::class)]
 final class DiffTest extends Framework\TestCase
 {
-    use Test\Util\Helper;
+    use AgentReporter\Test\Util\Helper;
 
     public function testFromStringReturnsDiff(): void
     {
         $value = self::faker()->text();
 
-        $diff = Report\Diff::fromString($value);
+        $diff = AgentReporter\Report\Diff::fromString($value);
 
         self::assertSame($value, $diff->toString());
     }

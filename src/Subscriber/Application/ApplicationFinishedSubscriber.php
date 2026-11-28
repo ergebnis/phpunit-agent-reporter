@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Ergebnis\PHPUnit\AgentReporter\Subscriber\Application;
 
-use Ergebnis\PHPUnit\AgentReporter\Report;
-use Ergebnis\PHPUnit\AgentReporter\Reporter;
+use Ergebnis\PHPUnit\AgentReporter;
 use PHPUnit\Event;
 use PHPUnit\TestRunner;
 
@@ -23,33 +22,22 @@ use PHPUnit\TestRunner;
  */
 final class ApplicationFinishedSubscriber implements Event\Application\FinishedSubscriber
 {
-    private readonly Report\TestResultTranslator $testResultTranslator;
-    private readonly Reporter\Reporter $reporter;
-
-    /**
-     * @var resource
-     */
-    private $output;
-
     /**
      * @param resource $output
      */
     public function __construct(
-        Report\TestResultTranslator $testResultTranslator,
-        Reporter\Reporter $reporter,
-        $output,
+        private readonly AgentReporter\Report\TestResultTranslator $testResultTranslator,
+        private readonly AgentReporter\Reporter\Reporter $reporter,
+        private $output,
     ) {
-        $this->testResultTranslator = $testResultTranslator;
-        $this->reporter = $reporter;
-        $this->output = $output;
     }
 
     public function notify(Event\Application\Finished $event): void
     {
         $testResult = TestRunner\TestResult\Facade::result();
 
-        $report = Report\Report::create(
-            Report\ShellExitCode::fromInt($event->shellExitCode()),
+        $report = AgentReporter\Report\Report::create(
+            AgentReporter\Report\ShellExitCode::fromInt($event->shellExitCode()),
             $this->testResultTranslator->erroredTestListFrom($testResult),
             $this->testResultTranslator->failedTestListFrom($testResult),
             $this->testResultTranslator->incompleteTestListFrom($testResult),
@@ -61,8 +49,8 @@ final class ApplicationFinishedSubscriber implements Event\Application\FinishedS
             $this->testResultTranslator->phpunitDeprecationListFrom($testResult),
             $this->testResultTranslator->phpunitNoticeListFrom($testResult),
             $this->testResultTranslator->phpunitWarningListFrom($testResult),
-            Report\Count::fromInt($testResult->numberOfAssertions()),
-            Report\Count::fromInt($testResult->numberOfTestsRun()),
+            AgentReporter\Report\Count::fromInt($testResult->numberOfAssertions()),
+            AgentReporter\Report\Count::fromInt($testResult->numberOfTestsRun()),
         );
 
         $json = $this->reporter->report($report);

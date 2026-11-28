@@ -18,21 +18,12 @@ namespace Ergebnis\PHPUnit\AgentReporter\Report;
  */
 final class PhpunitDeprecation
 {
-    private readonly ?TestIdentifier $testIdentifier;
-    private readonly ?File $file;
-    private readonly ?Line $line;
-    private readonly Message $message;
-
     private function __construct(
-        ?TestIdentifier $testIdentifier,
-        ?File $file,
-        ?Line $line,
-        Message $message,
+        private readonly ?TestIdentifier $testIdentifier,
+        private readonly ?File $file,
+        private readonly ?Line $line,
+        private readonly Message $message,
     ) {
-        $this->testIdentifier = $testIdentifier;
-        $this->file = $file;
-        $this->line = $line;
-        $this->message = $message;
     }
 
     public static function create(
